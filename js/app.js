@@ -1,5 +1,5 @@
 angular.module('thinkmerit',['ngRoute','ngCookies'])
-.constant('AP', 'http://myAPI/API/')
+.constant('AP', 'http://188.166.253.128')//http://dev.api.thinkmerit.in/
 .config(['$routeProvider','$httpProvider', function($routeProvider, $httpProvider) {
 	$tu="templates/";
 	$routeProvider
@@ -10,11 +10,11 @@ angular.module('thinkmerit',['ngRoute','ngCookies'])
   $httpProvider.defaults.withCredentials = true;
 }])
 //.constant("CSRF_TOKEN",function($http){$http.get('http://dev.api.thinkmerit.in/csrf_token').success(function(d){ return d; } )})
-.run(function($rootScope, $location, $http, $cookies){
+.run(function($rootScope, $location, $http, $cookies,AP){
 
   
    if($rootScope.CSRF_TOKEN==undefined || $rootScope.CSRF_TOKEN==null){
-        $http.get('http://dev.api.thinkmerit.in/csrf_token').success(function(d){
+        $http.get(AP+'/csrf_token').success(function(d){
             $cookies.put('XSRF-TOKEN',d.XSRF_TOKEN);
             //$cookies.put('laravel-session',d.LARAVEL_ID);
             //$rootScope.CSRF_TOKEN=d.XCSRF_TOKEN;  

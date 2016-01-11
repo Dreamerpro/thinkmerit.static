@@ -1,5 +1,5 @@
 angular.module('thinkmerit')
-.controller('careerCtrl', function($http, FlashService, $scope){
+.controller('careerCtrl', function($http, FlashService, $scope, AP){
 	var ctx=this;
 
 	ctx.struct={
@@ -27,10 +27,7 @@ angular.module('thinkmerit')
 		if(ctx.isValid()){
 			//submit
 			FlashService.clear();
-
-			
-
-			/*$http.post('http://dev.api.thinkmerit.in/careersapply',ctx.data)
+			$http.post(AP+'/careersapply',ctx.data)
 			.success(function(response){
 				$scope.careerForm.$setPristine();
 				FlashService.show(response.message,'success');
@@ -39,7 +36,7 @@ angular.module('thinkmerit')
 			})
 			.error(function(response){
 				FlashService.show(response.error,'error');
-			})*/
+			})
 		}
 		else{
 			alert("Please fill all the details correctly.")
