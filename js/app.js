@@ -3,7 +3,7 @@ angular.module('thinkmerit',['ngRoute','ngCookies'])
 .config(['$routeProvider','$httpProvider', function($routeProvider, $httpProvider) {
 	$tu="templates/";
 	$routeProvider
-	.when("/", { templateUrl:$tu+'home/index.html' })
+	.when("/", { templateUrl:$tu+'comingsoon/index.html' })//home
 	.when("/careers", { templateUrl:$tu+'careers/index.html' })
 	.otherwise({ templateUrl:$tu+'errors/invalidurl.html' });
 
