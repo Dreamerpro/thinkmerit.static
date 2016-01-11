@@ -29,6 +29,7 @@ a.logo>img {
 .social-icons li a{
 	height: 40px;
 	line-height: 40px;
+	color: #000;
 }
 .social-icons li a i{
 	height: 38px;
