@@ -1,0 +1,41 @@
+<html ng-app="thinkmerit">
+<head>
+	<title>ThinkMerit</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/shared.css">
+	<meta type="csrf_token" content="{{CSRF_TOKEN}}">
+</head>
+<body>
+<header ng-hide="islanding">
+	<div class="container">
+		<a href="#/"  class="logo"><img src="images/logo.png"></a>
+	</div>
+</header>
+
+<div ng-view></div>
+
+<footer class="footer">
+		<div class="container">
+			<ul class="social-icons">
+				<li><a target="_blank" href="#"><i class="fa fa-facebook"></i></a></li><li><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li><li><a target="_blank" href="#"><i class="fa fa-google-plus"></i></a></li><li><a target="_blank" href="#"><i class="fa fa-linkedin"></i></a></li><li><a target="_blank" href="#"><i class="fa fa-pinterest"></i></a></li><li><a target="_blank" href="#"><i class="fa fa-youtube"></i></a></li>				
+				</ul>
+		</div>
+		<div class="copyright">All rights reserved. Copyright ThinkMerit 2015.</div>
+</footer>
+</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular.route.min.js"></script>
+<script type="text/javascript" src="js/angular.cookies.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/underscore.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+<script type="text/javascript" src="js/service.js"></script>
+<!-- <script type="text/javascript" src="js/filters.js"></script> -->
+<!-- <script type="text/javascript" src="js/directive.js"></script> -->
+
+
+</html>

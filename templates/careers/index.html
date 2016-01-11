@@ -1,0 +1,84 @@
+<div class="apply-career container">
+
+	
+
+	<form class="col-md-8 col-md-offset-2" name="careerForm" ng-controller="careerCtrl as cc" novalidate>
+		<br> 
+		<div ng-show="flash" class="alert" ng-class="{'alert-danger':flashType=='error','alert-success':flashType!='error'}" role="alert">
+			<span ng-repeat="x in flash">{{x}}</span>
+		</div>
+	<h3>Registration Form </h3>
+	<br>
+	<div class="form-group" ng-class="{'has-error':careerForm.name.$dirty && careerForm.name.$invalid}">
+		<label>Full Name </label>
+		<small class="pull-right text-danger" ng-show="careerForm.name.$dirty && careerForm.name.$invalid">
+			<span ng-show="careerForm.name.$error.required">Required</span>
+			<span ng-show="careerForm.name.$error.minlength">minimum 3 length</span>
+		</small>
+		<input class="form-control" type="text" name="name" ng-model="cc.data.name" ng-minlength="3" required>
+		
+	</div>
+	<div class="form-group" ng-class="{'has-error':careerForm.phone.$dirty && careerForm.phone.$invalid}">
+		<label>Phone</label>
+		<small class="pull-right text-danger" ng-show="careerForm.phone.$dirty && careerForm.phone.$invalid">
+			<span ng-show="careerForm.phone.$error.required">Required</span>
+			<span ng-show="careerForm.phone.$error.minlength">Length should be 10</span>
+			<span ng-show="careerForm.phone.$error.maxlength">Length should be 10</span>
+		</small>
+		<input class="form-control" type="tel" name="phone" ng-model="cc.data.phone" ng-minlength="10" ng-maxlength="10" required>
+	</div>
+	<div class="form-group" ng-class="{'has-error':careerForm.email.$dirty && careerForm.email.$invalid}">
+		<label>Email</label>
+		<small class="pull-right text-danger" ng-show="careerForm.email.$dirty && careerForm.email.$invalid">
+			<span ng-show="careerForm.email.$error.required">Required</span>
+			<span ng-show="careerForm.email.$error.email">Invalid Email</span>
+
+		</small>
+		<input class="form-control" type="email" name="email" ng-model="cc.data.email" required>
+	</div>
+	<div class="form-group" ng-class="{'has-error':careerForm.college.$dirty && careerForm.college.$invalid}">
+		<label>College Name</label>
+		<small class="pull-right text-danger" ng-show="careerForm.college.$dirty && careerForm.college.$invalid">
+			<span ng-show="careerForm.college.$error.required">Required</span>
+		</small>
+		<input class="form-control" type="text" name="college" ng-model="cc.data.college" required>
+	</div>
+	<div class="form-group" ng-class="{'has-error':careerForm.branch.$dirty && careerForm.branch.$invalid}">
+		<label>Branch</label>
+		<small class="pull-right text-danger" ng-show="careerForm.branch.$dirty && careerForm.branch.$invalid">
+			<span ng-show="careerForm.branch.$error.required">Required</span>
+		</small>
+		<input class="form-control" type="text" name="branch" ng-model="cc.data.branch" required>
+	</div>
+	<div class="form-group" ng-class="{'has-error':careerForm.year.$dirty && careerForm.year.$invalid}">
+		<label>Year</label>
+		<small class="pull-right text-danger" ng-show="careerForm.year.$dirty && careerForm.year.$invalid">
+			<span ng-show="careerForm.year.$error.required">Required</span>
+		</small>
+		<input class="form-control" type="text" name="year" ng-model="cc.data.year" required>
+	</div>
+	<div class="form-group" ng-class="{'has-error':careerForm.address.$dirty && careerForm.address.$invalid}">
+		<label>Address</label>
+		<small class="pull-right text-danger" ng-show="careerForm.address.$dirty && careerForm.address.$invalid">
+			<span ng-show="careerForm.address.$error.required">Required</span>
+		</small>
+		<input class="form-control" type="text" name="address" ng-model="cc.data.address" required>
+	</div>
+	<div class="form-group" ng-class="{'has-error':careerForm.why.$dirty && careerForm.why.$invalid}">
+		<label>Why do you want to join us?</label>
+		<small class="pull-right text-danger" ng-show="careerForm.why.$dirty && careerForm.why.$invalid">
+			<span ng-show="careerForm.why.$error.required">Required</span>
+		</small>
+		<textarea class="form-control" ng-model="cc.data.why" name="why" required></textarea>
+	</div>
+	<!-- <input type="hidden" name="_token" ng-init="careerForm._token.$dirty=true" ng-model="cc.data._token" ng-value="CSRF_TOKEN"> -->
+	
+	<small class="pull-right"><small>All fields are mandatory.</small> </small>
+	<input ng-click="cc.submit()" type="submit" class="btn btn-default">
+	<br>
+	<br>
+	<br>
+	<br>
+	</form>
+
+</div>
