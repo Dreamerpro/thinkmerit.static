@@ -58,3 +58,6 @@ section {
 .pl20{
 	padding-left: 20px;
 }
+.social-icons>li>a{
+	color: #000;
+}
