@@ -1,6 +1,6 @@
 angular.module('thinkmerit',['ngRoute','ngCookies'])
 .constant('AP', 'http://188.166.253.128')//http://dev.api.thinkmerit.in/
-.config(['$routeProvider','$httpProvider', function($routeProvider, $httpProvider) {
+.config(['$routeProvider','$httpProvider','$locationProvider', function($routeProvider, $httpProvider, $locationProvider) {
 	$tu="templates/";
 	$routeProvider
 	.when("/", { templateUrl:$tu+'comingsoon/index.html' })//home
@@ -8,6 +8,7 @@ angular.module('thinkmerit',['ngRoute','ngCookies'])
 	.otherwise({ templateUrl:$tu+'errors/invalidurl.html' });
 
   $httpProvider.defaults.withCredentials = true;
+  $locationProvider.html5Mode(true);
 }])
 //.constant("CSRF_TOKEN",function($http){$http.get('http://dev.api.thinkmerit.in/csrf_token').success(function(d){ return d; } )})
 .run(function($rootScope, $location, $http, $cookies,AP){
