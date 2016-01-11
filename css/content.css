@@ -1,0 +1,60 @@
+.gray-bg {
+    background-color: rgb(251, 251, 251);
+    border-bottom: 1px solid rgb(227, 227, 227);
+    border-top: 1px solid rgb(227, 227, 227);
+}
+section {
+    position: relative;
+    padding-top: 30px;
+    min-height: 560px;
+}
+.catalogue-menu{
+	padding-bottom: 20px;
+}
+.catalogue-menu,.career-menu{
+	display: inline-block;
+}
+.career-menu{
+	margin-top: 40px;
+}
+.catalogue-menu-item,.career-menu-item{
+	height: 250px;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+}
+.catalogue-menu-item:hover,.career-menu-item:hover{
+	background-color: #f8f8f8;
+}
+.catalogue-menu-item>h3,.career-menu-item>h3{
+	font-family: 'Roboto Condensed' sans-serif;
+	color: #555;
+	text-transform: uppercase;
+}
+#careers>.container{
+	padding-bottom: 20px;
+}
+
+.career-menu-item>i{
+	color: yellow;
+	padding: 20px;
+	margin-top: 10px;
+}
+.sm-icon {
+    width: 50%;
+    padding: 20px 20px 0px;
+}
+#careermodal>.modal-dialog>.modal-content>.modal-header {
+    background-color: #66B166;
+    text-transform: uppercase;
+        padding: 5px;
+}
+#careermodal>.modal-dialog>.modal-content>.modal-footer{
+    padding: 0 15px;	
+}
+.career-modal-ul{
+	padding: 0;
+}
+.pl20{
+	padding-left: 20px;
+}

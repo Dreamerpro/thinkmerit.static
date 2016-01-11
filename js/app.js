@@ -1,4 +1,5 @@
 angular.module('thinkmerit',['ngRoute','ngCookies'])
+.constant('AP', 'http://myAPI/API/')
 .config(['$routeProvider','$httpProvider', function($routeProvider, $httpProvider) {
 	$tu="templates/";
 	$routeProvider
