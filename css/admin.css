@@ -1,0 +1,136 @@
+
+.nav>li{
+cursor: pointer;
+}
+
+ul.menu{
+	padding-left: 0;
+	list-style: none;	
+}
+ul.menu>li{
+	/*padding: 10px 10px;*/
+	
+}
+.dropdown-menu>li>ul.menu>li{
+	border-bottom: 1px solid #eee;
+}
+.dropdown-menu>li>ul.menu>li:hover{
+	background-color: #eee
+}
+ul.menu>li>a{
+	display: block;
+}
+ul.menu>li:hover{
+	/*background-color: #eee;*/
+}
+.dropdown-menu{
+	min-width: 280px;
+}
+.dropdown-menu>li.footer{
+	padding: 7px 10px;
+}
+.dropdown-menu>li.footer>small>span{
+	margin-top: 4px;
+}
+.close-search-bar{
+	position: absolute;
+    right: 0;
+    padding: 18px;
+    cursor: pointer;
+}
+
+/*LEFT SIDE BAR*/
+.left-side-bar{
+	width: 220px;
+	min-height: 100%;
+	/*background-color: #eee;*/
+	border-right:1px solid #ddd;
+	position: absolute;
+	z-index: 10;
+	position: fixed;
+	top: 48px;
+}
+
+.left-side-bar>.menu>li{
+	padding: 0;
+	border-left: 4px solid #fff;
+	cursor: pointer;
+}
+.left-side-bar>.menu>li>a{
+    display: block;
+    line-height: 50px;
+    height: 50px;
+    padding: 0 20px;
+}
+.left-side-bar>.menu>li>a:hover{
+	background-color: transparent;
+}
+.left-side-bar>.menu>li:hover>a{
+	color: #5d9cec;
+}
+.left-side-bar>.menu>li.active{
+	border-left: 4px solid #5d9cec;
+}
+.left-side-bar>.menu>li.active>a{
+	color: #5d9cec;
+	font-weight: bold;
+}
+.left-side-bar>.menu>li>a>i{
+    margin-top: 17px;
+}
+.left-side-bar>.menu>li>a>.mt{
+    margin-left: 8px;
+    display: inline-block;
+    position: absolute;
+    -webkit-transition: width 2s;
+    text-overflow: clip;
+    min-width: 150px;
+}
+body.collapsed .left-side-bar>.menu>li>a>i{
+	font-size: 20px;
+
+}
+
+
+/*USER BLOCK*/
+.user-block{
+	text-align: center;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	border-bottom: 1px solid #eee;
+
+}
+.user-block a{
+	display: block;
+}
+
+.user-block a>img{
+	width: 80px;
+	height: 80px;
+}
+.user-block-picture a>img.small{
+	width: 60px;
+	height: 60px;
+}
+.user-block-name{
+	min-width: 150px;
+    display: block;
+    opacity: 1;
+	height: 20px;
+	-webkit-transition: opacity 0.2s; /* Safari */
+}
+.user-block-information{
+	padding-top: 10px;
+}
+/*COLLAPSED*/
+
+.left-side-bar{
+	-webkit-transition: width 0.5s;
+}
+body.collapsed .left-side-bar{
+	width: 80px;
+}
+body.collapsed .user-block-name,body.collapsed .mt{
+	opacity: 0;
+	height: 0;
+}

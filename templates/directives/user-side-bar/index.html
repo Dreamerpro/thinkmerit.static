@@ -1,0 +1,30 @@
+<div class="left-side-bar hidden-xs ">
+<div class="user-wrapper">
+	<div class="user-block">
+		<div class="user-block-picture">
+			<a>
+				<img ng-if="user.avatar!='null'" class="img-circle img-thumbnail" ng-class="{'small':isCollapsed}" ng-src="{{user.avatar}}">
+				<img ng-if="user.avatar=='null'" class="img-circle img-thumbnail fa fa-user" ng-class="{'small':isCollapsed}" src="/images/user.jpg" >
+			</a>
+		</div>
+		<div class="user-block-information">
+			<span class="user-block-name">{{user.name}}</span>
+		</div>
+	</div>
+</div>
+<ul class="menu">
+<li ng-class="{'active':isLocationActive('dashboard')}"><a href="/dashboard"><i class="fa fa-tachometer"></i> <span class="mt">Dashboard</span></a> </li>
+<li ng-class="{'active':isLocationActive('notes')}">
+	<a href="/notes">
+	<i class="fa fa-file-o"></i>
+	<span class="mt">Notes</span></a> 
+	<!-- <ul class="menu collapse pd-lr-30" id="collapse-ns">
+		<li><a href="">+2</a> </li>
+	</ul> -->
+</li>
+<li angular-ripple ng-class="{'active':isLocationActive('tests')}"><a href=""><i class="fa fa-line-chart"></i> <span class="mt">Tests</span></a> </li>
+<li angular-ripple ng-class="{'active':isLocationActive('question-bank')}"><a href=""><i class="fa fa-database"></i> <span class="mt">Question Bank</span></a> </li>
+<li angular-ripple ng-class="{'active':isLocationActive('video-lectures')}"><a href=""><i class="fa fa-play-circle-o"></i> <span class="mt">Video Lectures</span></a> </li>
+<li ng-class="{'active':isLocationActive('ask')}"><a href=""><i class="fa fa-question-circle"></i> <span class="mt">Ask</span></a> </li>
+</ul>
+</div>

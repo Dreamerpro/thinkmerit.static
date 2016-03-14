@@ -1,0 +1,33 @@
+<user-side-bar></user-side-bar>
+<div class="content main" ng-controller="NotesCtrl as nc" ng-init="nc.init()">
+	<section class="inner">
+		<div class="section-header">
+			<h4>Notes</h4>
+		</div>
+		<div class="clearfix">
+			<div class="col-md-2">
+				<h3>Course</h3>
+				<div class="list-group">
+					<a ng-click="nc.selectcourse(i)" ng-repeat="i in nc.datas.courses track by $index" href="" class="list-group-item activa">{{i.name}}</a>
+				</div>
+
+			</div>
+			<div class="col-md-2" ng-show="nc.selected.course">
+				<h3>Subject</h3>
+				<div class="list-group">
+					<a ng-click="nc.selectsubject(i)" ng-repeat="i in nc.datas.subjects track by $index" href="" class="list-group-item">
+					{{i.name}}</a>
+				</div>
+
+			</div>
+			<div class="col-md-2" ng-show="nc.selected.subject">
+				<h3>Chapter</h3>
+				<div class="list-group">
+					<a ng-click="nc.selectchapter(i)" ng-repeat="i in nc.datas.chapters track by $index" href="" class="list-group-item">
+					{{i.name}}</a>
+				</div>
+
+			</div>
+		</div>
+	<section>
+</div>

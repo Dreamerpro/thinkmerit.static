@@ -1,0 +1,68 @@
+a:visited,a:link{
+	color: #515253;
+	text-decoration: none;
+}
+body{
+	color:#515253;
+}
+.navbar-brand{
+	padding: 5px 25px;
+	-webkit-transition:all 0.6s;
+}
+.navbar-right{
+	margin-right: 0;
+}
+.dropdown-toggle>.label{
+	position: absolute;
+    margin-top: -30px;
+    font-size: 8px;
+    margin-left: 10px;
+}
+#logout .modal-dialog{
+	width: 190px;
+	text-align: center;
+}
+#logout .modal-dialog .modal-content{
+	
+    height: 110;
+    border-radius: 0px;
+}
+#logout .modal-dialog .modal-content .footer{
+padding: 10px;
+}
+.btn-a,.btn-b{
+    border: 1px solid #eee;
+    border-radius: 0px;
+}
+.btn-a:hover{
+	border:1px solid red;
+	color: red;
+}
+.btn-b:hover{
+	border:1px solid green;
+	color: green;
+}
+.row{
+	margin: 0;
+}
+.mt0{
+	margin-top: 0 !important;
+}
+.pv-lg{
+	padding-top: 15px!important;
+    padding-bottom: 15px!important;
+}
+.pd-tb-25{
+	padding-top: 25px!important;
+    padding-bottom: 25px!important;
+}
+.pd-lr-30{
+    padding: 0 30px !important;
+}
+.row-table{
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}

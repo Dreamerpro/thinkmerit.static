@@ -1,2 +1,0 @@
-RewriteEngine on
-RewriteRule ^careers/?$ #/careers [NC,L]

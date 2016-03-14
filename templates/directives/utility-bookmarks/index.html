@@ -1,0 +1,69 @@
+	<!-- STYLE IN CONTENT.CSS -->
+		<!-- STYLE IN CONTENT.CSS -->
+	
+	
+	<div class="panel" ng-init="uc0.config.datas=dc.wdatas.bookmarks">
+	
+	<div class="header {{uc0.config.bgClass}}">
+		<a class="pull-left back-icon" ng-click="uc0.showList()" ng-show="uc0.config.viewmode"><i class="fa fa-chevron-left"></i></a>
+		<h3><b>{{uc0.config.title}}</b></h3>
+	</div>
+	<div class="body">
+		<div ng-if="dc.wdatas.bookmarks.length<1 && !uc0.config.editmode" style="padding: 120px; color: #FFBE56; opacity: 0.2; ">
+			<center><i class="fa fa-star-o fa-4x"></i></center>
+		</div>
+		<ul class="menu ul-li" ng-hide="uc0.config.viewmode || uc0.config.editmode">
+			<li ng-repeat="a in dc.wdatas.bookmarks track by $index" >
+				<i  ng-click="dc.deleteItem(a,'sticky')" class="fa fa-trash option pull-right"></i>
+				<!-- ng-show="uc0.config.deletemode" -->
+
+				<a  href="">>> {{a.title | limitTo:40 }}</a>  
+			</li>
+		</ul>
+		<div class="item-details" ng-show="uc0.config.viewmode">
+			<h3>{{uc0.currentItem.title}}</h3>
+			<p>{{ uc0.currentItem.body }}</p>
+		</div>
+		<form name="editform" class="item-details" ng-show="uc0.config.editmode">
+			<div class="form-group {{(editform.title.$invalid && editform.title.$dirty)?'has-error':''}}">
+				<label>Title</label>
+				<input name="title" class="form-control has-error" type="text" ng-model="dc.current.title" required></input>
+			</div>
+			<div class="form-group {{(editform.body.$invalid && editform.body.$dirty)?'has-error':''}}">
+			<label>Body <small ><small >(Max 250char)</small></small></label>
+			<textarea class="form-control" name="body" ng-model="dc.current.body" palceholder="body" rows="4" required></textarea>
+			</div>
+			
+			<div class="btn btn-danger pull-right" ng-disabled="editform.$invalid" ng-click="uc0.save('sticky', dc,editform,$index)">Save</div>
+			<div class="btn btn-default"  ng-click="uc0.config.editmode=false;dc.current={};editform.$setPristine()">Cancel</div>
+		</form>
+	</div>
+
+	</div>
+
+<!-- && OLDDDDDDDDDDDDDDDD -->
+
+	<!-- <a class="pull-right option right-option" ng-click="uc00.addItem()"><i class="fa fa-plus"></i></a>
+	<a class="pull-right option right-option" ng-click="uc00.toggleDeleteMode()"><i class="fa fa-edit"></i></a>
+	 -->
+	<!-- <div class="panel {{uc00.config.bgClass}}" ng-init="uc00.config.datas=dc.wdatas.bookmarks">
+	
+	<div class="header">
+		<a class="pull-left back-icon" ng-click="uc00.showList()" ng-show="uc00.config.editmode"><i class="fa fa-chevron-left"></i></a>
+		<h3><b>{{uc00.config.title}}</b></h3>
+	</div>
+	<div class="body">
+		<ul class="menu ul-li" ng-show="!uc00.config.editmode">
+			<li ng-repeat="a in uc00.config.datas" ng-click="uc00.showItem($index)">
+				<i ng-show="uc00.config.deletemode" ng-click="uc00.deleteItem($index)" class="fa fa-times option pull-right"></i>
+
+				<a ng-show="uc00.toggleDeleteMode" href="">{{a.d | limitTo:40 }}</a>  
+			</li>
+		</ul>
+		<div class="item-trash" ng-show="uc00.config.editmode">
+			{{ uc00.currentItem.d }}
+		</div>
+	</div>
+
+	</div> -->
+<!-- </div> -->

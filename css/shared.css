@@ -1,14 +1,67 @@
 header{
-	height: 45px;
-    border-bottom: 1px solid #ddd;
+	height: 50px;
+    border-bottom: 2px solid #ddd;
+    box-shadow: 2px 2px 2px #eee;
+     background: #FFF; 
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+a.logo{
+	display: inline-block;
+	padding-top: 3px;
+	width: 170px;
+   -webkit-transition: all 0.4s;
 }
 a.logo>img {
-    margin-top: 7px;
-    width: 150px;
+    width: 170px;
+    display: block;
+    position: absolute;
+}
+.navbar-brand>.logo>.uncollapsed{
+    clip: rect(0px, 170px, 34px, 0px);
+    -webkit-transition:all 0.6s;
+}
+/*.navbar-brand>.logo>.uncollapsed:hover{
+	clip: rect(0px,51px,200px,31px);   
+}*/
+body.collapsed .navbar-brand>.logo>.uncollapsed{
+	/*display: none;*/    
+    clip: rect(0px,51px,200px,31px);   
+}
+body.collapsed .navbar-brand>.logo{
+	width: 80px;
+}
+
+body.collapsed .navbar-brand{
+	padding: 5px 0;
 }
 
 
-.footer{
+
+body.collapsed .search-bar{
+	width: calc(100% - 80px);
+	left: 80px;
+}
+.search-bar{
+	position: absolute;
+	width: calc(100% - 220px);
+	height: 50px;
+	z-index: 100;
+	left: 220px;
+	top: 0;
+}
+.search-bar>input.form-control{
+	height: 50px;
+	border-radius: 0;
+	padding-bottom: 5px 10px;
+}
+
+
+
+
+footer{
 	display: block;
 	min-height: 160px;
 	color: #fff;
@@ -39,3 +92,33 @@ a.logo>img {
 	color: #666;
 }
 
+/*MATERIAL*/
+[angular-ripple] {
+    position: relative;
+    overflow: hidden;
+  }
+  .angular-ripple {
+    display: block;
+    position: absolute;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+  }
+  .angular-ripple.animate {
+    animation: ripple 0.35s linear;
+    -webkit-animation: ripple 0.35s linear;
+    -moz-animation: ripple 0.35s linear;
+    -o-animation: ripple 0.35s linear;
+  }
+  @keyframes ripple {
+    100% {
+      opacity: 0;
+      transform: scale(2.5);
+      -webkit-transform: scale(2.5);
+      -moz-transform: scale(2.5);
+      -o-transform: scale(2.5);
+    }
+  }

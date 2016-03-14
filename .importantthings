@@ -1,0 +1,2 @@
+/When calling ajax calls last forward slash matters
+/when using uuid as id or non incrementing id . set incrementing to false in model

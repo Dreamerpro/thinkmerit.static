@@ -1,0 +1,41 @@
+<header ng-hide="islanding" ><!-- ng-controller="NavCtrl as nc" -->
+	<div class="nav-header" >
+		<!-- Its style is at reset+shared -->
+		<div class="navbar-brand">
+			<a href="/#/"  class="logo">
+				<img class="uncollapsed" src="images/logo.png">
+			</a>
+		</div>
+	</div>
+	<div class="nav-wrapper">
+		<ul class="nav navbar-nav">
+			<li ng-click="nc.toggleCollapsible()"><a class="fa fa-navicon"></a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right hidden-xs">
+			<li ng-click="nc.toggleSearch()"><a class="fa fa-search"></a></li>
+			<li class="dropdown">
+				<a class="fa fa-bell-o dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+					<span class="label label-info">4</span>
+				</a>
+				<ul class="dropdown-menu">
+					<!-- <li class="header">You have 4 notifications</li> -->
+					<li>
+						<ul class="menu">							
+							<li><a href="">The Test X will start from tomorrow</a></li>
+							<li><a href="">A question has been added on topic Y.</a></li>
+						</ul>
+					</li>
+					<li class="footer"><small>Show all notifications<span class="label label-info pull-right">4</span></small> </li>
+				</ul>
+			</li>
+			<li ng-show="nc.isFullScreenAvailable()" ng-click="nc.toggleFullScreen()">
+				<a class="fa fa-expand "></a>	
+			</li><!-- title="logout" data-toggle="modal" data-target="#logout" -->
+			<li><a class="fa fa-power-off" ng-click="nc.logout()" ></a></li>
+		</ul>
+	</div>
+	<div class="search-bar" ng-show="nc.showSearch">
+		<span class="close-search-bar fa fa-times" ng-click="nc.toggleSearch()"></span>
+		<input class="form-control" type="search"></input>
+	</div>
+</header>

@@ -63,9 +63,9 @@
 <div class="page-header">
 	<div class="container">
 		<a class="logo" href="/#/"><img src="images/logo.png"></a>
-		<ul class="nav pull-right sign-button">
-				<li><a class="btn btn-default">Sign Up</a></li>
-				<li><a class="btn btn-success">Log In</a></li>
+		<ul class="nav pull-right sign-button" ng-init="login=true">
+				<li><a class="btn btn-default" ng-click="login=false">Sign Up</a></li>
+				<li><a class="btn btn-success" ng-click="login=true">Log In</a></li>
 		</ul>
 		<div class="search" ><input class="form-control" type="text" placeholder="Search by subject, chapter or topic"> </div>
 		
@@ -83,20 +83,34 @@
 			<p >Concepts <span class="y" style="color: yellow;">to</span> understand</p>
 			<p >Easy to apply</p>
 		</div>
-		<div class="sign-forms col-md-4">
+		<div class="sign-forms col-md-4" ng-controller="AuthController as ac">
 			<a id="btn-fb" class="btn col-md-12 form-control"><i class="pull-left fa fa-facebook"></i>Sign in with Facebook</a>
 			<a id="btn-gplus" class="btn col-md-12 form-control"><i class="pull-left fa fa-google-plus"></i>Sign in with Gmail</a>
 	
 			<div class="or-line"><span class="or">OR</span></div>
-			<form>
+			
+			<form ng-show="!login">
 				<div class="form-group">
-				<input class="form-control" type="text" placeholder="Username"/>
+				<input class="form-control" type="text" ng-model="ac.credentials.name" placeholder="Name"/>
 				</div>
 				<div class="form-group">
-				<input class="form-control" type="password" placeholder="Password"/>
+				<input class="form-control" type="email"  ng-model="ac.credentials.email" placeholder="Email"/>
 				</div>
-				<input class="btn btn-success" value="Sign Up" type="button"/>
-				<span id="tnca">By signing up you agree to our  <a href="#">Terms & Conditions</a>.</span>
+				<div class="form-group">
+				<input class="form-control" type="password"  ng-model="ac.credentials.password" placeholder="Password"/>
+				</div>
+				<input class="btn btn-success" value="Sign Up" ng-click="ac.signup()" type="submit"/>
+				<label id="tnca"><input type="checkbox" ng-model="agreetnc"> By signing up you agree to our  <a href="#">Terms & Conditions</a>.</label>
+			</form>
+			<form ng-show="login" ng-init="ac.credentials.email='marungshanew@gmail.com';ac.credentials.password='783347ki'">
+				<div class="form-group">
+				<input class="form-control" type="email"  ng-model="ac.credentials.email" placeholder="Email" />
+				</div>
+				<div class="form-group">
+				<input class="form-control" type="password" ng-model="ac.credentials.password" placeholder="Password" />
+				</div>
+				<input class="btn btn-success" value="Sign In" ng-click="ac.login()" type="submit"/>
+				
 			</form>
 		</div>
 	</div>
@@ -104,9 +118,9 @@
 <div class="page-header-2">
 <div class="container">
 		
-<div class="nav-top">
+<div class="nav-top" ng-controller="ScrollCtrl">
 	<ul class="nav">
-	<li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#catalogue">Catalogue</a></li><!-- <li><a href="#testimonials">Testimonials</a></li> --><li><a href="#careers">Careers</a></li><li><a href="#vision">Vision</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li>
+	<li><a ng-click="goTo('!home')">Home</a></li><li><a ng-click="goTo('!about')">About</a></li><li><a ng-click="goTo('!catalogue')">Catalogue</a></li><!-- <li><a href="#testimonials">Testimonials</a></li> --><li><a ng-click="goTo('!careers')">Careers</a></li><li><a ng-click="goTo('!vision')">Vision</a></li><li><a ng-click="goTo('!faq')">FAQ</a></li><li><a ng-click="goTo('!contact')">Contact</a></li>
 	</ul>
 </div>
 
