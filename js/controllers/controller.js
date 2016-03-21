@@ -39,7 +39,7 @@ angular.module('thinkmerit')
 	}
 	
 })
-.controller('QuestionBank', function  ($http,AP,$sce, $scope, $location,$routeParams,StringMods,$rootScope, $cookies, CSRF_TOKEN) {
+.controller('QuestionBank', function  ($http,AP,$sce, $scope, $location,$routeParams,StringMods,$rootScope, $cookies) {
 	var _self=this;
 	this.datas={courses:[],subjects:[],chapters:[],modules:[],topics:[]};
 	this.selected={};
@@ -62,7 +62,7 @@ angular.module('thinkmerit')
 						.error(function (data) {console.log(data); })
 					}
 
-			$http.post(AP+'/get/subjects',{course:StringMods.removeUnderScore($routeParams.course), _token:CSRF_TOKEN})
+			$http.post(AP+'/get/subjects',{course:StringMods.removeUnderScore($routeParams.course)})
 			.success(function (data) {	
 				_self.datas.subjects=data;	
 				$rootScope.subjects=data;
@@ -544,6 +544,7 @@ angular.module('thinkmerit')
 				chapter:StringMods.removeUnderScore($routeParams.chapter)
 			})
 			.success(function (url) {	
+				_self.url=AP+"/"+url;
 				$http.get(AP+"/"+url)
 				.success(function (notes) {
 					_self.notes=$sce.trustAsHtml(notes);	
@@ -552,7 +553,9 @@ angular.module('thinkmerit')
 				.error(function (argument) {
 					_self.notes=$sce.trustAsHtml("<h4 class=\"text-danger\">Error loading notes!</h4>");
 				})
-				
+
+				/*_self.notesurl=$sce.trustAsResourceUrl(AP+url);
+				console.log(AP+url);*/
 			})
 			.error(function (argument) { console.log(argument);})
 		}

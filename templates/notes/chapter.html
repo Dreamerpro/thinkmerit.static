@@ -73,7 +73,13 @@
 </div>
 </section>
 <section class="notes col-md-12">
-	<div class="clearfix" ng-bind-html="nc.notes"></div>
+
+	<div class="clearfix" ng-bind-html="nc.notes | imgsrc:nc.url">
+		
+	</div>
+	<!-- <div class="clearfix">
+		<iframe ng-src="{{nc.notesurl}}"></iframe>
+	</div> -->
 </section>
 
 </div>
