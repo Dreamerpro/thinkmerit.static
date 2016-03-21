@@ -90,7 +90,9 @@ body.collapsed .left-side-bar>.menu>li>a>i{
 	font-size: 20px;
 
 }
-
+.social-menus{
+	border-top: 1px solid #ddd;
+}
 
 /*USER BLOCK*/
 .user-block{
@@ -126,6 +128,7 @@ body.collapsed .left-side-bar>.menu>li>a>i{
 
 .left-side-bar{
 	-webkit-transition: width 0.5s;
+	    background:#FDFDFD;
 }
 body.collapsed .left-side-bar{
 	width: 80px;

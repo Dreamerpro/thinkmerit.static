@@ -1,7 +1,7 @@
 <div class="modal fade" id="careermodal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" style="width: 600px;">
 		<div class="modal-content" >
-			<div class="modal-header"><h4 class="text-center" style="color:#fff">Careers</h4></div>
+			<div class="modal-header"><h3 class="text-center" style="color:#fff">Careers</h3></div>
 			<div class="modal-body career-modal" >
 				<div class="clearfix">
 					<h5><b><u>Qualities we are looking for?</u></b></h5>
@@ -62,12 +62,12 @@
 
 <div class="page-header">
 	<div class="container">
-		<a class="logo" href="/#/"><img src="images/logo.png"></a>
+		<a class="logo" href="/#/"><img src="images/logo.beta.png"></a>
 		<ul class="nav pull-right sign-button" ng-init="login=true">
 				<li><a class="btn btn-default" ng-click="login=false">Sign Up</a></li>
 				<li><a class="btn btn-success" ng-click="login=true">Log In</a></li>
 		</ul>
-		<div class="search" ><input class="form-control" type="text" placeholder="Search by subject, chapter or topic"> </div>
+		<!-- <div class="search" ><input class="form-control" type="text" placeholder="Search by subject, chapter or topic"> </div> -->
 		
 		<i class="fa fa-bars fa-2x pull-right mob-menu"></i>
 	</div>
@@ -84,32 +84,43 @@
 			<p >Easy to apply</p>
 		</div>
 		<div class="sign-forms col-md-4" ng-controller="AuthController as ac">
-			<a id="btn-fb" class="btn col-md-12 form-control"><i class="pull-left fa fa-facebook"></i>Sign in with Facebook</a>
-			<a id="btn-gplus" class="btn col-md-12 form-control"><i class="pull-left fa fa-google-plus"></i>Sign in with Gmail</a>
+			<a href="http://dev.api.thinkmerit.in/login/facebook" id="btn-fb" class="btn col-md-12 form-control"><i class="pull-left fa fa-facebook"></i>Sign in with Facebook</a>
+			<a href="http://dev.api.thinkmerit.in/login/google" id="btn-gplus" class="btn col-md-12 form-control"><i class="pull-left fa fa-google-plus"></i>Sign in with Gmail</a>
 	
-			<div class="or-line"><span class="or">OR</span></div>
+			<div class="or-line"><!-- <span class="or">OR</span> --></div>
 			
-			<form ng-show="!login">
-				<div class="form-group">
-				<input class="form-control" type="text" ng-model="ac.credentials.name" placeholder="Name"/>
+			<form ng-show="!login" name="ac.signup" novalidate>
+				<div class="form-group has-feedback" ng-class="{'has-error':ac.signup.name.$error.required && ac.signup.name.$dirty}">
+					<i ng-show="ac.signup.name.$error.required && ac.signup.name.$dirty" class="text-danger fa fa-exclamation-triangle form-control-feedback"></i>
+				<input class="form-control" type="text" name="name" ng-model="ac.credentials.name" placeholder="Name" required/>
 				</div>
-				<div class="form-group">
-				<input class="form-control" type="email"  ng-model="ac.credentials.email" placeholder="Email"/>
+				<div class="form-group has-feedback"  ng-class="{'has-error':ac.signup.email.$invalid && ac.signup.email.$dirty}">
+				<input title="Email must be valid" class="form-control" type="email" name="email" ng-model="ac.credentials.email" placeholder="Email" required/>
+				<i ng-show="(ac.signup.email.$error.required || ac.signup.email.$invalid ) && ac.signup.email.$dirty" class="text-danger fa fa-exclamation-triangle form-control-feedback"></i>
 				</div>
-				<div class="form-group">
-				<input class="form-control" type="password"  ng-model="ac.credentials.password" placeholder="Password"/>
+			<!-- 	<span ng-show="ac.signup.email.$invalid && ac.signup.email.$dirty && ac.credentials.email.length>0"><small class="text-danger">Invalid email</small> 	</span> -->
+				<div class="form-group has-feedback" ng-class="{'has-error':ac.signup.password.$invalid && ac.signup.password.$dirty}">
+				<input title="Password length must be at least 6" class="form-control" type="password" name="password"  ng-model="ac.credentials.password" ng-minlength="6" placeholder="Password" required/>
+				<input class="form-control" type="hidden" ng-model="ac.credentials.password_confirmation"/>
 				</div>
-				<input class="btn btn-success" value="Sign Up" ng-click="ac.signup()" type="submit"/>
-				<label id="tnca"><input type="checkbox" ng-model="agreetnc"> By signing up you agree to our  <a href="#">Terms & Conditions</a>.</label>
+			<!-- 	<span ng-show="ac.signup.password.$error.minlength && ac.signup.password.$dirty"><small class="text-danger">Password at least 6 char</small> 	</span> -->
+				<!-- <input type='hidden' name="_token" ng-model="ac.credentials._token" ng-value="CSRF_TOKEN"> -->
+				<input class="btn btn-success" value="Sign Up" ng-disabled="ac.signup.$invalid && ac.signup.$dirty" ng-click="ac.register()" type="submit"/>
+				<label id="tnca"><!-- <input type="checkbox" ng-model="agreetnc"> --> By signing up you agree to our  <a href="#">Terms & Conditions</a>.</label>
 			</form>
-			<form ng-show="login" ng-init="ac.credentials.email='marungshanew@gmail.com';ac.credentials.password='783347ki'">
-				<div class="form-group">
-				<input class="form-control" type="email"  ng-model="ac.credentials.email" placeholder="Email" />
+			<form ng-show="login" name="ac.signin">
+				<div class="form-group has-feedback" ng-class="{'has-error':ac.signin.email.$invalid && ac.signin.email.$dirty}">
+				<input class="form-control" type="email" name="email" ng-model="ac.credentials.email" placeholder="Email" required/>
+				<i ng-show="(ac.signin.email.$error.required || ac.signin.email.$invalid ) && ac.signin.email.$dirty" class="text-danger fa fa-exclamation-triangle form-control-feedback"></i>
 				</div>
-				<div class="form-group">
-				<input class="form-control" type="password" ng-model="ac.credentials.password" placeholder="Password" />
+				<div class="form-group has-feedback " ng-class="{'has-error':ac.signin.password.$invalid && ac.signin.password.$dirty}">
+				<input title="Password length must be at least 6" class="form-control " type="password" name="password"  ng-model="ac.credentials.password" ng-minlength="6" placeholder="Password" required/>
+					<i ng-show="ac.signin.password.$invalid && ac.signin.password.$dirty" class="text-danger fa fa-exclamation-triangle form-control-feedback"></i>
 				</div>
-				<input class="btn btn-success" value="Sign In" ng-click="ac.login()" type="submit"/>
+				<!-- <input type='hidden' name="_token" ng-model="ac.credentials._token" ng-value="CSRF_TOKEN"> -->
+				<!-- <span ng-show="ac.signin.password.$error.minlength && ac.signin.password.$dirty"><small class="text-danger">Password at least 6 char</small> 	</span> -->
+				<span class="text-danger">{{ac.signflash}}</span>
+				<input class="btn btn-success" ng-disabled="ac.signin.$invalid && ac.signin.$dirty" value="Sign In" ng-click="ac.login()" type="submit"/>
 				
 			</form>
 		</div>

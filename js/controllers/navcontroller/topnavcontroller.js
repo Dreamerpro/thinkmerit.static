@@ -1,7 +1,13 @@
 angular.module('thinkmerit')
-.controller('NavCtrl', function($rootScope, AuthService,$location){
+.controller('NavCtrl', function($rootScope, AuthService,$location, CookieService){
 	var that=this;
-	that.isFullScreenAvailable=function(){
+	this.init=function () {
+		that.showSearch=false;
+		$rootScope.isCollapsed=false;
+		$rootScope.isCollapsed=CookieService.get('navcollapsed');
+		
+	}
+	/*that.isFullScreenAvailable=function(){
 		if (
 			document.fullscreenEnabled || 
 			document.webkitFullscreenEnabled || 
@@ -11,9 +17,10 @@ angular.module('thinkmerit')
 		return true;
 		}
 		return false;
-	}
+	}*/
 
 	that.toggleFullScreen=function(){
+		
 			  if (!document.fullscreenElement &&    // alternative standard method
 			      !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
 			    if (document.documentElement.requestFullscreen) {
@@ -37,14 +44,19 @@ angular.module('thinkmerit')
 			    }
 			  }
 	}
-	that.showSearch=false;
+	
 	that.toggleSearch=function(){
 		return that.showSearch=!that.showSearch;
 	}
 
-	$rootScope.isCollapsed=false;
+	
+	console.log($rootScope.isCollapsed);
 	that.toggleCollapsible=function(){
-		return $rootScope.isCollapsed=!$rootScope.isCollapsed;
+		
+		$rootScope.isCollapsed=!$rootScope.isCollapsed;
+		if($rootScope.isCollapsed){CookieService.set('navcollapsed',true);}
+		else{CookieService.unset('navcollapsed');}
+		return $rootScope.isCollapsed;
 	}
 	that.logout=function(){
 				swal({

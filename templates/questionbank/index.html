@@ -1,0 +1,215 @@
+
+<div class="content main" ng-controller="QuestionBank as nc" ng-init="nc.init()">
+
+<div class="modal fade" role="modal" id="answer-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Answer</h3>
+			</div>
+			<div class="modal-body" mathjax-bind="nc.answer"></div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" role="modal" id="solution-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Solution</h3>
+			</div>
+			<div class="modal-body" mathjax-bind="nc.solution"></div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" role="modal" id="question-info-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Question Information</h3>
+				<hr>
+				<div class="clearfix">
+					<p><span class="col-md-4"><b>Subject:</b></span> <span class="col-md-8">{{nc.question_info.topic.chapter.module.subject.name}}</span></p>
+					<p><span class="col-md-4"><b>Chapter:</b></span> <span class="col-md-8">{{nc.question_info.topic.chapter.name}}</span></p>
+					<p><span class="col-md-4"><b>Topic:</b></span> <span class="col-md-8">{{nc.question_info.topic.name}}</span></p>
+					<p><span class="col-md-4"><b>Level:</b></span> <span class="col-md-8">{{nc.question_info.level}}</span></p>
+					<p><span class="col-md-4"><b>Rating:</b></span> <span class="col-md-8">{{nc.question_info.rating}}</span></p>
+					<p><span class="col-md-4"><b>Source:</b></span> <span class="col-md-8">{{nc.question_info.source}}</span></p>
+					<p><span class="col-md-4"><b>Uploaded by:</b></span> <span class="col-md-8">{{nc.question_info.author[0].name}} </span></p>
+				</div>
+			</div>
+			<div class="modal-body" mathjax-bind="nc.question_info"></div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" role="modal" id="question-video-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Video</h3>
+			</div>
+			<div class="modal-body" mathjax-bind="nc.question_video"></div>
+		</div>
+	</div>
+</div>
+
+	<section class="inner">
+		<div class="section-header">
+			<h4>Question Bank</h4>
+
+		</div>
+		<div class="clearfix">
+
+<div class="filter-menu clearfix">
+	<div class="col-md-2" >
+				<h4>Subject</h4>
+			<!-- ng-change="nc.selectsubject(nc.selected.subject)"  -->
+			  <ui-select ng-model="nc.selected.subject" theme="selectize" ng-disabled="disabled">
+			    <ui-select-match placeholder="{{nc.datas.subjects.length>0?'Select or search a subject':'No data found'}}">{{$select.selected.name}}</ui-select-match>
+			    <ui-select-choices repeat="subject in nc.datas.subjects | filter: $select.search">
+			      <div ng-click="nc.redirectToSubject(subject.name)"  ng-bind-html="subject.name | highlight: $select.search"></div>
+			    </ui-select-choices>
+			  </ui-select>
+
+			</div>
+			<div class="col-md-2" ng-show="nc.selected.subject"  >
+				<h4>Chapter</h4>
+				
+				<ui-select ng-model="nc.selected.chapter"  theme="selectize" ng-disabled="disabled"><!-- ng-change="nc.selectchapter(nc.selected.chapter)" -->
+			    <ui-select-match placeholder="{{nc.datas.chapters.length>0?'Select or search a chapter':'No data found'}}">{{$select.selected.name}}</ui-select-match>
+			    <ui-select-choices repeat="chapter in nc.datas.chapters | filter: $select.search">
+			      <div ng-click="nc.redirectToChapter(chapter.name)"  ng-bind-html="chapter.name | highlight: $select.search"></div>
+			    </ui-select-choices>
+			  </ui-select>
+
+			</div>
+			<div class="col-md-2" ng-show="nc.selected.chapter"  >
+				<h4>Topic</h4>
+				
+				<ui-select ng-model="nc.selected.topic"  theme="selectize" ng-disabled="disabled"><!-- ng-change="nc.selecttopic(nc.selected.topic)" -->
+			    <ui-select-match placeholder="{{nc.datas.topics.length>0?'Select or search a topic':'No data found'}}">{{$select.selected.name}}</ui-select-match>
+			    <ui-select-choices repeat="topic in nc.datas.topics | filter: $select.search">
+			      <div ng-click="nc.redirectToTopic(topic.name)"  ng-bind-html="topic.name | highlight: $select.search"></div>
+			    </ui-select-choices>
+			 </ui-select>
+
+	</div>
+
+</div>
+			
+<!-- QUESTION SHOW -->		
+<!-- PAGINAION -->
+<nav class="clearfix">
+	<ul class="pagination pull-right m-r15">
+	    <li>
+	    	<!-- ng-href="{{nc.questions.previousPage?nc.questions.previousPage:''}}" -->
+	      <a ng-click="nc.prev()"  ng-class="{'btn-disabled':!nc.questions.previousPage}" aria-label="Previous">
+	        <span aria-hidden="true">Previous</span>
+	      </a>
+	    </li>
+	    <li>
+	    	<!-- ng-href="{{nc.questions.nextPage?nc.questions.nextPage:''}}" -->
+	      <a ng-click="nc.next()"  ng-class="{'btn-disabled':!nc.questions.nextPage}" aria-label="Next">
+	        <span aria-hidden="true">Next</span>
+	      </a>
+	   </li>
+	 </ul>
+</nav>
+<!-- SINGLE QUESTION -->	
+<div class="col-md-12 questions-show" ng-show="!nc.questions && nc.question" >
+	<div class="list-group-item clearfix" >
+		<span class="question col-md-10 pd-l-15"><span>Q. </span><span processed="true"  mathjax-bind="nc.question.question"></span><!-- <span mathjax-bind="nc.question.question"></span> --></span>
+						<span class="side-tools pull-right col-md-2 row" style="padding-right:0">
+							<div class="clearfix col-md-6 pull-right plr-0">
+								
+<a  ng-click="nc.showanswer(nc.question.id)" class="btn btn-default col-md-12 row">Answer</a><!-- data-toggle="modal" data-target="#answer-modal" -->
+<a  ng-click="nc.showsolution(nc.question.id)" class="btn btn-default col-md-12 row" >Solution</a><!-- data-toggle="modal" data-target="#solution-modal" -->
+							</div>
+							<div class="clearfix col-md-6 plr-0">
+<div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(nc.question,false)"><i class="fa fa-check" ng-class="{'text-success':nc.question.solved}"></i> </div>
+<div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(nc.question,false)"><i class="fa fa-question"  ng-class="{'text-warning':nc.question.doubt}"></i> </div>
+<div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(nc.question,false)" ><i class="fa fa-star" ng-class="{'text-yellow':nc.question.favourite}"></i> </div>
+<br>
+<div title="video" class="btn btn-default qm"  ng-class="{'btn-disabled':!nc.question.video}" ng-click="nc.showvideo(nc.question.video)"  ng-disable="!nc.question.video" ng-click="nc.togglevideo(nc.question)"  ><i class="fa fa-video-camera" ></i> </div>
+<div title="information" class="btn btn-default qm" ng-click="nc.showinfo(nc.question.id)" style="width:34px"><i class="fa fa-info" ></i> </div>
+<div class="btn-group" title="share">
+  <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="width: 38px; height: 32.5px;">
+    <i class="fa fa-share-alt"></i>
+  </button>
+  <ul class="dropdown-menu" style=" min-width: 90px;">
+	    <li><div class="fb-share-button" data-href="{{nc.shareUrl(q.id)}}"  data-layout="button"></div></li>
+		<li><a class="twitter-share-button" href="{{nc.shareUrl(q.id)}}">Tweet</a></li>
+  </ul>
+</div>
+<!-- fa-video-camera -->
+							</div>
+						</span>
+	</div>
+</div>
+
+<!-- LIST OF QUESTION -->
+<div class="col-md-12 questions-show" ng-show="nc.questions && !nc.question" >
+				<div class="list-group">
+					<div class="list-group-item clearfix" ng-repeat="q in nc.questions.questions track by $index">
+						<span class="question col-md-10 pd-l-15"><span>{{$index+1}}.</span><span processed="true"  mathjax-bind="q.question"></span><!-- <span mathjax-bind="q.question"></span> --></span>
+						<span class="side-tools pull-right col-md-2 row" style="padding-right:0">
+							<div class="clearfix col-md-6 pull-right plr-0">
+								
+<a  ng-click="nc.showanswer(q.id)" class="btn btn-default col-md-12 row">Answer</a><!-- data-toggle="modal" data-target="#answer-modal" -->
+<a  ng-click="nc.showsolution(q.id)" class="btn btn-default col-md-12 row" >Solution</a><!-- data-toggle="modal" data-target="#solution-modal" -->
+							</div>
+							<div class="clearfix col-md-6 plr-0">
+<div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(q,true)"><i class="fa fa-check" ng-class="{'text-success':q.solved}"></i> </div>
+<div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(q,true)"><i class="fa fa-question"  ng-class="{'text-danger':q.doubt}"></i> </div>
+<div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(q,true)" ><i class="fa fa-star" ng-class="{'text-yellow':q.favourite}"></i> </div>
+<br>
+<div title="video" class="btn btn-default qm"  ng-class="{'btn-disabled':!q.video}" ng-click="nc.showvideo(q.video)"  ng-disable="!q.video" ng-click="nc.togglevideo(q)"  ><i class="fa fa-video-camera" ></i> </div>
+<div title="information" class="btn btn-default qm" ng-click="nc.showinfo(q.id)" style="width:34px"><i class="fa fa-info" ></i> </div>
+<!-- <div title="share" class="btn-default btn-group qm" style="width:39px">
+
+	<button  class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+	<i class="fa fa-share-alt " ></i> 
+	<ul class="dropdown-menu" aria-labelledby="dLabel"  style=" min-width: 90px;">
+		<li><div class="fb-share-button" data-href="{{nc.shareUrl(q.id)}}"  data-layout="icon_link"></div></li>
+		<li><a class="twitter-share-button" href="{{nc.shareUrl(q.id)}}">Tweet</a></li>
+	</ul>
+	
+</div> -->
+
+<div class="btn-group" title="share">
+  <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="width: 38px; height: 32.5px;">
+    <i class="fa fa-share-alt"></i>
+  </button>
+  <ul class="dropdown-menu" style=" min-width: 90px;">
+	    <li><div class="fb-share-button" data-href="{{nc.shareUrl(q.id)}}"  data-layout="button"></div></li>
+		<li><a class="twitter-share-button" href="{{nc.shareUrl(q.id)}}">Tweet</a></li>
+  </ul>
+</div>
+
+</div><!-- fa-video-camera -->
+							</div>
+						</span>
+					</div>
+				</div>
+			
+</div>
+	
+
+		</div>
+	<section>
+</div>
+ <link rel="stylesheet" href="bower_components/ui-select-master/dist/selectize.modified.css">
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    showProcessingMessages: false,
+    tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+  });
+/*MathJax.Hub.Config({
+    skipStartupTypeset: true,
+    messageStyle: "none",
+    "HTML-CSS": {
+        showMathMenu: false
+    }
+});*/
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>

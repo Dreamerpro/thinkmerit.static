@@ -1,33 +1,68 @@
-<user-side-bar></user-side-bar>
+
 <div class="content main" ng-controller="NotesCtrl as nc" ng-init="nc.init()">
-	<section class="inner">
+<div class="modal fade" id="modal-sticky">
+<div class="modal-dialog" ng-controller="UtilityCtrl as uc0">
+	<div class="modal-content">
+		<div class="modal-header" style="padding-left: 20;">
+			<div ng-hide="uc0.config.editmode">
+			<a class="pull-right option right-option add-bg" ng-click="uc0.config.editmode=true;nc.current={};uc0.config.viewmode=false;nc.savemode='new'"><i class="fa fa-plus"></i></a>
+			<!-- <a class="pull-right option right-option" ng-show="!uc0.config.viewmode"><i class="fa fa-trash"></i></a> -->
+			<a class="pull-right option right-option" ng-show="uc0.config.viewmode" ng-click="uc0.config.editmode=true;uc0.config.viewmode=false;nc.savemode='update'"><i class="fa fa-edit"></i></a>
+			</div>
+			
+			<a class="pull-left back-icon" ng-click="uc0.showList()" ng-show="uc0.config.viewmode"><i class="fa fa-chevron-left"></i></a>
+			<h3><b>Stickies</b></h3>
+		</div>
+<div class="modal-body utility" style="min-height: 250px; height:auto">
+
+			<div class=""  ng-init="nc.stickies=nc.stickies">
+			
+			
+			<div class="body">
+				<div ng-if="nc.stickies.length<1 && !uc0.config.editmode" style="padding: 120px; color: #FFBE56; opacity: 0.2; ">
+					<center><i class="fa fa-sticky-note-o fa-4x"></i></center>
+				</div>
+				<ul class="menu ul-li" ng-hide="uc0.config.viewmode || uc0.config.editmode">
+					<li ng-repeat="a in nc.stickies track by $index" >
+						<i  ng-click="nc.deleteItem(a,'sticky')" class="fa fa-trash option pull-right"></i>
+						<!-- ng-show="uc0.config.deletemode" -->
+
+						<a  ng-click="uc0.showItem(a);nc.current=a" href=""> {{a.title | limitTo:40 }}</a>  
+					</li>
+				</ul>
+				<div class="item-details" ng-show="uc0.config.viewmode">
+					<h3>{{uc0.currentItem.title}}</h3>
+					<p>{{uc0.currentItem.body }}</p>
+				</div>
+				<form name="editform" class="item-details" ng-show="uc0.config.editmode">
+					<div class="form-group {{(editform.title.$invalid && editform.title.$dirty)?'has-error':''}}">
+						<label>Title</label>
+						<input name="title" class="form-control has-error bb0" type="text" ng-model="nc.current.title" required></input>
+					</div>
+					<div class="form-group {{(editform.body.$invalid && editform.body.$dirty)?'has-error':''}}">
+					<label>Content <small ><small >(Max 250char)</small></small></label>
+					<textarea class="form-control bb0" name="body" ng-model="nc.current.body" palceholder="body" rows="6" required></textarea>
+					</div>
+					
+					<div class="btn btn-danger pull-right" ng-disabled="editform.$invalid" ng-click="uc0.save('sticky', nc,editform,$index)">Save</div>
+					<div class="btn btn-default"  ng-click="uc0.config.editmode=false;nc.current={};editform.$setPristine()">Cancel</div>
+				</form>
+			</div>
+
+			</div>
+
+</div>
+
+
+	</div>
+</div>
+</div>
+<section class="inner">
 		<div class="section-header">
-			<h4>Notes</h4>
+			<h4>Study Notes</h4>
 		</div>
 		<div class="clearfix">
-			<div class="col-md-2">
-				<h3>Course</h3>
-				<div class="list-group">
-					<a ng-click="nc.selectcourse(i)" ng-repeat="i in nc.datas.courses track by $index" href="" class="list-group-item activa">{{i.name}}</a>
-				</div>
-
-			</div>
-			<div class="col-md-2" ng-show="nc.selected.course">
-				<h3>Subject</h3>
-				<div class="list-group">
-					<a ng-click="nc.selectsubject(i)" ng-repeat="i in nc.datas.subjects track by $index" href="" class="list-group-item">
-					{{i.name}}</a>
-				</div>
-
-			</div>
-			<div class="col-md-2" ng-show="nc.selected.subject">
-				<h3>Chapter</h3>
-				<div class="list-group">
-					<a ng-click="nc.selectchapter(i)" ng-repeat="i in nc.datas.chapters track by $index" href="" class="list-group-item">
-					{{i.name}}</a>
-				</div>
-
-			</div>
 		</div>
-	<section>
+</section>
+
 </div>

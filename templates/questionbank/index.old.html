@@ -1,0 +1,120 @@
+
+<div class="content main" ng-controller="QuestionBank as nc" ng-init="nc.init()">
+
+<div class="modal fade" role="modal" id="answer-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Answer</h3>
+			</div>
+			<div class="modal-body">
+				{{nc.answer}}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" role="modal" id="solution-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Solution</h3>
+			</div>
+			<div class="modal-body">
+				{{nc.solution}}
+			</div>
+		</div>
+	</div>
+</div>
+
+	<section class="inner">
+		<div class="section-header">
+			<h4>Question Bank</h4>
+		</div>
+		<div class="clearfix">
+			<div class="col-md-2">
+				<h4>Course</h4>
+
+			  <ui-select ng-model="nc.selected.course" ng-change="nc.selectcourse(nc.selected.course)" theme="selectize" ng-disabled="disabled" >
+			    <ui-select-match placeholder="{{nc.datas.courses.length>0?'Select or search a course':'No data found'}}">{{$select.selected.name}}</ui-select-match>
+			    <ui-select-choices repeat="course in nc.datas.courses | filter: $select.search" >
+			      <span ng-click="nc.selectcourse(course)"  ng-bind-html="course.name | highlight: $select.search"></span>
+			    </ui-select-choices>
+			  </ui-select>
+
+			</div>
+			<div class="col-md-2" ng-show="nc.selected.course">
+				<h4>Subject</h4>
+			
+			  <ui-select ng-model="nc.selected.subject" ng-change="nc.selectsubject(nc.selected.subject)" theme="selectize" ng-disabled="disabled">
+			    <ui-select-match placeholder="{{nc.datas.subjects.length>0?'Select or search a subject':'No data found'}}">{{$select.selected.name}}</ui-select-match>
+			    <ui-select-choices repeat="subject in nc.datas.subjects | filter: $select.search">
+			      <span  ng-bind-html="subject.name | highlight: $select.search"></span>
+			    </ui-select-choices>
+			  </ui-select>
+
+			</div>
+			<div class="col-md-2" ng-show="nc.selected.subject"  >
+				<h4>Chapter</h4>
+				
+				<ui-select ng-model="nc.selected.chapter" ng-change="nc.selectchapter(nc.selected.chapter)" theme="selectize" ng-disabled="disabled">
+			    <ui-select-match placeholder="{{nc.datas.chapters.length>0?'Select or search a chapter':'No data found'}}">{{$select.selected.name}}</ui-select-match>
+			    <ui-select-choices repeat="chapter in nc.datas.chapters | filter: $select.search">
+			      <span ng-click="nc.selectchapter(chapter)"  ng-bind-html="chapter.name | highlight: $select.search"></span>
+			    </ui-select-choices>
+			  </ui-select>
+
+			</div>
+			<div class="col-md-2" ng-show="nc.selected.chapter"  >
+				<h4>Topic</h4>
+				
+				<ui-select ng-model="nc.selected.topic" ng-change="nc.selecttopic(nc.selected.topic)" theme="selectize" ng-disabled="disabled">
+			    <ui-select-match placeholder="{{nc.datas.topics.length>0?'Select or search a topic':'No data found'}}">{{$select.selected.name}}</ui-select-match>
+			    <ui-select-choices repeat="chapter in nc.datas.topics | filter: $select.search">
+			      <span ng-click="nc.selecttopic(chapter)"  ng-bind-html="chapter.name | highlight: $select.search"></span>
+			    </ui-select-choices>
+			  </ui-select>
+
+			</div>
+<!-- QUESTION SHOW -->			
+<div class="col-md-12 questions-show" ng-show="nc.selected.topic" >
+				<div class="list-group">
+					<div class="list-group-item clearfix" ng-repeat="q in nc.questions track by $index">
+						{{q.question}}
+						<span class="question col-md-10 pd-l-15"><span>{{$index+1}}.</span><span processed="true"  mathjax-bind="q.question"></span><!-- <span mathjax-bind="q.question"></span> --></span>
+						<span class="side-tools pull-right col-md-2" style="padding-right:0">
+							<div class="clearfix">
+								
+<a data-toggle="modal" data-target="#answer-modal" ng-click="nc.showanswer(q.id)" class="btn btn-default col-md-6 row">Answer</a>
+<a data-toggle="modal" data-target="#solution-modal" ng-click="nc.showsolution(q.id)" class="btn btn-default col-md-6 row" >Solution</a>
+							</div>
+							<div class="clearfix">
+<div title="solved" class="btn btn-default" ng-click="nc.togglesolved(q)"><i class="fa fa-check" ng-class="{'text-success':q.solved}"></i> </div>
+<div title="doubt" class="btn btn-default" ng-click="nc.toggledoubt(q)"><i class="fa fa-exclamation"  ng-class="{'text-warning':q.doubt}"></i> </div>
+<div title="favourite" class="btn btn-default" ng-click="nc.togglefavourite(q)" ><i class="fa fa-star" ng-class="{'text-yellow':q.favourite}"></i> </div>
+<div title="share" class="btn btn-default"><i class="fa fa-share-alt"></i> </div>
+							</div>
+						</span>
+					</div>
+				</div>
+			
+</div>
+
+		</div>
+	<section>
+</div>
+ <link rel="stylesheet" href="bower_components/ui-select-master/dist/selectize.modified.css">
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    showProcessingMessages: false,
+    tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+  });
+/*MathJax.Hub.Config({
+    skipStartupTypeset: true,
+    messageStyle: "none",
+    "HTML-CSS": {
+        showMathMenu: false
+    }
+});*/
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>

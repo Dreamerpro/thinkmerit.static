@@ -1,9 +1,9 @@
-<user-side-bar></user-side-bar>
+
 <div class="content main" ng-controller="DashboardCtrl as dc" ng-init="dc.init()">
 	<!-- style at css content -->
 	<section class="question-bank inner">
 		<div class="section-header">
-			<h4>Question Bank</h4>
+			<h4>Question Bank Performance</h4>
 		</div>
 
 		<div class="row">
@@ -26,7 +26,7 @@
 			<div class="col-lg-3 col-sm-6">
 				<div class="panel  widget bg-red">
 					<div class="row row-table">
-						<div class="col-xs-4 text-center bg-red-dark pd-tb-25"><em class="fa fa-exclamation fa-3x"></em></div>
+						<div class="col-xs-4 text-center bg-red-dark pd-tb-25"><em class="fa fa-question fa-3x"></em></div>
 						<div class="col-xs-8 pv-lg"><div class="h2 mt0">{{dc.stats.doubts}}</div><div class="text-uppercase">Doubts</div></div>
 					</div>
 				</div>
@@ -46,11 +46,11 @@
 	
 	<section class="notes inner">
 		<div class="section-header">
-			<h4>Notes</h4>
+			<h4>Utilities</h4>
 		</div>
 		<div class="row">
 			<div utility-stickies 
-				class="col-md-4 col-xs-12 utility" 
+				class="col-md-5 col-xs-12 utility" 
 				ng-init="uc.config.type='stickies';uc.config.title='Stickies';uc.config.bgClass='bg-stickies'" >
 			</div>
 			<div utility-bookmarks 
@@ -62,7 +62,7 @@
 
 	<section class="utilities inner">
 		<div class="section-header">
-			<h4>Utilities</h4>
+			<h4>Others</h4>
 		</div>
 		<div class="row">
 			

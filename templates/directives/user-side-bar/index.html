@@ -1,4 +1,4 @@
-<div class="left-side-bar hidden-xs ">
+<div class="left-side-bar hidden-xs " ng-hide="islanding">
 <div class="user-wrapper">
 	<div class="user-block">
 		<div class="user-block-picture">
@@ -22,9 +22,45 @@
 		<li><a href="">+2</a> </li>
 	</ul> -->
 </li>
-<li angular-ripple ng-class="{'active':isLocationActive('tests')}"><a href=""><i class="fa fa-line-chart"></i> <span class="mt">Tests</span></a> </li>
-<li angular-ripple ng-class="{'active':isLocationActive('question-bank')}"><a href=""><i class="fa fa-database"></i> <span class="mt">Question Bank</span></a> </li>
-<li angular-ripple ng-class="{'active':isLocationActive('video-lectures')}"><a href=""><i class="fa fa-play-circle-o"></i> <span class="mt">Video Lectures</span></a> </li>
-<li ng-class="{'active':isLocationActive('ask')}"><a href=""><i class="fa fa-question-circle"></i> <span class="mt">Ask</span></a> </li>
+<li ng-class="{'active':isLocationActive('question-bank')}" angular-ripple ng-class="{'active':isLocationActive('question-bank')}"><a href="/question-bank"><i class="fa fa-database"></i> <span class="mt">Question Bank</span></a> </li>
+<li angular-ripple ng-class="{'active':isLocationActive('tests')}">
+	<a href=""><i class="fa fa-line-chart"></i> <span class="mt">Tests
+		<span class="badge">coming soon</span>
+	</span></a> 
+</li>
+<li angular-ripple ng-class="{'active':isLocationActive('video-lectures')}">
+	<a href=""><i class="fa fa-play-circle-o"></i> 
+		<span class="mt">Video Lectures <span class="badge">coming soon</span>
+	</span></a> 
+</li>
+<li ng-class="{'active':isLocationActive('ask')}">
+	<a href=""><i class="fa fa-question-circle"></i> 
+		<span class="mt">Ask <span class="badge">coming soon</span>
+	</span></a> 
+</li>
+<li class="list-divider"></li>
+<li ng-class="{'active':isLocationActive('profile')}"><a href="/profile"><i class="fa fa-user"></i> <span class="mt">Profile</span></a> </li>
+</ul>
+
+
+<ul class="social-menus">
+<li ><h4>Connect {{isCollapsed?'':'with us'}}</h4></li>
+<li>
+	<div ng-show="!isCollapsed" class="fb-like" data-href="https://www.facebook.com/thinkmerit.in/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+	<div ng-show="isCollapsed" class="fb-like" data-href="https://www.facebook.com/thinkmerit.in/" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+</li>
+<li>
+	<div ng-show="isCollapsed" >
+		<a href="https://twitter.com/thinkmerit" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false"></a>
+	</div>
+	<div ng-show="!isCollapsed" >
+		<a ng-show="!isCollapsed" href="https://twitter.com/thinkmerit" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false"></a>
+	</div>
+	
+	
+</li>
+<li>
+	<div class="g-ytsubscribe" data-channelid="UCcYos33m_g5vqIi50_tYgrg" data-layout="default" data-theme="dark" data-count="default" data-onytevent="onYtEvent"></div>
+</li>
 </ul>
 </div>

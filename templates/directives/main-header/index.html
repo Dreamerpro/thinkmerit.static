@@ -1,34 +1,62 @@
-<header ng-hide="islanding" ><!-- ng-controller="NavCtrl as nc" -->
+<div class="modal fade" id="search-modal">
+	<div class="modal-dialog">
+		<div class="modal-content" style="border:none;width: 500px;">
+			<!-- <div class="modal-body">
+				
+			</div> -->
+			<div class="col-md-12">
+				<style type="text/css">
+					form[name=searchForm] input{
+						height: 50px;
+					}
+					form[name=searchForm] i.form-control-feedback{
+						    line-height: 50px;
+						    width: 40px;
+						    height: 48px;
+						    border-left: 1px solid #ECECEC;
+					}
+				</style>
+					<form name="searchForm">
+						<div class="form-group has-feedback">
+							<input placeholder="Search chapter/topic" class="form-control" type="text"></input>
+							<i class="fa fa-search form-control-feedback"></i>
+						</div>
+					</form>
+				</div>
+		</div>
+	</div>
+</div>
+<header ng-hide="islanding" ng-init="nc.init()"><!-- ng-controller="NavCtrl as nc" -->
 	<div class="nav-header" >
 		<!-- Its style is at reset+shared -->
 		<div class="navbar-brand">
 			<a href="/#/"  class="logo">
-				<img class="uncollapsed" src="images/logo.png">
+				<img class="uncollapsed" src="images/logo.beta.png">
 			</a>
 		</div>
 	</div>
-	<div class="nav-wrapper">
+	<div class="nav-wrapper" >
 		<ul class="nav navbar-nav">
 			<li ng-click="nc.toggleCollapsible()"><a class="fa fa-navicon"></a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right hidden-xs">
-			<li ng-click="nc.toggleSearch()"><a class="fa fa-search"></a></li>
-			<li class="dropdown">
+			<!-- <li  data-toggle="modal" data-target="#search-modal"><a class="fa fa-search"></a></li> --><!-- ng-click="nc.toggleSearch()" -->
+			<!-- <li class="dropdown">
 				<a class="fa fa-bell-o dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-					<span class="label label-info">4</span>
+					<span class="label label-info">0</span>
 				</a>
 				<ul class="dropdown-menu">
-					<!-- <li class="header">You have 4 notifications</li> -->
+					
 					<li>
 						<ul class="menu">							
-							<li><a href="">The Test X will start from tomorrow</a></li>
-							<li><a href="">A question has been added on topic Y.</a></li>
+							
+							<li><a href="">No notifications.</a></li>
 						</ul>
 					</li>
-					<li class="footer"><small>Show all notifications<span class="label label-info pull-right">4</span></small> </li>
+					
 				</ul>
-			</li>
-			<li ng-show="nc.isFullScreenAvailable()" ng-click="nc.toggleFullScreen()">
+			</li> -->
+			<li  ng-click="nc.toggleFullScreen()">
 				<a class="fa fa-expand "></a>	
 			</li><!-- title="logout" data-toggle="modal" data-target="#logout" -->
 			<li><a class="fa fa-power-off" ng-click="nc.logout()" ></a></li>

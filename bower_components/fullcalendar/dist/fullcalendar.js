@@ -8732,7 +8732,7 @@ function Header(calendar, options) {
 							classes = [
 								'fc-' + buttonName + '-button',
 								tm + '-button',
-								tm + '-state-default'
+								tm + '-state-default-2'
 							];
 
 							button = $( // type="button" so that it doesn't submit a form

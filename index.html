@@ -1,64 +1,118 @@
 <html ng-app="thinkmerit">
 <head>
 	<title>ThinkMerit</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/shared.css">
-	<link rel="stylesheet" href="css/content.css">
-	<link rel="stylesheet" href="css/admin.css">
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/mediaqueries.css">
-	<meta type="csrf_token" content="{{CSRF_TOKEN}}">
+	<meta property="og:description" content="">
+
+	<meta property="twitter:title" content="ThinkMerit">
+	<meta property="twitter:description" content="ThinkMerit believes every student is uniquely brilliant and deserves a high-quality education. So, we helps students to prepare for all competitive exams like JEE Mains, JEE Advanced BITSAT etc">
+
+	<meta property="og:url"                content="http://www.thinkmerit.in" />
+	<meta property="og:title"              content="ThinkMerit" />
+	<meta property="og:description"        content="ThinkMerit believes every student is uniquely brilliant and deserves a high-quality education. So, we helps students to prepare for all competitive exams like JEE Mains, JEE Advanced BITSAT etc" />
+	<link rel="shortcut icon" href="/images/favicon.ico">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/shared.css">
+	<link rel="stylesheet" href="/css/content.css">
+	<link rel="stylesheet" href="/css/admin.css">
+	<link rel="stylesheet" href="/css/reset.css">
+	<link rel="stylesheet" href="/css/mediaqueries.css">
 	<base href="/">
+	<script src="https://apis.google.com/js/platform.js"></script>
 </head>
 <body ng-class="{'collapsed':isCollapsed}">
+	<div id="fb-root"></div>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '206722253025223',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+ 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+ 
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+
+
 <div class="flash-msg" ng-show="flash">
 	{{flash}}
 </div>
 <log-out-modal></log-out-modal>
 
 <main-header></main-header>
-<div ng-view></div>
+<user-side-bar></user-side-bar>
+<div ng-view>
+
+</div>
 <main-footer></main-footer>
 
 </body>
 
-<script type="text/javascript" src="js/libraries/jquery.min.js"></script>
-<script type="text/javascript" src="js/libraries/angular.min.js"></script>
-<script type="text/javascript" src="js/dependencies/angular.route.min.js"></script>
-<script type="text/javascript" src="js/dependencies/angular.cookies.min.js"></script>
-<script type="text/javascript" src="js/libraries/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/libraries/underscore.js"></script>
+<script type="text/javascript" src="/js/libraries/jquery.min.js"></script>
+<script type="text/javascript" src="/js/libraries/angular.min.js"></script>
+<script type="text/javascript" src="/js/dependencies/angular.route.min.js"></script>
+<script type="text/javascript" src="/js/dependencies/angular.cookies.min.js"></script>
+<script type="text/javascript" src="/js/libraries/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/libraries/underscore.js"></script>
+<script type="text/javascript" src="/js/dependencies/angular.sanitize.min.js"></script>
 
-<script type="text/javascript" src="js/app/app.js"></script>
-<script type="text/javascript" src="js/controllers/controller.js"></script>
-<script type="text/javascript" src="js/controllers/navcontroller/topnavcontroller.js"></script>
-<script type="text/javascript" src="js/directives/directive.js"></script>
-<script type="text/javascript" src="js/services/service.js"></script>
 
-<link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css"/>
+<script type="text/javascript" src="/js/app/app.js"></script>
+<script type="text/javascript" src="/js/controllers/controller.js"></script>
+<script type="text/javascript" src="/js/controllers/navcontroller/topnavcontroller.js"></script>
+<script type="text/javascript" src="/js/directives/directive.js"></script>
+<script type="text/javascript" src="/js/services/service.js"></script>
+<script type="text/javascript" src="/js/filters/filters.js"></script>
+
 <!-- jquery, moment, and angular have to get included before fullcalendar -->
-<script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
-<script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
-<script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
-<script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
-
-<link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css"/>
-<script type="text/javascript" src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
-
-<script src="bower_components/Chart.js/Chart.js"></script>
-<script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
-<link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
-
+<script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="/bower_components/angular-ui-calendar/src/calendar.js"></script>
+<script type="text/javascript" src="/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+<script type="text/javascript" src="/bower_components/fullcalendar/dist/gcal.js"></script>
+<script type="text/javascript" src="/bower_components/ui-select-master/dist/select.min.js"></script>
+<script type="text/javascript" src="/bower_components/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/bower_components/Chart.js/Chart.js"></script>
+<script src="/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+<script src="/bower_components/angular-animate/angular-animate.js"></script>
+<script type="text/javascript" src="/bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+<script type="text/javascript" src="/bower_components/angular-ripple/angular-ripple.js"></script>
 <!-- <script src="/bower_components/ngprogress/build/ngprogress.js"></script>
 <link rel="stylesheet" href="/bower_components/ngprogress/ngProgress.css"> -->
-<script src="/bower_components/angular-animate/angular-animate.js"></script>
-<script type="text/javascript" src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
-<link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css"/>
-<script type="text/javascript" src="bower_components/angular-ripple/angular-ripple.js"></script>
 <!-- <script type="text/javascript" src="js/filters.js"></script> -->
 <!-- <script type="text/javascript" src="js/directive.js"></script> -->
+<!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'> -->
+<link rel="stylesheet" href="/bower_components/fullcalendar/dist/fullcalendar.css"/>
+<link rel="stylesheet" href="/bower_components/angular-loading-bar/build/loading-bar.min.css"/>
+<link rel="stylesheet" href="/bower_components/angular-chart.js/dist/angular-chart.css">
+<link rel="stylesheet" href="/bower_components/ui-select-master/dist/select.min.css"/>
+<link rel="stylesheet" href="/bower_components/sweetalert/dist/sweetalert.css"/>
+
 
 
 </html>

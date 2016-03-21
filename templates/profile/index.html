@@ -1,0 +1,49 @@
+<div class="content main" ng-controller="ProfileCtrl as pc" ng-init="pc.init()">
+
+<div class="clearfix" style="margin-top:75px"> 
+	<!-- <div class="col-md-4">
+		<div class="profile-img">
+
+
+		</div>
+	</div> -->
+	<div class="col-md-6 col-md-offset-2" style="padding-top:35px">
+		<a class="btn btn-default pull-right m-t-15" href="/change-password">Change Password</a>
+		<h3>Edit Profile</h3> 
+		<br>
+		<hr>
+		<form name="pc.profileform" novalidate>
+
+			<div class="form-group">
+				<label>Name</label>
+				<input class="form-control" type="text" ng-model="pc.profiledata.name"></input>
+			</div>
+			<div class="form-group">
+				<label>Email</label>
+				<input class="form-control" type="text" ng-model="pc.profiledata.email" required></input>
+			</div>
+			<div class="form-group">
+				<label>Class</label>
+				<input class="form-control" type="text" ng-model="pc.profiledata.class"></input>
+			</div>
+			<div class="form-group">
+				<label>Institution</label>
+				<input class="form-control" type="text" ng-model="pc.profiledata.institute"></input>
+			</div>
+			<div class="form-group {{(pc.profileform.phone.$invalid && pc.profileform.phone.$dirty)?'has-error':''}}">
+				<label>Mobile No.</label>
+				<input class="form-control" name="phone" type="number"  ng-model="pc.profiledata.phone" ng-minlength="10" ng-maxlength="10"></input>
+				<span class="text-danger" ng-show="pc.profileform.phone.$invalid && pc.profileform.phone.$dirty">Invalid mobile no.</span>
+			</div>
+			<div class="form-group">
+				<label>Address</label>
+				<textarea class="form-control" ng-model="pc.profiledata.address"></textarea>
+			</div>
+			<span ng-show='pc.flash'>{{pc.flash}}</span>
+			<div class="btn btn-default" ng-disabled="pc.profileform.$dirty && pc.profileform.$invalid" ng-click="pc.submit()">Submit</div>
+		</form>
+	</div>
+</div>
+</div>
+
+

@@ -1,0 +1,37 @@
+<div class="content main" ng-controller="ProfileCtrl as pc" >
+
+<div class="clearfix" style="margin-top:75px"> 
+	
+	<div class="col-md-6 col-md-offset-2" style="padding-top:35px">
+		<h3>Change Password</h3>
+		<hr>
+		<br>
+		<span class="text-info">{{pc.flash}}</span>
+<form novalidate name="pc.changepass">
+	
+		<div class="form-group">
+			<label>Old Password</label>
+			<input class="form-control" name="oldpass" type="password" ng-model="pc.oldpass" ng-minlength=6 required></input>
+			<span class="text-danger" ng-if="pc.changepass.oldpass.$dirty">
+				<span ng-if="pc.changepass.oldpass.$error.minlength">Password min length is 6</span>
+			</span>
+		</div>
+		<div class="form-group">
+			<label>New Password</label>
+			<input class="form-control" name="newpass" type="password" ng-model="pc.newpass" ng-minlength=6 required></input>
+			<span class="text-danger" ng-if="pc.changepass.newpass.$dirty">
+				<span ng-if="pc.changepass.newpass.$error.minlength">Password min length is 6</span>
+			</span>
+		</div>
+		<div class="form-group">
+			<label>Confirm New Password</label>
+			<input class="form-control" name="confirmpass" type="password" ng-model="pc.cfmpass" ng-minlength=6 required></input>
+			<span class="text-danger" ng-if="pc.changepass.confirmpass.$dirty">
+				<span ng-if="pc.cfmpass!==pc.newpass">Confirm password doesn't match!</span>
+			</span>
+		</div>
+		<input class="btn btn-default col-md-1" type='submit' ng-disabled="pc.changepass.$invalid && pc.changepass.$dirty" value="Save" ng-click="pc.newPass()"></input>
+</form>
+	</div>
+</div>
+</div>

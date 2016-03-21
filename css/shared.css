@@ -28,7 +28,7 @@ a.logo>img {
 }*/
 body.collapsed .navbar-brand>.logo>.uncollapsed{
 	/*display: none;*/    
-    clip: rect(0px,51px,200px,31px);   
+  clip: rect(0px,52px,200px,33px); 
 }
 body.collapsed .navbar-brand>.logo{
 	width: 80px;
@@ -121,4 +121,8 @@ footer{
       -moz-transform: scale(2.5);
       -o-transform: scale(2.5);
     }
+  }
+
+  .transparent{
+    background-color: none !important;
   }
