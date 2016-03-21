@@ -1,2 +1,13 @@
 /When calling ajax calls last forward slash matters
 /when using uuid as id or non incrementing id . set incrementing to false in model
+
+if($rootScope.CSRF_TOKEN==undefined || $rootScope.CSRF_TOKEN==null){
+        $http.get(AP+'/csrf_token').success(function(d){
+            $cookies.put('XSRF-TOKEN',d.XSRF_TOKEN);
+            //$cookies.put('laravel-session',d.LARAVEL_ID);
+            //$rootScope.CSRF_TOKEN=d.XCSRF_TOKEN;  
+            $http.defaults.headers.post['X-CSRF-TOKEN']=d.XSRF_TOKEN;
+          });
+        
+        //$http.defaults.headers.common.X-CSRF-TOKEN = 'Basic YmVlcDpib29w';
+   }

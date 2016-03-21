@@ -1,9 +1,9 @@
 var xhReq = new XMLHttpRequest();
-    xhReq.open("GET", "http://dev.api.thinkmerit.in/csrf_token", false);
+    xhReq.open("GET", "http://api.thinkmerit.in/csrf_token", false);
     xhReq.send(null);
 
 angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize'])
-.constant('AP', 'http://dev.api.thinkmerit.in')//http://188.166.253.128  ,'angularRipple'
+.constant('AP', 'http://api.thinkmerit.in')//http://188.166.253.128  ,'angularRipple'
 .constant("CSRF_TOKEN", xhReq.responseText)
 .config(['$routeProvider','$httpProvider','$locationProvider', 
     function($routeProvider, $httpProvider, $locationProvider) {
