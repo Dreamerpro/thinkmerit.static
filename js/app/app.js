@@ -1,10 +1,6 @@
-var xhReq = new XMLHttpRequest();
-    xhReq.open("GET", "http://api.thinkmerit.in/csrf_token", false);
-    xhReq.send(null);
 
 angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize'])
 .constant('AP', 'http://api.thinkmerit.in')//http://188.166.253.128  ,'angularRipple'
-.constant("CSRF_TOKEN", xhReq.responseText)
 .config(['$routeProvider','$httpProvider','$locationProvider', 
     function($routeProvider, $httpProvider, $locationProvider) {
 
@@ -35,7 +31,7 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
     cfpLoadingBarProvider.includeSpinner = true;
 })
 //.constant("CSRF_TOKEN",function($http){$http.get('http://dev.api.thinkmerit.in/csrf_token').success(function(d){ return d; } )})
-.run(function($rootScope, $location, $http, $cookies, AP, AuthService, UserService, CSRF_TOKEN){
+.run(function($rootScope, $location, $http, $cookies, AP, AuthService, UserService){
 
 //detect route change
       $rootScope.$on('$locationChangeSuccess', function(event){
@@ -57,8 +53,8 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
 
       });
       
-  $http.defaults.headers.post['X-CSRF-TOKEN']=CSRF_TOKEN; 
-  $cookies.put('XSRF-TOKEN',CSRF_TOKEN);
+  /*$http.defaults.headers.post['X-CSRF-TOKEN']=CSRF_TOKEN; 
+  $cookies.put('XSRF-TOKEN',CSRF_TOKEN);*/
    /*if(!$cookies.get('XSRF-TOKEN')){//$rootScope.CSRF_TOKEN==undefined || $rootScope.CSRF_TOKEN==null
         $http.get(AP+'/csrf_token').success(function(d){
             $cookies.put('XSRF-TOKEN',d.XSRF_TOKEN);
@@ -68,6 +64,12 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
             $http.defaults.headers.post['X-CSRF-TOKEN']=d.XSRF_TOKEN; 
           });
    }*/
+   if(!$cookies.get('XSRF-TOKEN')){
+        $http.get(AP+'/csrf_token').success(function(d){
+        $cookies.put('XSRF-TOKEN',d);
+        $http.defaults.headers.post['X-CSRF-TOKEN']=d;
+      });
+   }
   
    $rootScope.isLocationActive=function (argument) {
      return $rootScope.path.indexOf(argument)>0;
