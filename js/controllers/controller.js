@@ -534,10 +534,22 @@ angular.module('thinkmerit')
 			.success(function (data) {	
 				_self.datas.chapters=data;	
 				$rootScope.chapters=data;
+				if($routeParams.chapter){
+					//_self.selected.chapter={name:StringMods.removeUnderScore($routeParams.chapter)};
+					for (var i = data.length - 1; i >= 0; i--) {
+
+						if(data[i].name==StringMods.removeUnderScore($routeParams.chapter)){
+							console.log(data[i]);
+							_self.selected.chapter=data[i];
+						}
+					}
+				}
+				
 			})
 			.error(function (argument) { console.log(argument);})
 		}
 		if($routeParams.chapter){
+
 			$http.post(AP+'/get/notes',{
 				course:StringMods.removeUnderScore($routeParams.course),
 				subject:StringMods.removeUnderScore($routeParams.subject),
@@ -548,15 +560,10 @@ angular.module('thinkmerit')
 				$http.get(AP+""+url)
 				.success(function (notes) {
 					_self.notes=notes;
-					//_self.notes=$sce.trustAsHtml(notes);	
-					//_self.notes="alkdkalsmda ";
 				})
 				.error(function (argument) {
-					_self.notes=$sce.trustAsHtml("<h4 class=\"text-danger\">Error loading notes!</h4>");
+					_self.msg=$sce.trustAsHtml("<h4 class=\"text-danger\">Error loading notes!</h4>");
 				})
-
-				/*_self.notesurl=$sce.trustAsResourceUrl(AP+url);
-				console.log(AP+url);*/
 			})
 			.error(function (argument) { console.log(argument);})
 		}
@@ -570,32 +577,12 @@ angular.module('thinkmerit')
 		_self.datas.subjects=[];
 		
 		
-		/*$http.get(AP+'/get/subjects/'+course.id)
-		.success(function (data) {	_self.datas.subjects=data;	})
-		.error(function (argument) { console.log(argument);})*/
-
 		$location.search({course:_self.selected.course.name});
 	}
-	/*this.selectsubject=function (subject) {
-		_self.selected.subject=subject;
-		_self.datas.chapters=[];
-		_self.selected.notes='';	
-		_self.selected.chapter=null;//clear selected chapter
 
-		$http.get(AP+'/get/getchaptersfromsubject/'+subject.id)
-		.success(function (data) {	_self.datas.chapters=data;	})
-		.error(function (argument) { console.log(argument);})
-	}
-	this.selectchapter=function (chapter) {
-		_self.selected.chapter=chapter;
-		_self.selected.notes="";
-		$http.get(AP+'/notes/'+chapter.id+'/index.html')
-		.success(function (data) {_self.selected.notes=$sce.trustAsHtml(data);	})
-		.error(function (argument) {_self.selected.notes='<h3>Error loading notes!</h3>'; console.log(argument);})
-	}*/
 	this.togglebookmark=function () {
 		$http.get(AP+'/toggle/bookmark/'+_self.selected.chapter.id)
-		.success(function (data) {	_self.selected.chapter.bookmark=!_self.selected.chapter.bookmark;	})
+		.success(function (data) {	console.log(_self.selected.chapter.bookmark[0]);_self.selected.chapter.bookmark[0]=!_self.selected.chapter.bookmark[0];	})
 		.error(function (argument) { console.log(argument);})
 	}
 	this.togglereadmode=function (element) {

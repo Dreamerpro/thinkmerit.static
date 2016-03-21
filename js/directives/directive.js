@@ -12,6 +12,7 @@ angular.module('thinkmerit')
         }]
     };
 })
+
 .directive("mathjaxBindNotes", function($sce) {
     return {
         restrict: "A",

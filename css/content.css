@@ -291,7 +291,7 @@ a.list-group-item.activa:hover{
   overflow: hidden;
   background-color: #e5e5e5;
 }
-.notes-tools{
+/*.notes-tools{
 	height: 30px;
 }
 .note-fs{
@@ -303,7 +303,7 @@ a.list-group-item.activa:hover{
 	right: 0;
 	left: 0;
 	background-image: url('/images/fs-bg.jpg');
-}
+}*/
 
 .plr-0{
 	padding-left: 0;
@@ -323,4 +323,20 @@ a.list-group-item.activa:hover{
 .question-content{
 	display: inline-block;
     vertical-align: top;
+}
+
+/**/
+
+#notes-container{
+	overflow-y: auto;
+}
+#notes-container.notes-fs{
+	
+	background-image: url('/images/fs-bg.jpg');
+}
+#notes-container.notes-fs>div{
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #fff;   
 }

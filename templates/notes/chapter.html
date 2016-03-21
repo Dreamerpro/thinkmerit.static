@@ -77,7 +77,20 @@
 	<!-- <div class="clearfix" ng-bind-html="nc.notes | imgsrc:nc.url">
 		
 	</div> -->
-	<div class="clearfix" url="nc.url" mathjax-bind-notes="nc.notes">
+	<div class="clearfix" ng-show="nc.selected.chapter && !nc.notes" ng-bind-html="nc.msg">
+		
+	</div>
+	<div class="notes-tools text-center">
+					
+		<div title="bookmark" ng-click="nc.togglebookmark()" ng-class="{'active':nc.selected.chapter.bookmark[0].id}" class="btn btn-a  fa fa-bookmark pull-right"></div>
+		<!-- <div title="readmode" ng-click="nc.togglereadmode()" ng-class="{'active':nc.isfs}" class="btn btn-c  fa fa-arrows-alt pull-right"></div> -->
+		<div title="sticky" data-toggle="modal" data-target="#modal-sticky" class="btn btn-b  fa fa-sticky-note-o pull-right"></div>
+					
+	</div>
+	<div id="notes-container" ng-class="{'notes-fs':nc.isfs}">
+		<div class="clearfix"   url="nc.url" mathjax-bind-notes="nc.notes">
+	</div>
+	
 		
 	</div>
 	<!-- <div class="clearfix">

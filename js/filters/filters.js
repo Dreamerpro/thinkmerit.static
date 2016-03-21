@@ -13,7 +13,8 @@ angular.module('thinkmerit')
 			value=value.replace("src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML\"","");
 			value=value.replace(/src=\"/g,"src=\""+param);
 			var z=value.split('</head>');
-			value=z[0]+"<script type='text/javascript' src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML'></script></head>"+z[1];
+			value=z[0]+"<script type='text/javascript' src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML'></script></head>";
+			value+=z[1]?z[1]:"";
 		}
 		// console.log(value);
 		
