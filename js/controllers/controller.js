@@ -544,8 +544,8 @@ angular.module('thinkmerit')
 				chapter:StringMods.removeUnderScore($routeParams.chapter)
 			})
 			.success(function (url) {	
-				_self.url=AP+"/"+url;
-				$http.get(AP+"/"+url)
+				_self.url=AP+""+url;
+				$http.get(AP+""+url)
 				.success(function (notes) {
 					_self.notes=$sce.trustAsHtml(notes);	
 
