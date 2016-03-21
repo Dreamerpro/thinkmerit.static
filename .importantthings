@@ -11,3 +11,4 @@ if($rootScope.CSRF_TOKEN==undefined || $rootScope.CSRF_TOKEN==null){
         
         //$http.defaults.headers.common.X-CSRF-TOKEN = 'Basic YmVlcDpib29w';
    }
+  http://188.166.253.128  

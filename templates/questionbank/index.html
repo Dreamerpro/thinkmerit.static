@@ -2,23 +2,23 @@
 <div class="content main" ng-controller="QuestionBank as nc" ng-init="nc.init()">
 
 <div class="modal fade" role="modal" id="answer-modal">
-	<div class="modal-dialog">
+	<div class="modal-dialog mw-600">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3>Answer</h3>
 			</div>
-			<div class="modal-body" mathjax-bind="nc.answer"></div>
+			<div class="modal-body mbh-200" mathjax-bind="nc.answer"></div>
 		</div>
 	</div>
 </div>
 
 <div class="modal fade" role="modal" id="solution-modal">
-	<div class="modal-dialog">
+	<div class="modal-dialog mw-600" >
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3>Solution</h3>
 			</div>
-			<div class="modal-body" mathjax-bind="nc.solution"></div>
+			<div class="modal-body mbh-200" mathjax-bind="nc.solution"></div>
 		</div>
 	</div>
 </div>
@@ -151,7 +151,9 @@
 <div class="col-md-12 questions-show" ng-show="nc.questions && !nc.question" >
 				<div class="list-group">
 					<div class="list-group-item clearfix" ng-repeat="q in nc.questions.questions track by $index">
-						<span class="question col-md-10 pd-l-15"><span>{{$index+1}}.</span><span processed="true"  mathjax-bind="q.question"></span><!-- <span mathjax-bind="q.question"></span> --></span>
+						<span class="question col-md-10 pd-l-15">
+							<span class="index">{{$index+1}}.</span><span class="question-content"  mathjax-bind="q.question"></span>
+						</span>
 						<span class="side-tools pull-right col-md-2 row" style="padding-right:0">
 							<div class="clearfix col-md-6 pull-right plr-0">
 								

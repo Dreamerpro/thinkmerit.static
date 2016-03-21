@@ -16,7 +16,14 @@ angular.module('thinkmerit')
 			value=z[0]+"<script type='text/javascript' src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML'></script></head>"+z[1];
 		}
 		// console.log(value);
+		
 		return $sce.trustAsHtml(value);
 	}
 })
+/*.filter('mathjax',function () {
+	return function (value) {
+		
+		return 
+	}
+})*/
 

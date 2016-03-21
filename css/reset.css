@@ -121,3 +121,10 @@ padding: 10px;
 	background-color: #5d9cec;
 	color: #fff;
 }
+/*MODAL*/
+.mbh-200{
+	min-height: 200px;
+}
+.mw-600{
+	width: 600px;
+}

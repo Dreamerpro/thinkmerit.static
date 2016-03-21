@@ -175,8 +175,8 @@ a.list-group-item.activa:hover{
 }
 .utility .body{
     padding: 5px 0px 10px;
-    min-height: 324px;
-    overflow-y: auto;
+    height: 404px;
+    overflow: auto;
 }
 .utility .body::-webkit-scrollbar {
 	width: 10px;
@@ -220,16 +220,19 @@ a.list-group-item.activa:hover{
 .utility .body>.item-details{
 	padding: 10px 30px 10px;
 }
+.utility .body>.item-details h3{
+	text-decoration: underline;
+}
 .ul-li>li{
 	/*border-bottom: 1px solid #6F6E6E;*/
     /*padding: 10px 0 10px !important;*/
     border-bottom: 1px solid #ddd;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     font-size: 18px;
 }
 .ul-li>li>a{
 	display: block;
-    padding: 12px 0 12px 0;
+    padding: 14px 0;
 }
 .back-icon{
     margin-top: 18px;
@@ -312,4 +315,12 @@ a.list-group-item.activa:hover{
 .qm i{
 	line-height: 20.5px;
 
+}
+.indexer{
+	display: inline-block;
+    width: 20px;
+}
+.question-content{
+	display: inline-block;
+    vertical-align: top;
 }

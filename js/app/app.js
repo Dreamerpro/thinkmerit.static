@@ -1,6 +1,6 @@
 
 angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize'])
-.constant('AP', 'http://api.thinkmerit.in')//http://188.166.253.128  ,'angularRipple'
+.constant('AP', 'http://api.thinkmerit.in')//,'angularRipple'
 .config(['$routeProvider','$httpProvider','$locationProvider', 
     function($routeProvider, $httpProvider, $locationProvider) {
 

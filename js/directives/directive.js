@@ -12,6 +12,34 @@ angular.module('thinkmerit')
         }]
     };
 })
+.directive("mathjaxBindNotes", function($sce) {
+    return {
+        restrict: "A",
+        controller: ["$scope", "$element", "$attrs", function($scope, $element, $attrs) {
+          var _self=this, url=null;
+
+          $scope.$watch($attrs.url, function (val) {
+            _self.url=val;
+          })
+           $scope.$watch($attrs.mathjaxBindNotes, function(value) {
+                if(value && _self.url){
+                    _self.url=_self.url.substring(0,_self.url.lastIndexOf('/')+1);
+                    value=value+"";
+                    value=value.replace("src=\"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML\"","");
+                    value=value.replace(/src=\"/g,"src=\""+_self.url);
+                    var z=value.split('</head>');
+                    value=z[0]+"<script type='text/javascript' src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML'></script></head>"+z[1];
+                }
+                /*console.log(_self.url);
+              */
+                $element.html(value?value:"");
+
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);         
+            });
+
+        }]
+    };
+})
 .directive('userSideBar', function () {
 	return {
 		restrict: 'E',

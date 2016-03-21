@@ -547,8 +547,9 @@ angular.module('thinkmerit')
 				_self.url=AP+""+url;
 				$http.get(AP+""+url)
 				.success(function (notes) {
-					_self.notes=$sce.trustAsHtml(notes);	
-
+					_self.notes=notes;
+					//_self.notes=$sce.trustAsHtml(notes);	
+					//_self.notes="alkdkalsmda ";
 				})
 				.error(function (argument) {
 					_self.notes=$sce.trustAsHtml("<h4 class=\"text-danger\">Error loading notes!</h4>");
