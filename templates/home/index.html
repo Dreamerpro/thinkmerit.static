@@ -105,6 +105,7 @@
 				</div>
 			<!-- 	<span ng-show="ac.signup.password.$error.minlength && ac.signup.password.$dirty"><small class="text-danger">Password at least 6 char</small> 	</span> -->
 				<!-- <input type='hidden' name="_token" ng-model="ac.credentials._token" ng-value="CSRF_TOKEN"> -->
+				<span class="text-danger">{{ac.signflash[0]}}</span>
 				<input class="btn btn-success" value="Sign Up" ng-disabled="ac.signup.$invalid && ac.signup.$dirty" ng-click="ac.register()" type="submit"/>
 				<label id="tnca"><!-- <input type="checkbox" ng-model="agreetnc"> --> By signing up you agree to our  <a href="#">Terms & Conditions</a>.</label>
 			</form>
@@ -282,9 +283,8 @@ Congrats! You are now a registered member of ThinkMerit.in</p>
 				<address>
 					<strong>Thinkmerit</strong><br>
 					Project Room No. 2<br>
-					Centre for Incubation, Innovation & Entrepreneurship (CIIE)<br>
+					Centre for Innovation, Incubation & Entrepreneurship (CIIE)<br>
 					Indian School Of Mines, Dhanbad-826004, Jharkhand. <br>
-					Ph: +91-8294154582<br>
 					Email: thinkmerit@gmail.com<br>
 				</address>
 			</div>	

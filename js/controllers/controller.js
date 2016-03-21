@@ -893,7 +893,7 @@ angular.module('thinkmerit')
 			     
 			})
 			.error(function (argument) {
-				that.signflash=argument.msg;
+				that.signflash=argument.email;
 			})
 		}
 	}
