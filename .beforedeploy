@@ -1,4 +1,4 @@
 1. change AP constant in app.js
 2. change loginwith social url in templates/ home/index.html
 
-ng-init="ac.credentials.email='marungshanew@gmail.com';ac.credentials.password='783347ki'"
+ng-init="ac.credentials.email='marungshanew@gmail.com';
