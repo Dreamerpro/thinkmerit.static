@@ -172,8 +172,8 @@ angular.module('thinkmerit')
 		}
 	}
 
-	this.prev=QuestionListService.prev(this);
-	this.next=QuestionListService.next(this);
+	this.prev=function(){QuestionListService.prev(this)};
+	this.next=function(){QuestionListService.next(this)};
 
 
 	this.share=function (qid) {QuestionListService.share(_self,qid);}
