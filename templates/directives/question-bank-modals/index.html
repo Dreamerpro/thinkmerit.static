@@ -1,0 +1,52 @@
+<div class="modal fade" role="modal" id="answer-modal">
+	<div class="modal-dialog mw-600">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Answer</h3>
+			</div>
+			<div class="modal-body mbh-200" mathjax-bind="nc.answer"></div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" role="modal" id="solution-modal">
+	<div class="modal-dialog mw-600" >
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Solution</h3>
+			</div>
+			<div class="modal-body mbh-200" mathjax-bind="nc.solution"></div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" role="modal" id="question-info-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Question Information</h3>
+				<hr>
+				<div class="clearfix">
+					<p><span class="col-md-4"><b>Subject:</b></span> <span class="col-md-8">{{nc.question_info.topic.chapter.module.subject.name}}</span></p>
+					<p><span class="col-md-4"><b>Chapter:</b></span> <span class="col-md-8">{{nc.question_info.topic.chapter.name}}</span></p>
+					<p><span class="col-md-4"><b>Topic:</b></span> <span class="col-md-8">{{nc.question_info.topic.name}}</span></p>
+					<p><span class="col-md-4"><b>Level:</b></span> <span class="col-md-8">{{nc.question_info.level}}</span></p>
+					<p><span class="col-md-4"><b>Rating:</b></span> <span class="col-md-8">{{nc.question_info.rating}}</span></p>
+					<p><span class="col-md-4"><b>Uploaded by:</b></span> <span class="col-md-8">{{nc.question_info.author[0].name}} </span></p>
+					<p><span class="col-md-4"><b>Source:</b></span> <span class="col-md-8">{{nc.question_info.source?nc.question_info.source:'none'}}</span></p>
+					
+				</div>
+			</div>
+			<div class="modal-body" mathjax-bind="nc.question_info"></div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" role="modal" id="question-video-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Video</h3>
+			</div>
+			<div class="modal-body" mathjax-bind="nc.question_video"></div>
+		</div>
+	</div>
+</div>

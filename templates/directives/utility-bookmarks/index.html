@@ -13,10 +13,10 @@
 		</div>
 		<ul class="menu ul-li" ng-hide="uc0.config.viewmode || uc0.config.editmode">
 			<li ng-repeat="a in dc.wdatas.bookmarks track by $index" >
-				<i  ng-click="dc.deletebookmark(a)" class="fa fa-trash option pull-right"></i>
+				<i  ng-click="dc.deletebookmark(a, $event)" class="fa fa-trash option pull-right"></i>
 				<!-- ng-show="uc0.config.deletemode" -->
 
-				<a  href=""> {{a.name | limitTo:40 }}</a>  
+				<a  href="" ng-click="dc.goToNotes(a.id, $event)"> {{a.name | limitTo:40 }}</a>  
 			</li>
 		</ul>
 		<div class="item-details" ng-show="uc0.config.viewmode">

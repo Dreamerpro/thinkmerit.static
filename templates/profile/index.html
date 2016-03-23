@@ -39,8 +39,8 @@
 				<label>Address</label>
 				<textarea class="form-control" ng-model="pc.profiledata.address"></textarea>
 			</div>
-			<span ng-show='pc.flash'>{{pc.flash}}</span>
-			<div class="btn btn-default" ng-disabled="pc.profileform.$dirty && pc.profileform.$invalid" ng-click="pc.submit()">Submit</div>
+			
+			<div class="btn btn-default" ng-disabled="pc.profileform.$dirty && pc.profileform.$invalid" ng-click="pc.submit()">Submit</div><span class="text-info" ng-show='pc.flash'> {{pc.flash}}</span>
 		</form>
 	</div>
 </div>

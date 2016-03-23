@@ -5,13 +5,13 @@ angular.module('thinkmerit')
 
 		$http.get(AP+'/profile')
 		.success(function (data) {
+			console.log(data);
 			_self.profiledata=data;
 			console.log(data);
 		})
 		.error(function (argument) {
 			console.log(argument);
 		})
-
 	}
 
 	this.submit=function () {
@@ -39,7 +39,7 @@ angular.module('thinkmerit')
 	}
 	
 })
-.controller('QuestionBank', function  ($http,AP,$sce, $scope, $location,$routeParams,StringMods,$rootScope, $cookies) {
+.controller('QuestionBank', function  ($http,AP,$sce, $scope, $location,$routeParams,StringMods,$rootScope, $cookies, QuestionListService) {
 	var _self=this;
 	this.datas={courses:[],subjects:[],chapters:[],modules:[],topics:[]};
 	this.selected={};
@@ -48,14 +48,12 @@ angular.module('thinkmerit')
 
 	this.answer="";
 	this.solution="";
-	_self.questions=$rootScope.questions;
+	_self.questions={previousPage:false,nextPage:false,questions:false};
 
 	_self.init=function () {
-		/*$http.get(AP+'/get/courses')
-		.success(function (data) {	_self.datas.courses=data;	})
-		.error(function (argument) { console.log(argument);})*/
+
 		if($routeParams.course){
-					if(!_self.questions && !$routeParams.subject){
+					if(!_self.questions.questions && !$routeParams.subject){
 						//if question null and subject not selected => load all question from that course 
 						$http.get(AP+'/get/questions/'+StringMods.removeUnderScore($routeParams.course)+"/"+_self.pageNo)
 						.success(function (data) {_self.questions=data;	})
@@ -73,15 +71,6 @@ angular.module('thinkmerit')
 				}
 
 					
-					/*if($routeParams.subject && !$routeParams.chapter){
-						$http.get(AP+'/get/questions/'
-							+StringMods.removeUnderScore($routeParams.course)+"/"
-							+StringMods.removeUnderScore($routeParams.subject)+"/"
-							+_self.pageNo)
-						.success(function (data) { _self.questions=data;})
-						.error(function (data) { console.log(data);	})
-					}*/
-				
 				if($routeParams.subject){//select subject if in routeParam
 					for (var i = _self.datas.subjects.length - 1; i >= 0; i--) {
 						if(_self.datas.subjects[i].name===StringMods.removeUnderScore($routeParams.subject)){
@@ -156,8 +145,7 @@ angular.module('thinkmerit')
 												+StringMods.removeUnderScore($routeParams.topic)+"/"
 												+_self.pageNo)
 											.success(function (data) { _self.questions=data; _self.question=null;})
-											.error(function (data) {console.log(data);})
-											
+											.error(function (data) {console.log(data);})			
 										}
 										else{
 											$http.post(AP+'/get/question/'+$routeParams.questionid,{
@@ -167,11 +155,9 @@ angular.module('thinkmerit')
 												topic:StringMods.removeUnderScore($routeParams.topic)
 											})
 											.success(function (data) {	
-												//console.log(data);
 												_self.question=data;
 											})
-										}
-										
+										}			
 									}	
 								}
 								
@@ -184,32 +170,24 @@ angular.module('thinkmerit')
 			})
 			.error(function (argument) { console.log(argument);})
 		}
-			
 	}
 
-	this.prev=function () {
-		if(_self.questions.previousPage){
-			$location.search({pageNo:_self.questions.previousPage});
-		}
-	}
-	this.next=function () {
-		if(_self.questions.nextPage){
-			$location.search({pageNo:_self.questions.nextPage});
-		}
-	}
-	/*this.shareUrl=function (qid) {
-		return $location.path();
-	}*/
-	this.share=function (qid) {
-		var path="/question-bank/";
-				path+=$routeParams.course?$routeParams.course+"/":"";
-				path+=$routeParams.subject?$routeParams.subject+"/":"";
-				path+=$routeParams.chapter?$routeParams.chapter+"/":"";
-				path+=$routeParams.topic?$routeParams.topic+"/":"";
-				path+=qid;
-		return path;
-		//$location.path(path);
-	}
+	this.prev=QuestionListService.prev(this);
+	this.next=QuestionListService.next(this);
+
+
+	this.share=function (qid) {QuestionListService.share(_self,qid);}
+	
+	
+	this.showanswer=function (id) {	QuestionListService.showanswer(_self,id); }
+	this.showsolution=function (id) { QuestionListService.showsolution(_self,id);	}
+	this.showvideo=function (video) { QuestionListService.showvideo(video); }
+
+	this.showinfo=function (id) { QuestionListService.showinfo(_self,id); }
+	this.togglefavourite=function (question,list) { QuestionListService.togglefavourite(_self,question,list)	}
+	this.toggledoubt=function (question,list) { QuestionListService.toggledoubt(_self,question,list);  }
+	this.togglesolved=function (question,list) { QuestionListService.togglesolved(_self,question,list); }
+
 	
 	this.loadquestions=function () {
 		$http.get(AP+'/questions/'+_self.selected.topic.id+"/"+_self.range.start+"/"+_self.range.end)
@@ -221,146 +199,9 @@ angular.module('thinkmerit')
 			console.log("error");
 		})
 	}
-	this.showanswer=function (id) {
 
-		var canceled=false;
-		swal({
-				  title: "",
-				  text: "<img src=\"/images/loading.gif\">",
-				  html:true,
-				  showCancelButton: true,
-				  showConfirmButton:false
-			},function (argument) {
-				canceled=argument;
-			})
-		$http.get(AP+'/answer/'+id)
-		.success(function (data) {
-			_self.answer=data.answer;
-			//swal().close();
-			if(!canceled){
-				swal.close();
-				$('#answer-modal').modal({show:true});
-			}
-		})
-		.error(function (argument) {
-			swal({   title: "Error!",   text: "There was an error loading answer.",   timer: 2000,   showConfirmButton: false });
-		})
-			
-	}
-	this.showsolution=function (id) {
-		var canceled=false;
-		swal({
-				  title: "",
-				  text: "<img src=\"/images/loading.gif\">",
-				  html:true,
-				  showCancelButton: true,
-				  showConfirmButton:false
-			},function (argument) {
-				canceled=argument;
-			})
-		$http.get(AP+'/solution/'+id)
-		.success(function (data) {
-			_self.solution=data.solution;
-
-			if(!canceled){
-				swal.close();
-				$('#solution-modal').modal({show:true});
-			}
-			
-		})
-		.error(function (argument) {
-			swal({   title: "Error!",   text: "There was an error loading solution.",   timer: 2000,   showConfirmButton: false });
-		})
-
-	}
-	this.showvideo=function (video) {
-		if(!video){return false;}
-		var canceled=false;
-		swal({
-				  title: "",
-				  text: "<img src=\"/images/loading.gif\">",
-				  html:true,
-				  showCancelButton: false,
-				  showConfirmButton:false,
-				  timer:1000
-			})
-		/*$http.get(AP+'/video/'+id)
-		.success(function (data) {
-			_self.question_video=data.url;
-			if(!canceled){
-				swal.close();
-				$('#question-video-modal').modal({show:true});
-			}
-			$('#question-video-modal').modal({show:true});
-		})*/
-		$('#question-video-modal').modal({show:true});
-	}
-
-	this.showinfo=function (id) {
-		var canceled=false;
-		swal({
-				  title: "",
-				  text: "<img src=\"/images/loading.gif\">",
-				  html:true,
-				  showCancelButton: true,
-				  showConfirmButton:false
-			},function (argument) {
-				canceled=argument;
-			})
-		$http.get(AP+'/question-info/'+id)
-		.success(function (data) {
-			_self.question_info=data;
-			
-			if(!canceled){
-				swal.close();
-				$('#question-info-modal').modal({show:true});
-			}
-
-		})
-		.error(function (argument) {
-			swal({   title: "Error!",   text: "There was an error loading question information.",   timer: 2000,   showConfirmButton: false });
-		})
-	}
-
-	this.togglefavourite=function (question,list) {
-		$http.get(AP+'/dfs/toggleitem/'+question.id+'/1')
-		.success(function (data) {
-			if(list){$item=_self.questions.questions[_self.questions.questions.indexOf(question)];$item.userfavourite[0]=!$item.userfavourite[0];}
-			else{_self.question.userfavourite=!_self.question.userfavourite;}	
-		})
-		.error(function (data) {
-			console.log('error');
-		})
-	}
-	this.toggledoubt=function (question,list) {
-		$http.get(AP+'/dfs/toggleitem/'+question.id+'/2')
-		.success(function (data) {
-			if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.userdoubt[0]=!$item.userdoubt[0];}
-			else{_self.question.userdoubt=!_self.question.userdoubt;}
-		})
-		.error(function (data) {
-			console.log('error');
-		})
-	}
-	this.togglesolved=function (question,list) {
-		$http.get(AP+'/dfs/toggleitem/'+question.id+'/3')
-		.success(function (data) {
-			if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.usersolved[0]=!$item.usersolved[0];}
-			else{_self.question.usersolved=!_self.question.usersolved;}
-		})
-		.error(function (data) {
-			console.log('error');
-		})
-	}
-
-	
-
-	this.trust_html=function (html_code) {
-		return $sce.trustAsHtml(html_code);
-	}
 	
 	this.redirectToSubject=function (val) {
-
 			var path="/question-bank/";
 				path+=$routeParams.course?$routeParams.course+"/":"";
 
@@ -387,122 +228,7 @@ angular.module('thinkmerit')
 	}
 
 })
-/*.controller('QuestionBank', function  ($http,AP,$sce, $scope, $location) {
-	var _self=this;
-	this.datas={courses:[],subjects:[],chapters:[],modules:[],topics:[]};
-	this.selected={};
-	this.search=$location.search();
-	this.range={start:0,end:10};
 
-	this.answer="";
-	this.solution="";
-
-	_self.init=function () {
-		$http.get(AP+'/get/courses')
-		.success(function (data) {	_self.datas.courses=data;	})
-		.error(function (argument) { console.log(argument);})		
-	};
-	this.selectcourse=function (course) {
-		_self.selected.course=course;
-		_self.selected.chapter=null;//clear selected subject
-		_self.datas.subjects=[];
-		_self.selected.subject=null;
-		
-		$http.get(AP+'/get/subjects/'+course.id)
-		.success(function (data) {	_self.datas.subjects=data;	})
-		.error(function (argument) { console.log(argument);})
-	}
-	this.selectsubject=function (subject) {
-		_self.selected.subject=subject;
-		_self.datas.chapters=[];
-		
-		_self.selected.chapter=null;//clear selected chapter
-
-		$http.get(AP+'/get/getchaptersfromsubject/'+subject.id)
-		.success(function (data) {	_self.datas.chapters=data;	})
-		.error(function (argument) { console.log(argument);})
-	}
-	this.selectchapter=function (chapter) {
-		_self.selected.chapter=chapter;
-		_self.selected.topics=[];
-		
-		$http.get(AP+'/get/topics/'+chapter.id)
-		.success(function (data) {	_self.datas.topics=data;	})
-		.error(function (argument) { console.log(argument);})
-	}
-
-	this.selecttopic=function (topic) {
-		_self.selected.topic=topic;
-		_self.questions=[];
-		_self.loadquestions();
-	}
-	this.loadquestions=function () {
-		$http.get(AP+'/questions/'+_self.selected.topic.id+"/"+_self.range.start+"/"+_self.range.end)
-		.success(function (data) {
-			_self.questions=data;
-			console.log(data);
-		})
-		.success(function (data) {
-			console.log("error");
-		})
-	}
-	this.showanswer=function (id) {
-		$http.get(AP+'/answer/'+id)
-		.success(function (data) {
-			_self.answer=data.answer;
-		})
-		.error(function (data) {
-			console.log('error');
-		})
-	}
-	this.togglefavourite=function (question) {
-		$http.get(AP+'/dfs/toggleitem/'+question.id+'/1')
-		.success(function (data) {
-			$item=_self.questions[_self.questions.indexOf(question)];
-			$item.favourite=!$item.favourite;
-		})
-		.error(function (data) {
-			console.log('error');
-		})
-	}
-	this.toggledoubt=function (question) {
-		$http.get(AP+'/dfs/toggleitem/'+question.id+'/2')
-		.success(function (data) {
-			$item=_self.questions[_self.questions.indexOf(question)];
-			$item.doubt=!$item.doubt;
-		})
-		.error(function (data) {
-			console.log('error');
-		})
-	}
-	this.togglesolved=function (question) {
-		$http.get(AP+'/dfs/toggleitem/'+question.id+'/3')
-		.success(function (data) {
-			$item=_self.questions[_self.questions.indexOf(question)];
-			$item.solved=!$item.solved;
-		})
-		.error(function (data) {
-			console.log('error');
-		})
-	}
-
-	this.showsolution=function (id) {
-		$http.get(AP+'/solution/'+id)
-		.success(function (data) {
-			_self.solution=data.solution;
-		})
-		.error(function (data) {
-			console.log('error');
-		})
-
-	}
-
-	this.trust_html=function (html_code) {
-		return $sce.trustAsHtml(html_code);
-	}
-	
-
-})*/
 .controller('NotesCtrl', function ($http,AP,$sce, $scope, $location, $rootScope,$routeParams,StringMods) {
 	var _self=this;
 	this.datas={courses:false,subjects:false,chapters:false,modules:false,topics:false};
@@ -695,12 +421,22 @@ angular.module('thinkmerit')
 	}
 		
 })
-.controller('DashboardCtrl', function ($http,AP,$location,$routeParams) {
+.controller('DashboardCtrl', function ($http,AP,$location,$routeParams, StringMods, QuestionListService) {
 	var _self=this;
 	_self.stats={};
 	_self.wdatas={todos:[],bookmarks:[],stickies:[]};
 	_self.params=$routeParams;
 	_self.widgetdatas={};
+
+//for question list
+	this.search=$location.search();
+	this.pageNo=_self.search.pageNo?_self.search.pageNo:1;
+
+	this.answer="";
+	this.solution="";
+	_self.questions={previousPage:false,nextPage:false,questions:false};
+	this.pageNo=$location.search().pageno?$location.search().pageno:1;
+//for question list
 
 	_self.init=function () {
 		$http.get(AP+'/user/stats')
@@ -730,6 +466,19 @@ angular.module('thinkmerit')
 		
 	}
 
+	_self.goToNotes=function (cid, event) {
+		event.preventDefault();
+		$http.get(AP+"/get/datafromchapterid/"+cid)
+		.success(function  (argument) {
+			$location.path("/"
+				+StringMods.addUnderScore("notes")+"/"
+				+StringMods.addUnderScore(argument.module.subject.course.name)+"/"
+				+StringMods.addUnderScore(argument.module.subject.name)+"/"
+				+StringMods.addUnderScore(argument.name)
+				);	})
+		.error(function (argument) {console.log(argument);})
+	}
+
 	_self.save=function (type,index) {
 		$fn=null;
 		if(_self.savemode==="new"){$fn="/add/";}
@@ -750,11 +499,11 @@ angular.module('thinkmerit')
 			_self.currentItem={};		
 		})
 		.error(function (argument) {console.log(argument);	})
-
 		return $prom;
 	}
 
-	this.deletebookmark=function (bookmark) {
+	this.deletebookmark=function (bookmark, event) {
+		event.preventDefault();
 		$http.get(AP+'/toggle/bookmark/'+bookmark.id)
 		.success(function (data) {	 _self.wdatas.bookmarks.splice(_self.wdatas.bookmarks.indexOf(bookmark));	})
 		.error(function (argument) { console.log(argument);})
@@ -764,21 +513,34 @@ angular.module('thinkmerit')
 	}
 	this.loadwidgetDatas=function () {
 		var prom;
-		
-		if(_self.params.item=="favourites"){	prom=$http.get(AP+'/user/list/favourites'); }
-		else if(_self.params.item=="doubts"){prom=$http.get(AP+'/user/list/doubts');	}
-		else if(_self.params.item=="solved"){prom=$http.get(AP+'/user/list/solveds');	}
+		/*console.log(_self.params.item);*/
+		if(_self.params.item=="favourites"){	prom=$http.get(AP+'/user/list/favourites/'+_self.pageNo); }
+		else if(_self.params.item=="doubts"){prom=$http.get(AP+'/user/list/doubts/'+_self.pageNo);	}
+		else if(_self.params.item=="solved"){prom=$http.get(AP+'/user/list/solveds/'+_self.pageNo);	}
 			
 		prom
 		.success(function (argument) {
-			if(_self.params.item=="favourites"){	_self.widgetdatas.favourites=argument; }
-			else if(_self.params.item=="doubts"){ _self.widgetdatas.doubts=argument;}
-			else if(_self.params.item=="solved"){ _self.widgetdatas.solved=argument;	}
+			/*if(_self.params.item=="favourites"){	*/_self.questions=argument;/* }
+			else if(_self.params.item=="doubts"){ _self.questions=argument;}
+			else if(_self.params.item=="solved"){ _self.questions=argument;	}*/
 		})
-		.error(function (argument) { console.log(argument);	})
-		
-		
+		.error(function (argument) { console.log(argument);	})	
 	}
+	this.prev=QuestionListService.prev(this);
+	this.next=QuestionListService.next(this);
+
+
+	this.share=function (qid) {QuestionListService.share(_self,qid);}
+	
+	
+	this.showanswer=function (id) {	QuestionListService.showanswer(_self,id); }
+	this.showsolution=function (id) { QuestionListService.showsolution(_self,id);	}
+	this.showvideo=function (video) { QuestionListService.showvideo(video); }
+
+	this.showinfo=function (id) { QuestionListService.showinfo(_self,id); }
+	this.togglefavourite=function (question,list) { QuestionListService.togglefavourite(_self,question,list)	}
+	this.toggledoubt=function (question,list) { QuestionListService.toggledoubt(_self,question,list);  }
+	this.togglesolved=function (question,list) { QuestionListService.togglesolved(_self,question,list); }
 
 })
 .controller('careerCtrl', function($http, FlashService, $scope, AP){

@@ -1,0 +1,37 @@
+
+<div class="col-md-12 questions-show" ng-show="nc.questions && !nc.question" >
+			<div class="list-group">
+				<div class="list-group-item clearfix" ng-repeat="q in nc.questions.questions track by $index">
+						<span class="question col-md-10 pd-l-15">
+							<p class="indexer">Question {{$index+1+10*(nc.pageNo-1)}}.</p><p class="question-content"  mathjax-bind="q.question"></p>
+						</span>
+						<span class="side-tools pull-right col-md-2 row" style="padding-right:0">
+							<div class="clearfix col-md-6 pull-right plr-0">
+								
+<a  ng-click="nc.showanswer(q.id)" class="btn btn-default col-md-12 row">Answer</a>
+<a  ng-click="nc.showsolution(q.id)" class="btn btn-default col-md-12 row" >Solution</a>
+							</div>
+							<div class="clearfix col-md-6 plr-0">
+<div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(q,true)"><i class="fa fa-check" ng-class="{'text-success':q.usersolved[0]}"></i> </div>
+<div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(q,true)"><i class="fa fa-question"  ng-class="{'text-danger':q.userdoubt[0]}"></i> </div>
+<div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(q,true)" ><i class="fa fa-star" ng-class="{'text-yellow':q.userfavourite[0]}"></i> </div>
+<br>
+<div title="video" class="btn btn-default qm"  ng-class="{'btn-disabled':!q.video}" ng-click="nc.showvideo(q.video)"  ng-disable="!q.video" ng-click="nc.togglevideo(q)"  ><i class="fa fa-video-camera" ></i> </div>
+<div title="information" class="btn btn-default qm" ng-click="nc.showinfo(q.id)" style="width:34px"><i class="fa fa-info" ></i> </div>
+
+
+<div class="btn-group" title="share">
+  <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="width: 38px; height: 32.5px;">
+    <i class="fa fa-share-alt"></i>
+  </button>
+  <ul class="dropdown-menu" style=" min-width: 90px;">
+	    <li><div class="fb-share-button" data-href="{{nc.shareUrl(q.id)}}"  data-layout="button"></div></li>
+		<li><a class="twitter-share-button" href="{{nc.shareUrl(q.id)}}">Tweet</a></li>
+  </ul>
+</div>
+</div><!-- fa-video-camera -->
+							</div>
+						</span>
+					</div>
+				</div>		
+</div>

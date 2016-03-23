@@ -1,4 +1,124 @@
 angular.module('thinkmerit')
+.factory('QuestionListService',function ($location, $http,AP) {
+	
+
+	return {
+		prev:function (_self) {
+			if(_self.questions.previousPage){
+				$location.search({pageNo:_self.questions.previousPage});
+			}
+		},
+		next:function (_self) {
+			if(_self.questions.nextPage){
+				$location.search({pageNo:_self.questions.nextPage});
+			}
+		},
+		showanswer:function (_self, id) {
+			var canceled=false;
+			swal({
+					  title: "",
+					  text: "<img src=\"/images/loading.gif\">",
+					  html:true,
+					  showCancelButton: true,
+					  showConfirmButton:false
+				},function (argument) {
+					canceled=argument;
+				})
+			$http.get(AP+'/answer/'+id)
+			.success(function (data) {
+				_self.answer=data.answer;
+				if(!canceled){	swal.close(); $('#answer-modal').modal({show:true});	}
+			})
+			.error(function (argument) { swal({   title: "Error!",   text: "There was an error loading answer.",   timer: 2000,   showConfirmButton: false });	})
+			
+		},
+		showsolution:function (_self, id) {
+			var canceled=false;
+			swal({
+					  title: "",
+					  text: "<img src=\"/images/loading.gif\">",
+					  html:true,
+					  showCancelButton: true,
+					  showConfirmButton:false
+				},function (argument) {
+					canceled=argument;
+				})
+			$http.get(AP+'/solution/'+id)
+			.success(function (data) {
+				_self.solution=data.solution;
+				if(!canceled){	swal.close();$('#solution-modal').modal({show:true});	}
+			})
+			.error(function (argument) {swal({   title: "Error!",   text: "There was an error loading solution.",   timer: 2000,   showConfirmButton: false });	})
+
+		},
+		showinfo:function (_self, id) {
+			var canceled=false;
+			swal({
+					  title: "",
+					  text: "<img src=\"/images/loading.gif\">",
+					  html:true,
+					  showCancelButton: true,
+					  showConfirmButton:false
+				},function (argument) {
+					canceled=argument;
+				})
+			$http.get(AP+'/question-info/'+id)
+			.success(function (data) {
+				_self.question_info=data;
+				if(!canceled){	swal.close();$('#question-info-modal').modal({show:true});	}
+			})
+			.error(function (argument) { swal({ title: "Error!",   text: "There was an error loading question information.",   timer: 2000,   showConfirmButton: false });	})
+		},
+		showvideo:function (video) {
+			if(!video){return false;}
+			var canceled=false;
+			swal({
+				  title: "",
+				  text: "<img src=\"/images/loading.gif\">",
+				  html:true,
+				  showCancelButton: false,
+				  showConfirmButton:false,
+				  timer:1000
+			})
+			$('#question-video-modal').modal({show:true});
+		},
+		togglefavourite:function (_self,question,list) {
+			$http.get(AP+'/dfs/toggleitem/'+question.id+'/1')
+			.success(function (data) {
+				if(list){$item=_self.questions.questions[_self.questions.questions.indexOf(question)];$item.userfavourite[0]=!$item.userfavourite[0];}
+				else{_self.question.userfavourite=!_self.question.userfavourite;}	
+			})
+			.error(function (data) {	console.log(data);	})
+		},
+		toggledoubt:function (_self,question,list) { 
+			$http.get(AP+'/dfs/toggleitem/'+question.id+'/2')
+			.success(function (data) {
+				if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.userdoubt[0]=!$item.userdoubt[0];}
+				else{_self.question.userdoubt=!_self.question.userdoubt;}
+			})
+			.error(function (data) { console.log(data);	})
+		},
+		togglesolved:function (_self, question,list) {
+			$http.get(AP+'/dfs/toggleitem/'+question.id+'/3')
+			.success(function (data) {
+				if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.usersolved[0]=!$item.usersolved[0];}
+				else{_self.question.usersolved=!_self.question.usersolved;}
+			})
+			.error(function (data) {	console.log(data);	})
+		},
+		share:function (_self, qid) {
+			var path="/question-bank/";
+				path+=$routeParams.course?$routeParams.course+"/":"";
+				path+=$routeParams.subject?$routeParams.subject+"/":"";
+				path+=$routeParams.chapter?$routeParams.chapter+"/":"";
+				path+=$routeParams.topic?$routeParams.topic+"/":"";
+				path+=qid;
+			return path;
+		}
+
+
+	}//end
+})
 /*.factory("IndexFinder", function () {
 	return{
 		findIndexByName:function (obj, query) {

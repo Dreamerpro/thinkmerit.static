@@ -41,6 +41,24 @@ angular.module('thinkmerit')
         }]
     };
 })
+.directive('questionBankModals', function () {
+  return {
+    restrict:'E',
+    templateUrl:'/templates/directives/question-bank-modals'
+  }
+})
+.directive('listOfQuestion', function () {
+  return {
+    restrict:'A',
+    templateUrl:'/templates/directives/question-list'
+  }
+})
+.directive('singleQuestion', function () {
+  return {
+    restrict:'A',
+    templateUrl:'/templates/directives/question-single'
+  }
+})
 .directive('userSideBar', function () {
 	return {
 		restrict: 'E',

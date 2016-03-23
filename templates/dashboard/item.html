@@ -1,6 +1,19 @@
-<div class="content main" ng-controller="DashboardCtrl as dc" ng-init="dc.loadwidgetDatas()">
+<div class="content main" ng-controller="DashboardCtrl as nc" ng-init="nc.loadwidgetDatas()">
+	<question-bank-modals></question-bank-modals>
+<section class="question-bank inner">
+		<div class="section-header">
+			<a class="pull-right" href="/dashboard" style=" line-height: 40px;">Back to dashboard</a>
+			<h4 style="text-transform:capitalize;">{{nc.params.item}}</h4>
+		</div>
+		<div class="contents">
+			<div ng-if='!nc.questions.total' class="no-data">
 
-<div class="clearfix" style="margin-top:75px"> 
-	load {{dc.params}} here
-</div>
+				<h3 ng-if="nc.params.item=='solved'"> Oops! you haven't solved any question.</h3>
+				<h3 ng-if="nc.params.item=='doubts'"> Congratulations, you are a genius!</h3>
+				<h3 ng-if="nc.params.item=='favourites'"> No favourites, are you serious? </h3>
+			</div>
+			<div  list-of-question></div> 
+		</div>
+	
+</section>
 </div>

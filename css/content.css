@@ -340,3 +340,9 @@ a.list-group-item.activa:hover{
     padding: 40px;
     background-color: #fff;   
 }
+.no-data{
+	height: 200px;
+	text-align: center;
+	margin-top: 140px;
+	margin-bottom: 100px;
+}
