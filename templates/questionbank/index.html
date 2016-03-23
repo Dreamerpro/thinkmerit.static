@@ -127,9 +127,9 @@
 <a  ng-click="nc.showsolution(nc.question.id)" class="btn btn-default col-md-12 row" >Solution</a><!-- data-toggle="modal" data-target="#solution-modal" -->
 							</div>
 							<div class="clearfix col-md-6 plr-0">
-<div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(nc.question,false)"><i class="fa fa-check" ng-class="{'text-success':nc.question.solved[0]}"></i> </div>
-<div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(nc.question,false)"><i class="fa fa-question"  ng-class="{'text-warning':nc.question.doubt[0]}"></i> </div>
-<div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(nc.question,false)" ><i class="fa fa-star" ng-class="{'text-yellow':nc.question.favourite[0]}"></i> </div>
+<div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(nc.question,false)"><i class="fa fa-check" ng-class="{'text-success':nc.question.usersolved[0]}"></i> </div>
+<div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(nc.question,false)"><i class="fa fa-question"  ng-class="{'text-warning':nc.question.userdoubt[0]}"></i> </div>
+<div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(nc.question,false)" ><i class="fa fa-star" ng-class="{'text-yellow':nc.question.userfavourite[0]}"></i> </div>
 <br>
 <div title="video" class="btn btn-default qm"  ng-class="{'btn-disabled':!nc.question.video}" ng-click="nc.showvideo(nc.question.video)"  ng-disable="!nc.question.video" ng-click="nc.togglevideo(nc.question)"  ><i class="fa fa-video-camera" ></i> </div>
 <div title="information" class="btn btn-default qm" ng-click="nc.showinfo(nc.question.id)" style="width:34px"><i class="fa fa-info" ></i> </div>
@@ -162,9 +162,9 @@
 <a  ng-click="nc.showsolution(q.id)" class="btn btn-default col-md-12 row" >Solution</a><!-- data-toggle="modal" data-target="#solution-modal" -->
 							</div>
 							<div class="clearfix col-md-6 plr-0">
-<div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(q,true)"><i class="fa fa-check" ng-class="{'text-success':q.solved[0]}"></i> </div>
-<div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(q,true)"><i class="fa fa-question"  ng-class="{'text-danger':q.doubt[0]}"></i> </div>
-<div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(q,true)" ><i class="fa fa-star" ng-class="{'text-yellow':q.favourite[0]}"></i> </div>
+<div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(q,true)"><i class="fa fa-check" ng-class="{'text-success':q.usersolved[0]}"></i> </div>
+<div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(q,true)"><i class="fa fa-question"  ng-class="{'text-danger':q.userdoubt[0]}"></i> </div>
+<div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(q,true)" ><i class="fa fa-star" ng-class="{'text-yellow':q.userfavourite[0]}"></i> </div>
 <br>
 <div title="video" class="btn btn-default qm"  ng-class="{'btn-disabled':!q.video}" ng-click="nc.showvideo(q.video)"  ng-disable="!q.video" ng-click="nc.togglevideo(q)"  ><i class="fa fa-video-camera" ></i> </div>
 <div title="information" class="btn btn-default qm" ng-click="nc.showinfo(q.id)" style="width:34px"><i class="fa fa-info" ></i> </div>

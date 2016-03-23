@@ -325,8 +325,8 @@ angular.module('thinkmerit')
 	this.togglefavourite=function (question,list) {
 		$http.get(AP+'/dfs/toggleitem/'+question.id+'/1')
 		.success(function (data) {
-			if(list){$item=_self.questions.questions[_self.questions.questions.indexOf(question)];$item.favourite[0]=!$item.favourite[0];}
-			else{_self.question.favourite=!_self.question.favourite;}	
+			if(list){$item=_self.questions.questions[_self.questions.questions.indexOf(question)];$item.userfavourite[0]=!$item.userfavourite[0];}
+			else{_self.question.userfavourite=!_self.question.userfavourite;}	
 		})
 		.error(function (data) {
 			console.log('error');
@@ -335,8 +335,8 @@ angular.module('thinkmerit')
 	this.toggledoubt=function (question,list) {
 		$http.get(AP+'/dfs/toggleitem/'+question.id+'/2')
 		.success(function (data) {
-			if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.doubt[0]=!$item.doubt[0];}
-			else{_self.question.doubt=!_self.question.doubt;}
+			if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.userdoubt[0]=!$item.userdoubt[0];}
+			else{_self.question.userdoubt=!_self.question.userdoubt;}
 		})
 		.error(function (data) {
 			console.log('error');
@@ -345,8 +345,8 @@ angular.module('thinkmerit')
 	this.togglesolved=function (question,list) {
 		$http.get(AP+'/dfs/toggleitem/'+question.id+'/3')
 		.success(function (data) {
-			if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.solved[0]=!$item.solved[0];}
-			else{_self.question.solved=!_self.question.solved;}
+			if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.usersolved[0]=!$item.usersolved[0];}
+			else{_self.question.usersolved=!_self.question.usersolved;}
 		})
 		.error(function (data) {
 			console.log('error');
@@ -597,7 +597,7 @@ angular.module('thinkmerit')
 
 	this.togglebookmark=function () {
 		$http.get(AP+'/toggle/bookmark/'+_self.selected.chapter.id)
-		.success(function (data) {	console.log(_self.selected.chapter.bookmark[0]);_self.selected.chapter.bookmark[0]=!_self.selected.chapter.bookmark[0];	})
+		.success(function (data) {	_self.selected.chapter.bookmark[0]=!_self.selected.chapter.bookmark[0];	})
 		.error(function (argument) { console.log(argument);})
 	}
 	this.togglereadmode=function (element) {
