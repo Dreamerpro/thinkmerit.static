@@ -9,10 +9,14 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
 	.when("/", { templateUrl:$tu+'home/index.html' })//comingsoon
 	.when("/careers", { templateUrl:$tu+'careers/index.html' })
   .when("/dashboard", {templateUrl:$tu+'dashboard/index.html'})
+  .when("/dashboard/:item", {templateUrl:$tu+'dashboard/item.html'})
+
+
   .when("/notes", {redirectTo:"/notes/+2_Science"})//templateUrl:$tu+'notes/index.html'
   .when("/notes/:course", {templateUrl:$tu+'notes/course.html'})
   .when("/notes/:course/:subject", {templateUrl:$tu+'notes/course.html'})
   .when("/notes/:course/:subject/:chapter", {templateUrl:$tu+'notes/chapter.html'})
+
   .when("/question-bank", {redirectTo:"/question-bank/+2_Science"})
   .when("/question-bank/:course", {templateUrl:$tu+'questionbank/index.html'})
   .when("/question-bank/:course/:subject", {templateUrl:$tu+'questionbank/index.html'})

@@ -99,6 +99,7 @@ section.inner .section-header{
 	margin-bottom: 20px;
     border: 0;
     height: 95px;
+    cursor: pointer;
 }
 .bg-primary {
     background-color: #5d9cec;
@@ -317,15 +318,14 @@ a.list-group-item.activa:hover{
 
 }
 .indexer{
-	display: inline-block;
-    width: 20px;
+	font-weight: bold;
+	text-decoration: underline;
 }
 .question-content{
 	display: inline-block;
     vertical-align: top;
 }
 
-/**/
 
 #notes-container{
 	overflow-y: auto;

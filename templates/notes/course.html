@@ -10,15 +10,25 @@
 		<h4>Subjects</h4>
 		<hr>
 		<div class="list-group">
-			<div  class="list-group-item cp" ng-repeat="a in nc.datas.subjects track by $index" ng-class="{'iactive':a.name==nc.current.nsubject}"  ng-click="nc.redirectToSubject(a.name)">{{a.name}}</div>
+			<div  class="list-group-item cp" ng-repeat="a in nc.datas.subjects track by $index" ng-class="{'iactive':a.name==nc.currentData.nsubject}"  ng-click="nc.redirectToSubject(a.name)">{{a.name}}</div>
 		</div>
 	</div>
-	<div class="col-md-10" ng-if="nc.current.subject">
+	<div class="col-md-10" ng-if="nc.currentData.subject">
 		<h4>Chapters</h4>
 		<hr>
 		<div class="col-md-4">
 			<div class="list-group">
-			<div  class="list-group-item cp" ng-repeat="b in nc.datas.chapters track by $index" ng-class="{'iactive':b.name==nc.current.nchapter}" ng-click="nc.showNotes(b.name)">{{b.name}}</div>
+			<div  class="list-group-item cp" ng-repeat="b in nc.datas.chapters track by $index" ng-if="$index<15" ng-class="{'iactive':b.name==nc.currentData.nchapter}" ng-click="nc.showNotes(b.name)">{{b.name}}</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="list-group">
+			<div  class="list-group-item cp" ng-repeat="b in nc.datas.chapters track by $index" ng-if="$index>14 && $index<30" ng-class="{'iactive':b.name==nc.currentData.nchapter}" ng-click="nc.showNotes(b.name)">{{b.name}}</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="list-group">
+			<div  class="list-group-item cp" ng-repeat="b in nc.datas.chapters track by $index"  ng-if="$index>29" ng-class="{'iactive':b.name==nc.currentData.nchapter}" ng-click="nc.showNotes(b.name)">{{b.name}}</div>
 			</div>
 		</div>
 					

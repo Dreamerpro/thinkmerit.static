@@ -15,18 +15,17 @@
 		</div>
 <div class="modal-body utility" style="min-height: 250px; height:auto">
 
-			<div class=""  ng-init="nc.stickies=nc.stickies">
+			<div class=""  >
 			
 			
 			<div class="body">
-				<div ng-if="nc.stickies.length<1 && !uc0.config.editmode" style="padding: 120px; color: #FFBE56; opacity: 0.2; ">
+				<div ng-if="nc.wdatas.stickies.length<1 && !uc0.config.editmode" style="padding: 120px; color: #FFBE56; opacity: 0.2; ">
 					<center><i class="fa fa-sticky-note-o fa-4x"></i></center>
 				</div>
 				<ul class="menu ul-li" ng-hide="uc0.config.viewmode || uc0.config.editmode">
-					<li ng-repeat="a in nc.stickies track by $index" >
+					<li ng-repeat="a in nc.wdatas.stickies track by $index" >
 						<i  ng-click="nc.deleteItem(a,'sticky')" class="fa fa-trash option pull-right"></i>
 						<!-- ng-show="uc0.config.deletemode" -->
-
 						<a  ng-click="uc0.showItem(a);nc.current=a" href=""> {{a.title | limitTo:40 }}</a>  
 					</li>
 				</ul>
@@ -40,8 +39,8 @@
 						<input name="title" class="form-control has-error bb0" type="text" ng-model="nc.current.title" required></input>
 					</div>
 					<div class="form-group {{(editform.body.$invalid && editform.body.$dirty)?'has-error':''}}">
-					<label>Content <small ><small >(Max 250char)</small></small></label>
-					<textarea class="form-control bb0" name="body" ng-model="nc.current.body" palceholder="body" rows="6" required></textarea>
+						<label>Content <small ><small >(Max 250char)</small></small></label>
+						<textarea class="form-control bb0" name="body" ng-model="nc.current.body" palceholder="body" rows="6" required></textarea>
 					</div>
 					
 					<div class="btn btn-danger pull-right" ng-disabled="editform.$invalid" ng-click="uc0.save('sticky', nc,editform,$index)">Save</div>
@@ -63,9 +62,9 @@
 			<h4>Study Notes</h4>
 			<ol class="breadcrumb mod">
 			  <!-- <li><a href="">Home</a></li>
-			   --><li><a href="/notes/{{nc.current.course}}">{{nc.current.course}}</a></li>
-			  <li><a href="/notes/{{nc.current.course}}/{{nc.current.subject}}">{{nc.current.subject}}</a></li>
-			  <li class="active">{{nc.current.chapter}}</li>
+			   --><li><a href="/notes/{{nc.currentData.course}}">{{nc.currentData.ncourse}}</a></li>
+			  <li><a href="/notes/{{nc.currentData.course}}/{{nc.currentData.subject}}">{{nc.currentData.nsubject}}</a></li>
+			  <li class="active">{{nc.currentData.nchapter}}</li>
 			</ol>
 		</div>
 <div class="clearfix">
@@ -84,7 +83,7 @@
 					
 		<div title="bookmark" ng-click="nc.togglebookmark()" ng-class="{'active':nc.selected.chapter.bookmark[0].id}" class="btn btn-a  fa fa-bookmark pull-right"></div>
 		<!-- <div title="readmode" ng-click="nc.togglereadmode()" ng-class="{'active':nc.isfs}" class="btn btn-c  fa fa-arrows-alt pull-right"></div> -->
-		<div title="sticky" data-toggle="modal" data-target="#modal-sticky" class="btn btn-b  fa fa-sticky-note-o pull-right"></div>
+		<div title="sticky" ng-click="nc.getStickies()" class="btn btn-b  fa fa-sticky-note-o pull-right"></div>
 					
 	</div>
 	<div id="notes-container" ng-class="{'notes-fs':nc.isfs}">

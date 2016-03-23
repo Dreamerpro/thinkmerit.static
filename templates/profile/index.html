@@ -32,7 +32,7 @@
 			</div>
 			<div class="form-group {{(pc.profileform.phone.$invalid && pc.profileform.phone.$dirty)?'has-error':''}}">
 				<label>Mobile No.</label>
-				<input class="form-control" name="phone" type="number"  ng-model="pc.profiledata.phone" ng-minlength="10" ng-maxlength="10"></input>
+				<input class="form-control" name="phone" type="tel"  ng-model="pc.profiledata.phone" ng-minlength="10" ng-maxlength="10"></input>
 				<span class="text-danger" ng-show="pc.profileform.phone.$invalid && pc.profileform.phone.$dirty">Invalid mobile no.</span>
 			</div>
 			<div class="form-group">

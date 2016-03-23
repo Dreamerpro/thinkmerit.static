@@ -325,7 +325,7 @@ angular.module('thinkmerit')
 	this.togglefavourite=function (question,list) {
 		$http.get(AP+'/dfs/toggleitem/'+question.id+'/1')
 		.success(function (data) {
-			if(list){$item=_self.questions.questions[_self.questions.questions.indexOf(question)];$item.favourite=!$item.favourite;}
+			if(list){$item=_self.questions.questions[_self.questions.questions.indexOf(question)];$item.favourite[0]=!$item.favourite[0];}
 			else{_self.question.favourite=!_self.question.favourite;}	
 		})
 		.error(function (data) {
@@ -335,7 +335,7 @@ angular.module('thinkmerit')
 	this.toggledoubt=function (question,list) {
 		$http.get(AP+'/dfs/toggleitem/'+question.id+'/2')
 		.success(function (data) {
-			if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.doubt=!$item.doubt;}
+			if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.doubt[0]=!$item.doubt[0];}
 			else{_self.question.doubt=!_self.question.doubt;}
 		})
 		.error(function (data) {
@@ -345,7 +345,7 @@ angular.module('thinkmerit')
 	this.togglesolved=function (question,list) {
 		$http.get(AP+'/dfs/toggleitem/'+question.id+'/3')
 		.success(function (data) {
-			if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.solved=!$item.solved;}
+			if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.solved[0]=!$item.solved[0];}
 			else{_self.question.solved=!_self.question.solved;}
 		})
 		.error(function (data) {
@@ -508,7 +508,7 @@ angular.module('thinkmerit')
 	this.datas={courses:false,subjects:false,chapters:false,modules:false,topics:false};
 	this.selected={};
 	this.search=$routeParams;
-	this.current={
+	this.currentData={
 		course:$routeParams.course,
 		subject:$routeParams.subject,
 		chapter:$routeParams.chapter,
@@ -516,13 +516,14 @@ angular.module('thinkmerit')
 		nsubject:StringMods.removeUnderScore($routeParams.subject),
 		nchapter:StringMods.removeUnderScore($routeParams.chapter)
 	}
-	
+	_self.wdatas={todos:[],bookmarks:[],stickies:[]};
+
 	_self.init=function () {
 		if($routeParams.course){
 			$http.post(AP+'/get/subjects',{course:StringMods.removeUnderScore($routeParams.course)})
 			.success(function (data) {	
 				_self.datas.subjects=data;	
-				$rootScope.subjects=data;
+				//$rootScope.subjects=data;
 			})
 			.error(function (argument) { console.log(argument);})
 		}
@@ -533,9 +534,9 @@ angular.module('thinkmerit')
 			})
 			.success(function (data) {	
 				_self.datas.chapters=data;	
-				$rootScope.chapters=data;
+				//$rootScope.chapters=data;
+
 				if($routeParams.chapter){
-					//_self.selected.chapter={name:StringMods.removeUnderScore($routeParams.chapter)};
 					for (var i = data.length - 1; i >= 0; i--) {
 
 						if(data[i].name==StringMods.removeUnderScore($routeParams.chapter)){
@@ -547,6 +548,8 @@ angular.module('thinkmerit')
 				
 			})
 			.error(function (argument) { console.log(argument);})
+
+			
 		}
 		if($routeParams.chapter){
 
@@ -570,6 +573,18 @@ angular.module('thinkmerit')
 
 
 	};
+	this.getStickies=function () {
+			$http.get(AP+'/user/get/stickies')
+			.success(function (data) { 
+				_self.wdatas.stickies=data;	
+				$("#modal-sticky").modal({show:true});
+			})
+			.error(function (argument) {console.log(argument);_self.wdatas.stickies=[];	})
+
+			$http.get(AP+'/user/get/bookmarks')
+			.success(function (data) { _self.wdatas.bookmarks=data;	})
+			.error(function (argument) {console.log(argument);	_self.wdatas.bookmarks=[];})
+	}
 	this.selectcourse=function (course) {
 		_self.selected.course=course;
 		_self.selected.chapter=null;//clear selected subject
@@ -649,73 +664,12 @@ angular.module('thinkmerit')
 	_self.deleteItem=function (item,type) {
 		$http.post(AP+'/user/delete/'+type,{ids:[item.id]})
 		.success(function (data) { 
-			if(type=="sticky"){_self.stickies.splice(_self.stickies.indexOf(item),1);}
+			if(type=="sticky"){_self.wdatas.stickies.splice(_self.wdatas.stickies.indexOf(item),1);}
 			/*else if(type=="todo"){_self.wdatas.todos.splice(_self.wdatas.todos.indexOf(item),1);}*/
 		})
 		.error(function (argument) {console.log(argument);	})
 	}
 	
-	_self.save=function (type,index) {
-		$fn=null;
-		if(_self.savemode==="new"){$fn="/add/";}
-		else if(_self.savemode==="update"){$fn="/user/update/";}
-		else{ alert('invalid operation'); return false; }
-		
-		$prom= $http.post(AP+$fn+type,_self.current);
-		$prom.success(function (data) { 
-			if(_self.savemode==="new"){
-				if(type=="sticky"){_self.stickies.push(data);}
-				else if(type=="todo"){_self.todos.push(data);}	
-			}
-			else if(_self.savemode==="update"){
-				if(type=="sticky"){_self.stickies[index]=data;}
-				else if(type=="todo"){_self.todos[index]=data;}	
-			}
-			
-			_self.current={};		
-		})
-		.error(function (argument) {console.log(argument);	})
-
-		return $prom;
-	}
-		
-})
-.controller('DashboardCtrl', function ($http,AP) {
-	var _self=this;
-	_self.stats={};
-	_self.wdatas={todos:[],bookmarks:[],stickies:[]};
-		
-	_self.init=function () {
-		$http.get(AP+'/user/stats')
-		.success(function (data) {
-			_self.stats=data;
-		})
-		.error(function (argument) { console.log(argument);})
-
-		$http.get(AP+'/user/get/stickies')
-		.success(function (data) { _self.wdatas.stickies=data;	})
-		.error(function (argument) {console.log(argument);_self.wdatas.stickies=[];	})
-
-		$http.get(AP+'/user/get/todos')
-		.success(function (data) { _self.wdatas.todos=data;	})
-		.error(function (argument) {console.log(argument);	_self.wdatas.todos=[];})
-
-		$http.get(AP+'/user/get/bookmarks')
-		.success(function (data) { _self.wdatas.bookmarks=data;	})
-		.error(function (argument) {console.log(argument);	_self.wdatas.bookmarks=[];})
-		
-	}
-
-	_self.deleteItem=function (item,type) {
-		$http.post(AP+'/user/delete/'+type,{ids:[item.id]})
-		.success(function (data) { 
-			if(type=="sticky"){_self.wdatas.stickies.splice(_self.wdatas.stickies.indexOf(item),1);}
-			else if(type=="todo"){_self.wdatas.todos.splice(_self.wdatas.todos.indexOf(item),1);}
-		})
-		.error(function (argument) {console.log(argument);	})
-		
-	}
-
 	_self.save=function (type,index) {
 		$fn=null;
 		if(_self.savemode==="new"){$fn="/add/";}
@@ -739,12 +693,93 @@ angular.module('thinkmerit')
 
 		return $prom;
 	}
+		
+})
+.controller('DashboardCtrl', function ($http,AP,$location,$routeParams) {
+	var _self=this;
+	_self.stats={};
+	_self.wdatas={todos:[],bookmarks:[],stickies:[]};
+	_self.params=$routeParams;
+	_self.widgetdatas={};
+
+	_self.init=function () {
+		$http.get(AP+'/user/stats')
+		.success(function (data) {	_self.stats=data; })
+		.error(function (argument) { console.log(argument);})
+
+		$http.get(AP+'/user/get/stickies')
+		.success(function (data) { _self.wdatas.stickies=data;	})
+		.error(function (argument) {console.log(argument);_self.wdatas.stickies=[];	})
+
+		$http.get(AP+'/user/get/todos')
+		.success(function (data) { _self.wdatas.todos=data;	})
+		.error(function (argument) {console.log(argument);	_self.wdatas.todos=[];})
+
+		$http.get(AP+'/user/get/bookmarks')
+		.success(function (data) { _self.wdatas.bookmarks=data;	})
+		.error(function (argument) {console.log(argument);	_self.wdatas.bookmarks=[];})	
+	}
+
+	_self.deleteItem=function (item,type) {
+		$http.post(AP+'/user/delete/'+type,{ids:[item.id]})
+		.success(function (data) { 
+			if(type=="sticky"){_self.wdatas.stickies.splice(_self.wdatas.stickies.indexOf(item),1);}
+			else if(type=="todo"){_self.wdatas.todos.splice(_self.wdatas.todos.indexOf(item),1);}
+		})
+		.error(function (argument) {console.log(argument);	})
+		
+	}
+
+	_self.save=function (type,index) {
+		$fn=null;
+		if(_self.savemode==="new"){$fn="/add/";}
+		else if(_self.savemode==="update"){$fn="/user/update/";}
+		else{ alert('invalid operation'); return false; }
+		
+		$prom= $http.post(AP+$fn+type,_self.currentItem);
+		$prom.success(function (data) { 
+			if(_self.savemode==="new"){
+				if(type=="sticky"){_self.wdatas.stickies.push(data);}
+				else if(type=="todo"){_self.wdatas.todos.push(data);}	
+			}
+			else if(_self.savemode==="update"){
+				if(type=="sticky"){_self.wdatas.stickies[index]=data;}
+				else if(type=="todo"){_self.wdatas.todos[index]=data;}	
+			}
+			
+			_self.currentItem={};		
+		})
+		.error(function (argument) {console.log(argument);	})
+
+		return $prom;
+	}
 
 	this.deletebookmark=function (bookmark) {
 		$http.get(AP+'/toggle/bookmark/'+bookmark.id)
 		.success(function (data) {	 _self.wdatas.bookmarks.splice(_self.wdatas.bookmarks.indexOf(bookmark));	})
 		.error(function (argument) { console.log(argument);})
 	}
+	this.goTo=function (path) {
+		$location.path('/dashboard/'+path);
+	}
+	this.loadwidgetDatas=function () {
+		var prom;
+		
+		if(_self.params.item=="favourites"){	prom=$http.get(AP+'/user/list/favourites'); }
+		else if(_self.params.item=="doubts"){prom=$http.get(AP+'/user/list/doubts');	}
+		else if(_self.params.item=="solved"){prom=$http.get(AP+'/user/list/solveds');	}
+			
+		prom
+		.success(function (argument) {
+			if(_self.params.item=="favourites"){	_self.widgetdatas.favourites=argument; }
+			else if(_self.params.item=="doubts"){ _self.widgetdatas.doubts=argument;}
+			else if(_self.params.item=="solved"){ _self.widgetdatas.solved=argument;	}
+		})
+		.error(function (argument) { console.log(argument);	})
+		
+		
+	}
+
 })
 .controller('careerCtrl', function($http, FlashService, $scope, AP){
 	var ctx=this;
