@@ -61,7 +61,7 @@ angular.module('thinkmerit')
 	that.logout=function(){
 				swal({
 		  title: "Are you sure?",
-		  text: "Your will be logged out!",
+		  text: "You will be logged out!",
 		  type: "warning",
 		  showCancelButton: true,
 		  confirmButtonClass: "btn-danger",
@@ -74,7 +74,7 @@ angular.module('thinkmerit')
 		  .success(function () {
 		  	swal({
 			  title: "Logged Out!",
-			  text: "Your have been logged out.",
+			  text: "You have been logged out.",
 			  showConfirmButton: false,
 			  timer:2000
 		  	})
