@@ -34,7 +34,6 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
  .config(function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = true;
 })
-//.constant("CSRF_TOKEN",function($http){$http.get('http://dev.api.thinkmerit.in/csrf_token').success(function(d){ return d; } )})
 .run(function($rootScope, $location, $http, $cookies, AP, AuthService, UserService){
 
 //detect route change
