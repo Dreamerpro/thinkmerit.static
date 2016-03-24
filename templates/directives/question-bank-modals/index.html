@@ -4,7 +4,7 @@
 			<div class="modal-header">
 				<h3>Answer</h3>
 			</div>
-			<div class="modal-body mbh-200" mathjax-bind="nc.answer"></div>
+			<div class="modal-body mbh-200" ng-if="q.type!=3||q.type!=4"  mathjax-bind="nc.answer"></div>
 		</div>
 	</div>
 </div>
@@ -33,6 +33,7 @@
 					<p><span class="col-md-4"><b>Rating:</b></span> <span class="col-md-8">{{nc.question_info.rating}}</span></p>
 					<p><span class="col-md-4"><b>Uploaded by:</b></span> <span class="col-md-8">{{nc.question_info.author[0].name}} </span></p>
 					<p><span class="col-md-4"><b>Source:</b></span> <span class="col-md-8">{{nc.question_info.source?nc.question_info.source:'none'}}</span></p>
+					<p><span class="col-md-4"><b>Id:</b></span> <span class="col-md-8">{{nc.question_info.id}}</span></p>
 					
 				</div>
 			</div>

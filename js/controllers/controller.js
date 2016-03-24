@@ -687,14 +687,26 @@ angular.module('thinkmerit')
 	}
 	
 }])
-.controller("LineCtrl", function ($scope) {
+.controller("LineCtrl", function ($scope , AP, $http) {
 
-  $scope.labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+	$scope.labels=[];
+	$scope.series=[];
+	$scope.data=[];
+	$http.get(AP+"/lastweek/stats")
+	.success(function (data) {
+		$scope.labels=data.days;
+		$scope.series = data.series;
+		$scope.data=data.datas;
+	})
+	.error(function (data) {
+		console.log(data);
+	})
+  /*$scope.labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
   $scope.series = ['Solved', 'Doubts'];
   $scope.data = [
     [65, 59, 80, 81, 56, 55, 40],
     [28, 48, 40, 19, 86, 27, 90]
-  ];
+  ];*/
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
