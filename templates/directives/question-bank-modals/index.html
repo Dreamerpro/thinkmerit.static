@@ -3,9 +3,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3>Answer</h3>
+			
 			</div>
-			<div class="modal-body mbh-200" ng-hide="q.type=5" ng-if="q.type!=3||q.type!=4"  mathjax-bind="nc.answer"></div>
-			<div class="modal-body mbh-200" ng-if="q.type=5" >
+			
+			<div class="modal-body mbh-200" ng-hide="nc.q.type==5" ng-if="nc.q.type!=3||nc.q.type!=4"  mathjax-bind="nc.answer"></div>
+			<div class="modal-body mbh-200" ng-if="nc.q.type==5" >
 				<div ng-repeat="as in nc.answer track by $index">
 					<p class="indexer">{{$index+1}}</p>	
 					<p mathjax-bind="as.answer"></p>
@@ -21,8 +23,9 @@
 			<div class="modal-header">
 				<h3>Solution</h3>
 			</div>
-			<div class="modal-body mbh-200" ng-hide="q.type=5" mathjax-bind="nc.solution"></div>
-			<div class="modal-body mbh-200" ng-if="q.type=5" >
+			{{q.type}}
+			<div class="modal-body mbh-200" ng-hide="nc.q.type==5" mathjax-bind="nc.solution.solution"></div>
+			<div class="modal-body mbh-200" ng-if="nc.q.type==5" >
 				<div ng-repeat="as in nc.solution track by $index">
 					<p class="indexer">{{$index+1}}</p>	
 					<p mathjax-bind="as.solution.solution"></p>

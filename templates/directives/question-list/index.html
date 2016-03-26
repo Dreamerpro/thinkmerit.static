@@ -35,8 +35,8 @@
 						</span>
 						<span class="side-tools pull-right col-md-2 row" style="padding-right:0">
 							<div class="clearfix col-md-6 pull-right plr-0">							
-<a  ng-click="nc.showanswer(q.id)" class="btn btn-default col-md-12 row">Answer</a>
-<a  ng-click="nc.showsolution(q.id)" class="btn btn-default col-md-12 row" >Solution</a>
+<a  ng-click="nc.showanswer(q.id);nc.q=q" class="btn btn-default col-md-12 row">Answer</a>
+<a  ng-click="nc.showsolution(q.id);nc.q=q" class="btn btn-default col-md-12 row" >Solution</a>
 							</div>
 							<div class="clearfix col-md-6 plr-0">
 <div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(q,true)"><i class="fa fa-check" ng-class="{'text-success':q.usersolved[0]}"></i> </div>

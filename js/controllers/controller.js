@@ -104,6 +104,7 @@ angular.module('thinkmerit')
 								console.log(_self.datas.chapters[i]);
 								if(_self.datas.chapters[i].name===StringMods.removeUnderScore($routeParams.chapter)){
 									_self.selected.chapter=_self.datas.chapters[i];
+									console.log(_self.selected.chapter);
 								}
 							}
 							//if  subject  selected  && chapter selected but not topic=> load all question from that chapter 
@@ -179,8 +180,8 @@ angular.module('thinkmerit')
 	this.share=function (qid) {QuestionListService.share(_self,qid);}
 	
 	
-	this.showanswer=function (id) {	QuestionListService.showanswer(_self,id); }
-	this.showsolution=function (id) { QuestionListService.showsolution(_self,id);	}
+	this.showanswer=function (q) {	QuestionListService.showanswer(_self,q); }
+	this.showsolution=function (q) { QuestionListService.showsolution(_self,q);	}
 	this.showvideo=function (video) { QuestionListService.showvideo(video); }
 
 	this.showinfo=function (id) { QuestionListService.showinfo(_self,id); }
