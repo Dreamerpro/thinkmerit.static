@@ -13,7 +13,6 @@ angular.module('thinkmerit')
 			console.log(argument);
 		})
 	}
-
 	this.submit=function () {
 		$http.post(AP+'/saveprofile',_self.profiledata)
 		.success(function () {
