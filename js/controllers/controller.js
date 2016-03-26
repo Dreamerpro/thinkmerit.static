@@ -505,7 +505,7 @@ angular.module('thinkmerit')
 	this.deletebookmark=function (bookmark, event) {
 		event.preventDefault();
 		$http.get(AP+'/toggle/bookmark/'+bookmark.id)
-		.success(function (data) {	 _self.wdatas.bookmarks.splice(_self.wdatas.bookmarks.indexOf(bookmark));	})
+		.success(function (data) {	 _self.wdatas.bookmarks.splice(_self.wdatas.bookmarks.indexOf(bookmark),1);	})
 		.error(function (argument) { console.log(argument);})
 	}
 	this.goTo=function (path) {
@@ -701,23 +701,9 @@ angular.module('thinkmerit')
 	.error(function (data) {
 		console.log(data);
 	})
-  /*$scope.labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  $scope.series = ['Solved', 'Doubts'];
-  $scope.data = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
-  ];*/
+
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
 })
-/*.controller('DashboardCtrl', function ($http) {
-	var _self=this;
-	this.
-	this.init=function () {
-		$http.get('/bookmarks').success(function () {
-			
-		});
-	}
-})*/
 

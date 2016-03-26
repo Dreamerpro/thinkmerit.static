@@ -5,6 +5,21 @@
 			<a class="pull-right" href="/dashboard" style=" line-height: 40px;">Back to dashboard</a>
 			<h4 style="text-transform:capitalize;">{{nc.params.item}}</h4>
 		</div>
+				<!-- PAGINAION -->
+		<nav class="clearfix">
+			<ul class="pagination pull-right m-r15">
+			    <li>
+			    	<a ng-click="nc.prev()"  ng-class="{'btn-disabled':!nc.questions.previousPage}" aria-label="Previous">
+			        <span aria-hidden="true">Previous</span>
+			      </a>
+			    </li>
+			    <li>
+			    	<a ng-click="nc.next()"  ng-class="{'btn-disabled':!nc.questions.nextPage}" aria-label="Next">
+			        <span aria-hidden="true">Next</span>
+			      </a>
+			   </li>
+			 </ul>
+		</nav>
 		<div class="contents">
 			<div ng-if='!nc.questions.total' class="no-data">
 

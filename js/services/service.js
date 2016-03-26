@@ -27,6 +27,7 @@ angular.module('thinkmerit')
 			$http.get(AP+'/answer/'+id)
 			.success(function (data) {
 				_self.answer=data.answer;
+				console.log(data);
 				if(!canceled){	swal.close(); $('#answer-modal').modal({show:true});	}
 			})
 			.error(function (argument) { swal({   title: "Error!",   text: "There was an error loading answer.",   timer: 2000,   showConfirmButton: false });	})
@@ -45,6 +46,7 @@ angular.module('thinkmerit')
 				})
 			$http.get(AP+'/solution/'+id)
 			.success(function (data) {
+				console.log(data.solution);
 				_self.solution=data.solution;
 				if(!canceled){	swal.close();$('#solution-modal').modal({show:true});	}
 			})

@@ -1,4 +1,25 @@
 angular.module('thinkmerit')
+.directive('levelBind',function () {
+  return {
+    restrict:'A',
+    controller:function ($scope, $element, $attrs) {
+      $scope.$watch($attrs.levelBind, function (val) {
+        $html="";
+        if(val==1){
+          $html="<i class=\"fa fa-circle fa-10px text-success\"></i>";
+        }
+        else if(val==2){
+          $html="<i class=\"fa fa-circle fa-10px text-warning\"></i>";
+        }
+        else if(val==3){
+          $html="<i class=\"fa fa-circle fa-10px text-danger\"></i>";
+        }
+        $element.html($html);
+        console.log(val);
+      });
+    }
+  }
+})
 .directive("mathjaxBind", function($sce) {
     return {
         restrict: "A",

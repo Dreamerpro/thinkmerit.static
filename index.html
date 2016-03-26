@@ -115,16 +115,14 @@
 <link rel="stylesheet" href="/bower_components/angular-chart.js/dist/angular-chart.css">
 <link rel="stylesheet" href="/bower_components/ui-select-master/dist/select.min.css"/>
 <link rel="stylesheet" href="/bower_components/sweetalert/dist/sweetalert.css"/>
-<!-- <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> -->
-<script type="text/javascript">
-/*MathJax.Hub.Config({
-tex2jax: {
-inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-processEscapes: true
-}
-});
-*/
+
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    showProcessingMessages: false,
+    tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+  });
 </script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 </html>
