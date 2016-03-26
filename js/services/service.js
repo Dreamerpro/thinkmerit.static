@@ -13,7 +13,7 @@ angular.module('thinkmerit')
 				$location.search({pageNo:_self.questions.nextPage});
 			}
 		},
-		showanswer:function (_self, q) {
+		showanswer:function (_self, id) {
 			var canceled=false;
 			swal({
 					  title: "",
