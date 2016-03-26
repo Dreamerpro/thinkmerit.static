@@ -262,8 +262,9 @@ angular.module('thinkmerit')
 				_self.datas.chapters=data;	
 				//$rootScope.chapters=data;
 				console.log($routeParams.chapter);
+				console.log(data);
 				if($routeParams.chapter){
-
+console.log(data);
 					for (var i = data.length - 1; i >= 0; i--) {
 						console.log(data[i]);
 						if(data[i].name==StringMods.removeUnderScore($routeParams.chapter)){
