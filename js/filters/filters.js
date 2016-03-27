@@ -5,7 +5,7 @@ angular.module('thinkmerit')
 		return $sce.trustAsHtml(value);
 	}; 
 })
-.filter('imgsrc',function ($sce) {
+/*.filter('imgsrc',function ($sce) {
 	return function (value, param) {
 		if(param!==undefined){
 			param=param.substring(0,param.lastIndexOf('/')+1);
@@ -20,7 +20,7 @@ angular.module('thinkmerit')
 		
 		return $sce.trustAsHtml(value);
 	}
-})
+})*/
 /*.filter('mathjax',function () {
 	return function (value) {
 		
