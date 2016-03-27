@@ -235,7 +235,7 @@ angular.module('thinkmerit')
 			CookieService.set('name',response.name);
 			CookieService.set('email',response.email);
 			CookieService.set('avatar',response.avatar);
-			console.log(response);
+			
 			$rootScope.isLoggedIn=true;
 		 	
 	}
