@@ -20,7 +20,7 @@ angular.module('thinkmerit')
     }
   }
 })
-.directive("mathjaxBind", function($sce) {
+.directive("mathjaxBind", function() {
     return {
         restrict: "A",
         controller: ["$scope", "$element", "$attrs", function($scope, $element, $attrs) {
@@ -33,7 +33,6 @@ angular.module('thinkmerit')
         }]
     };
 })
-
 .directive("mathjaxBindNotes", function($sce) {
     return {
         restrict: "A",
