@@ -1,6 +1,6 @@
 
-angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize'])
-.constant('AP', 'https://api.thinkmerit.in')//,'angularRipple'
+angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize','ngIdle'])
+.constant('AP', 'http://api.thinkmerit.in')
 .config(['$routeProvider','$httpProvider','$locationProvider', 
     function($routeProvider, $httpProvider, $locationProvider) {
 
@@ -29,29 +29,38 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
   $locationProvider.html5Mode(true);
 
 }])
+.config(function(IdleProvider, KeepaliveProvider) {
+  KeepaliveProvider.interval(18*60); // 5 minute keep-alive ping//5*60
+})
  .config(function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = true;
 })
-.run(function($rootScope, $location, $http, $cookies, AP, AuthService, UserService){
+ .run(function (Idle) {
+    Idle.watch();
+ })
+.run(function($rootScope, $location, $http, $cookies, AP, AuthService,  AuthHelper, ScreenManager){
 
+  
 //detect route change
       $rootScope.$on('$locationChangeSuccess', function(event){
           var url = $location.url(),
           homeurl=['/','/#home','/#about', '/#catalogue','/#careers','/#vision', '/#faq', '/#contact'];
-                  
-          $rootScope.checkIfUnAuthorized();//if not authorized asks server for authorization
-          //if not home url 
-          if(!_.contains(homeurl, url) ){
-              $rootScope.redirectIfUnAuthorized();  
-              $rootScope.initIfLoggedIn();
-          }
-          if(_.contains(homeurl, url)){
-              console.log(AuthService.isLoggedIn());
-              $rootScope.redirectIfAuthorized();            
-          }  
-          $rootScope.path=$location.path();   
-          document.body.scrollTop=0;
 
+          if(_.contains(homeurl, url)){$rootScope.islanding=true;}
+          else{$rootScope.islanding=false;}
+          
+          
+          
+          if(AuthHelper.isAuthorized()){ ScreenManager.work();  AuthHelper.redirectIfAuthorized();  }
+          else{  AuthHelper.redirectIfUnAuthorized(); }
+
+          $rootScope.path=$location.path();
+      });
+      $rootScope.$on('Keepalive', function() {
+        if(AuthService.isLoggedIn()){
+          AuthService.authuser();
+        }
+        
       });
       
   /*$http.defaults.headers.post['X-CSRF-TOKEN']=CSRF_TOKEN; 
@@ -75,46 +84,9 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
    $rootScope.isLocationActive=function (argument) {
      return $rootScope.path.indexOf(argument)>0;
    }
-//
-
-//authorization 
-   $rootScope.checkIfUnAuthorized=function () {
-    var res=false;
-     if(!AuthService.isLoggedIn()){
-        AuthService.authuser()
-            .success(function (argument) { $location.path('/dashboard');    res=true;   })
-            .error(function (argument) {  res=false;   })
-      }
-       return res;
-   }
-   $rootScope.redirectIfUnAuthorized=function () {
-     if(!AuthService.isLoggedIn()){
-              $rootScope.islanding=true;  
-              $location.path('/');
-              $location.hash('');
-              $rootScope.flash="You must log in first.";
-      }
-   }
-   $rootScope.initIfLoggedIn=function () {
-     if(AuthService.isLoggedIn()){
-              $rootScope.islanding=false;  
-              $rootScope.flash="";
-              $rootScope.user=UserService.getUser();
-      }
-   }
-   $rootScope.redirectIfAuthorized=function () {
-    
-      if(AuthService.isLoggedIn()){
-            $location.path('/dashboard');   
-      }
-      else{
-        $rootScope.islanding=true;
-      }
-   }
 
    $rootScope.currentPath=window.location.href;
-   
-
+   document.body.scrollTop=0;
 
 
 });

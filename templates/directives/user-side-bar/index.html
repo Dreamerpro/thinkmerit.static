@@ -1,4 +1,4 @@
-<div class="left-side-bar hidden-xs " ng-hide="islanding">
+<div class="left-side-bar" ng-hide="islanding" ng-controller='SideBarCtrl as sbc'>
 <div class="user-wrapper">
 	<div class="user-block">
 		<div class="user-block-picture">
@@ -13,7 +13,7 @@
 	</div>
 </div>
 <ul class="menu">
-<li ng-class="{'active':isLocationActive('dashboard')}"><a href="/dashboard"><i class="fa fa-tachometer"></i> <span class="mt">Dashboard</span></a> </li>
+<li ng-class="{'active':isLocationActive('dashboard')}" ng-click="sbc.collapseifsmall()"><a href="/dashboard"><i class="fa fa-tachometer"></i> <span class="mt">Dashboard</span></a> </li>
 <li ng-class="{'active':isLocationActive('notes')}">
 	<a href="/notes">
 	<i class="fa fa-file-o"></i>
@@ -22,7 +22,7 @@
 		<li><a href="">+2</a> </li>
 	</ul> -->
 </li>
-<li ng-class="{'active':isLocationActive('question-bank')}" angular-ripple ng-class="{'active':isLocationActive('question-bank')}"><a href="/question-bank"><i class="fa fa-database"></i> <span class="mt">Question Bank</span></a> </li>
+<li ng-class="{'active':isLocationActive('question-bank')}" ng-click="sbc.collapseifsmall()" ng-class="{'active':isLocationActive('question-bank')}"><a href="/question-bank"><i class="fa fa-database"></i> <span class="mt">Question Bank</span></a> </li>
 <li angular-ripple ng-class="{'active':isLocationActive('tests')}">
 	<a href=""><i class="fa fa-line-chart"></i> <span class="mt">Tests
 		<span class="badge">coming soon</span>
@@ -38,8 +38,8 @@
 		<span class="mt">Ask <span class="badge">coming soon</span>
 	</span></a> 
 </li>
-<li class="list-divider"></li>
-<li ng-class="{'active':isLocationActive('profile')}"><a href="/profile"><i class="fa fa-user"></i> <span class="mt">Profile</span></a> </li>
+<li class="list-divider" ></li>
+<li ng-class="{'active':isLocationActive('profile')}" ng-click="sbc.collapseifsmall()"><a href="/profile"><i class="fa fa-user"></i> <span class="mt">Profile</span></a> </li>
 </ul>
 
 

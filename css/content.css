@@ -57,10 +57,10 @@ body.collapsed div.content.main{
 	padding: 20px;
 	margin-top: 10px;
 }
-.sm-icon {
+/*.sm-icon {
     width: 50%;
     padding: 20px 20px 0px;
-}
+}*/
 #careermodal>.modal-dialog>.modal-content>.modal-header {
     background-color: #66B166;
     text-transform: uppercase;
@@ -272,7 +272,7 @@ a.list-group-item.activa:hover{
     padding-top: 20px;
 }
 .question{
-	border-right: 1px solid #ddd;
+/*	border-right: 1px solid #ddd;*/
 	min-height: 40px;
 }
 .social-menus{

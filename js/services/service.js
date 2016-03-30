@@ -1,5 +1,21 @@
 angular.module('thinkmerit')
-.factory('QuestionListService',function ($location, $http,AP) {
+.factory('ScreenManager',function  ($rootScope) {
+	
+	return {
+		isSmallDevice:function () {
+			if($(document).width()<768){
+				/*console.log("mobile/tablet device");*/
+				return true;
+			}
+			return false;
+
+		},
+		work:function () {
+			if(this.isSmallDevice()){$rootScope.isCollapsed=true;}
+		}
+	}
+})
+.factory('QuestionListService',function ($location, $http, AP, $routeParams) {
 	
 
 	return {
@@ -27,7 +43,6 @@ angular.module('thinkmerit')
 			$http.get(AP+'/answer/'+id)
 			.success(function (data) {
 				_self.answer=data.answer;
-				console.log(data);
 				if(!canceled){	swal.close(); $('#answer-modal').modal({show:true});	}
 			})
 			.error(function (argument) { swal({   title: "Error!",   text: "There was an error loading answer.",   timer: 2000,   showConfirmButton: false });	})
@@ -46,7 +61,6 @@ angular.module('thinkmerit')
 				})
 			$http.get(AP+'/solution/'+id)
 			.success(function (data) {
-				console.log(data.solution);
 				_self.solution=data.solution;
 				if(!canceled){	swal.close();$('#solution-modal').modal({show:true});	}
 			})
@@ -88,7 +102,7 @@ angular.module('thinkmerit')
 			$http.get(AP+'/dfs/toggleitem/'+question.id+'/1')
 			.success(function (data) {
 				if(list){$item=_self.questions.questions[_self.questions.questions.indexOf(question)];$item.userfavourite[0]=!$item.userfavourite[0];}
-				else{_self.question.userfavourite=!_self.question.userfavourite;}	
+				else{_self.question.userfavourite[0]=!_self.question.userfavourite[0];}	
 			})
 			.error(function (data) {	console.log(data);	})
 		},
@@ -96,7 +110,7 @@ angular.module('thinkmerit')
 			$http.get(AP+'/dfs/toggleitem/'+question.id+'/2')
 			.success(function (data) {
 				if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.userdoubt[0]=!$item.userdoubt[0];}
-				else{_self.question.userdoubt=!_self.question.userdoubt;}
+				else{_self.question.userdoubt[0]=!_self.question.userdoubt[0];}
 			})
 			.error(function (data) { console.log(data);	})
 		},
@@ -104,18 +118,29 @@ angular.module('thinkmerit')
 			$http.get(AP+'/dfs/toggleitem/'+question.id+'/3')
 			.success(function (data) {
 				if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.usersolved[0]=!$item.usersolved[0];}
-				else{_self.question.usersolved=!_self.question.usersolved;}
+				else{_self.question.usersolved[0]=!_self.question.usersolved[0];}
 			})
 			.error(function (data) {	console.log(data);	})
 		},
-		share:function (_self, qid) {
-			var path="/question-bank/";
-				path+=$routeParams.course?$routeParams.course+"/":"";
-				path+=$routeParams.subject?$routeParams.subject+"/":"";
-				path+=$routeParams.chapter?$routeParams.chapter+"/":"";
-				path+=$routeParams.topic?$routeParams.topic+"/":"";
-				path+=qid;
-			return path;
+		share:function (_self, url, type) {
+			$("#question-share").modal('hide');
+			if(type=="fb"){
+				FB.ui({
+					  method: 'share',
+					  href: window.location.hostname+"/question-bank"+url,
+					  description:'',
+					  title:'Have you tried this question?'
+					}, function(response){
+						
+					});
+			}
+			else if(type=="tw"){
+				window.open('https://twitter.com/intent/tweet?text='+window.location.hostname+url+"&headline=Have you solved this question?", '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+			}
+			else if(type=="gp"){
+				window.open('https://plus.google.com/share?url='+window.location.hostname+url+"&headline=Have you solved this question?", '', 'data-prefilltext=Headline=Have you solved this question?,menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+			}
+			return url;
 		}
 
 
@@ -246,7 +271,6 @@ angular.module('thinkmerit')
 	/*var that=this;*/
 	return {
 		login:function(credentials){
-			console.log(credentials);
 			var promise= $http.post(AP+'/auth/login',credentials);
 			promise.success(function (response) {
 				cacheSession(response);
@@ -276,5 +300,38 @@ angular.module('thinkmerit')
 			return CookieService.get('authenticated');
 		},
 		
+	}
+})
+.factory("AuthHelper", function (AuthService,$rootScope, $location, UserService) {
+	return {
+		initIfLoggedIn:function () {
+	     if(AuthService.isLoggedIn()){
+	              $rootScope.islanding=false;  
+	              $rootScope.flash="";
+	              $rootScope.user=UserService.getUser();
+	      }
+	   	},
+		isAuthorized:function () {
+			$client=AuthService.isLoggedIn();
+			if($client) { this.initIfLoggedIn() ;return true;}
+			else{
+				$res=false;
+				AuthService.authuser()
+					.success(function (){ $res=true; $location.path('/dashboard');	})
+					.error(function (){	$res=false;	});
+				return $res;
+			}
+		},
+		redirectIfUnAuthorized:function () {
+			if(!$rootScope.islanding){
+	              $rootScope.islanding=true;  
+	              $location.path('/');
+	              $location.hash('');
+	              $rootScope.flash="You must log in first.";
+          	}
+   		},
+		redirectIfAuthorized:function () {
+			if($rootScope.islanding){ $location.path('/dashboard');  }             
+   		}
 	}
 })

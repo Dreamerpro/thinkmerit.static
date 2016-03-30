@@ -9,9 +9,7 @@ body{
 	padding: 5px 25px;
 	-webkit-transition:all 0.6s;
 }
-.navbar-right{
-	margin-right: 0;
-}
+
 .dropdown-toggle>.label{
 	position: absolute;
     margin-top: -30px;
@@ -125,8 +123,8 @@ padding: 10px;
 .mbh-200{
 	min-height: 200px;
 }
-.mw-600{
-	width: 600px;
+.mw-800{
+	/*width: 800px;*/
 }
 
 .fa-15x{
@@ -134,4 +132,30 @@ padding: 10px;
 }
 .fa-10px{
 	font-size: 10px;
+}
+.tar{
+	text-align: right;
+}
+.pagination li{
+	cursor: pointer;
+}
+
+
+@media(min-width: 992px){
+	.mw-800{
+		width: 800px;
+	}
+}
+@media(max-width: 768px){
+	.mw-800{
+		width: 80%;
+    	margin: 0 auto;
+	}
+	.nav-header {
+		width: 100%;
+	}
+	.side-tools{
+		padding-top: 10px;
+		border-top: 1px solid #eee;
+	}
 }

@@ -124,16 +124,3 @@ body.collapsed .left-side-bar>.menu>li>a>i{
 .user-block-information{
 	padding-top: 10px;
 }
-/*COLLAPSED*/
-
-.left-side-bar{
-	-webkit-transition: width 0.5s;
-	    background:#FDFDFD;
-}
-body.collapsed .left-side-bar{
-	width: 80px;
-}
-body.collapsed .user-block-name,body.collapsed .mt{
-	opacity: 0;
-	height: 0;
-}

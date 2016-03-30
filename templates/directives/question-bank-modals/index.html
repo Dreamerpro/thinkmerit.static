@@ -1,5 +1,6 @@
+
 <div class="modal fade" role="modal" id="answer-modal">
-	<div class="modal-dialog mw-600">
+	<div class="modal-dialog mw-800">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3>Answer</h3>
@@ -18,7 +19,7 @@
 </div>
 
 <div class="modal fade" role="modal" id="solution-modal">
-	<div class="modal-dialog mw-600" >
+	<div class="modal-dialog mw-800" >
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3>Solution</h3>
@@ -64,4 +65,20 @@
 			<div class="modal-body" mathjax-bind="nc.question_video"></div>
 		</div>
 	</div>
+</div>
+<div class="modal fade" id="question-share">
+<div class="modal-dialog">
+
+	<div class="modal-content">
+	<div class="modal-header"><center><h3>Share</h3></center></div>
+	<div class="modal-body" style="height: 200px;padding-top: 50px;">
+		<div class='clearfix'>
+		<div ng-click='nc.share(nc.qshareurl,"fb")' class='col-md-4'> <div class='col-md-8 col-md-offset-2 btn btn-default'><i class='fa fa-2x fa-facebook'></i> </div></div>
+		<div ng-click='nc.share(nc.qshareurl,"gp")' class='col-md-4'> <div class='col-md-8 col-md-offset-2 btn btn-default'><i class='fa fa-2x fa-google-plus'></i> </div></div>
+		<div ng-click='nc.share(nc.qshareurl,"tw")' class='col-md-4'> <div class='col-md-8 col-md-offset-2 btn btn-default'><i class='fa fa-2x fa-twitter'></i> </div></div>
+		</div>
+	</div>	
+
+	</div>
+</div>
 </div>

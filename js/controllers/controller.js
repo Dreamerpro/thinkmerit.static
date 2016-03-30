@@ -1,13 +1,16 @@
 angular.module('thinkmerit')
+.controller('SideBarCtrl', function (ScreenManager) {
+	this.collapseifsmall=function () {
+		ScreenManager.work();
+	}
+})
 .controller('ProfileCtrl', function ($http,AP) {
 	var _self=this;
 	this.init=function () {
 
 		$http.get(AP+'/profile')
 		.success(function (data) {
-			console.log(data);
 			_self.profiledata=data;
-			console.log(data);
 		})
 		.error(function (argument) {
 			console.log(argument);
@@ -148,7 +151,7 @@ angular.module('thinkmerit')
 											.error(function (data) {console.log(data);})			
 										}
 										else{
-											$http.post(AP+'/get/question/'+$routeParams.questionid,{
+											$http.get(AP+'/get/question/'+$routeParams.questionid,{
 												course:StringMods.removeUnderScore($routeParams.course),
 												subject:StringMods.removeUnderScore($routeParams.subject),
 												chapter:StringMods.removeUnderScore($routeParams.chapter),
@@ -156,6 +159,7 @@ angular.module('thinkmerit')
 											})
 											.success(function (data) {	
 												_self.question=data;
+												_self.questions=null; 
 											})
 										}			
 									}	
@@ -176,8 +180,26 @@ angular.module('thinkmerit')
 	this.next=function(){QuestionListService.next(this)};
 
 
-	this.share=function (qid) {QuestionListService.share(_self,qid);}
-	
+	this.share=function (qid,type) {QuestionListService.share(_self,qid,type);}
+	this.showShareDialog=function (qid) {
+		var canceled=false;
+			swal({
+					  title: "",
+					  text: "<img src=\"/images/loading.gif\">",
+					  html:true,
+					  showCancelButton: true,
+					  showConfirmButton:false
+				},function (argument) {
+					canceled=argument;
+				})
+			$http.get(AP+'/question-share-url/'+qid)
+			.success(function (data) {
+				_self.qshareurl=StringMods.addUnderScore(data);
+				if(!canceled){	swal.close();$('#question-share').modal({show:true});	}
+			})
+			.error(function (argument) { swal({ title: "Error!",   text: "There was an error fetching question share link.",   timer: 2000,   showConfirmButton: false });	})
+			
+	}
 	
 	this.showanswer=function (q) {	QuestionListService.showanswer(_self,q); }
 	this.showsolution=function (q) { QuestionListService.showsolution(_self,q);	}
@@ -480,6 +502,7 @@ angular.module('thinkmerit')
 	}
 
 	_self.save=function (type,index) {
+		if(!_self.currentItem.title){return false;}
 		$fn=null;
 		if(_self.savemode==="new"){$fn="/add/";}
 		else if(_self.savemode==="update"){$fn="/user/update/";}
@@ -530,7 +553,7 @@ angular.module('thinkmerit')
 	this.next=QuestionListService.next(this);
 
 
-	this.share=function (qid) {QuestionListService.share(_self,qid);}
+	this.share=function (qid,type) {QuestionListService.share(_self,qid,type);}
 	
 	
 	this.showanswer=function (id) {	QuestionListService.showanswer(_self,id); }
@@ -541,7 +564,25 @@ angular.module('thinkmerit')
 	this.togglefavourite=function (question,list) { QuestionListService.togglefavourite(_self,question,list)	}
 	this.toggledoubt=function (question,list) { QuestionListService.toggledoubt(_self,question,list);  }
 	this.togglesolved=function (question,list) { QuestionListService.togglesolved(_self,question,list); }
-
+	this.showShareDialog=function (qid) {
+		var canceled=false;
+			swal({
+					  title: "",
+					  text: "<img src=\"/images/loading.gif\">",
+					  html:true,
+					  showCancelButton: true,
+					  showConfirmButton:false
+				},function (argument) {
+					canceled=argument;
+				})
+			$http.get(AP+'/question-share-url/'+qid)
+			.success(function (data) {
+				_self.qshareurl=StringMods.addUnderScore(data);
+				if(!canceled){	swal.close();$('#question-share').modal({show:true});	}
+			})
+			.error(function (argument) { swal({ title: "Error!",   text: "There was an error fetching question share link.",   timer: 2000,   showConfirmButton: false });	})
+			
+	}
 })
 .controller('careerCtrl', function($http, FlashService, $scope, AP){
 	var ctx=this;
@@ -630,14 +671,17 @@ angular.module('thinkmerit')
 		});
 	}
 	that.save=function (t, dc, editform, index)  {
-		dc.save(t,index)
-		.success(function  () {
-			that.config.editmode=false;
-			editform.$setPristine();
-		})
-		.error(function () {
-			
-		})
+		$prom=dc.save(t,index);
+		if($prom){
+			$prom.success(function  () {
+					that.config.editmode=false;
+					editform.$setPristine();
+				})
+				.error(function () {
+					
+				})
+		}
+		
 	}
 
 })

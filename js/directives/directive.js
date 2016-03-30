@@ -15,7 +15,6 @@ angular.module('thinkmerit')
           $html="<i class=\"fa fa-circle fa-10px text-danger\"></i>";
         }
         $element.html($html);
-        console.log(val);
       });
     }
   }
@@ -27,7 +26,7 @@ angular.module('thinkmerit')
 
            $scope.$watch($attrs.mathjaxBind, function(value) {
                 $element.html(value?value:"");
-                MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);         
+                MathJax.Hub.Queue(["Reprocess", MathJax.Hub, $element[0]]);         
             });
 
         }]
@@ -60,6 +59,12 @@ angular.module('thinkmerit')
 
         }]
     };
+})
+.directive('questionShare', function () {
+  return {
+    restrict:'E',
+    templateUrl:'/templates/directives/question-share-modal'
+  }
 })
 .directive('questionBankModals', function () {
   return {

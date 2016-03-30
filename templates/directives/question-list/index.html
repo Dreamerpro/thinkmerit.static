@@ -33,12 +33,9 @@
 							</div>
 							
 						</span>
-						<span class="side-tools pull-right col-md-2 row" style="padding-right:0">
-							<div class="clearfix col-md-6 pull-right plr-0">							
-<a  ng-click="nc.showanswer(q.id);nc.q=q" class="btn btn-default col-md-12 row">Answer</a>
-<a  ng-click="nc.showsolution(q.id);nc.q=q" class="btn btn-default col-md-12 row" >Solution</a>
-							</div>
-							<div class="clearfix col-md-6 plr-0">
+						<span class="side-tools pull-right col-md-2 col-xs-12 row" style="padding-right:0">
+							
+							<div class="clearfix col-md-6 col-xs-6 plr-0">
 <div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(q,true)"><i class="fa fa-check" ng-class="{'text-success':q.usersolved[0]}"></i> </div>
 <div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(q,true)"><i class="fa fa-question"  ng-class="{'text-danger':q.userdoubt[0]}"></i> </div>
 <div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(q,true)" >
@@ -50,17 +47,27 @@
 
 
 <div class="btn-group" title="share">
+  <button type="button" class="btn btn-default" ng-click='nc.showShareDialog(q.id)' style="width: 38px; height: 32.5px;">
+    <i class="fa fa-share-alt"></i>
+  </button>
+
+</div>
+<!-- <div class="btn-group" title="share">
   <button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="width: 38px; height: 32.5px;">
     <i class="fa fa-share-alt"></i>
   </button>
   <ul class="dropdown-menu" style=" min-width: 90px;">
-	    <li><div class="fb-share-button" data-href="{{nc.shareUrl(q.id)}}"  data-layout="button"></div></li>
+	    <li><div class="fb-share-button-custom" data-href="" ng-click="nc.share(q.id)" data-layout="button">Fb Share</div></li>
 		<li><a class="twitter-share-button" href="{{nc.shareUrl(q.id)}}">Tweet</a></li>
   </ul>
-</div>
+</div> -->
 
 							</div><!-- fa-video-camera -->
-							<div class="col-md-12">
+							<div class="clearfix col-md-6 col-xs-6 plr-0 tar">							
+<a  ng-click="nc.showanswer(q.id);nc.q=q" class="btn btn-default col-md-12 row">Answer</a>
+<a  ng-click="nc.showsolution(q.id);nc.q=q" class="btn btn-default col-md-12 row" >Solution</a>
+							</div>
+							<div class="col-xs-12">
 
 <div class="rating">
 	<br>
