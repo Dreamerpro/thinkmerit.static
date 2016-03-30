@@ -46,12 +46,15 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
           var url = $location.url(),
           homeurl=['/','/#home','/#about', '/#catalogue','/#careers','/#vision', '/#faq', '/#contact'];
 
-          if(_.contains(homeurl, url)){$rootScope.islanding=true;}
-          else{$rootScope.islanding=false;}
+          if(_.contains(homeurl, url)){  $rootScope.islanding=true;}
+          else{  $rootScope.islanding=false;}
           
           
-          
-          if(AuthHelper.isAuthorized()){ ScreenManager.work();  AuthHelper.redirectIfAuthorized();  }
+
+          if(AuthHelper.isAuthorized()){ 
+            ScreenManager.work(); 
+            AuthHelper.redirectIfAuthorized();       
+         }
           else{  AuthHelper.redirectIfUnAuthorized(); }
 
           $rootScope.path=$location.path();

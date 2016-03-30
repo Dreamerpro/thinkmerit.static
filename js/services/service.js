@@ -306,7 +306,6 @@ angular.module('thinkmerit')
 	return {
 		initIfLoggedIn:function () {
 	     if(AuthService.isLoggedIn()){
-	              $rootScope.islanding=false;  
 	              $rootScope.flash="";
 	              $rootScope.user=UserService.getUser();
 	      }
@@ -331,7 +330,7 @@ angular.module('thinkmerit')
           	}
    		},
 		redirectIfAuthorized:function () {
-			$location.path('/dashboard');           
+			if($rootScope.islanding){ $location.path('/dashboard');      }     
    		}
 	}
 })
