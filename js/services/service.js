@@ -331,7 +331,7 @@ angular.module('thinkmerit')
           	}
    		},
 		redirectIfAuthorized:function () {
-			if($rootScope.islanding){ $location.path('/dashboard');  }             
+			$location.path('/dashboard');           
    		}
 	}
 })
