@@ -26,7 +26,7 @@ angular.module('thinkmerit')
 
            $scope.$watch($attrs.mathjaxBind, function(value) {
                 $element.html(value?value:"");
-                MathJax.Hub.Queue(["Reprocess", MathJax.Hub, $element[0]]);         
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);         
             });
 
         }]
