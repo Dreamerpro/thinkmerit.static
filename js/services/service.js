@@ -127,7 +127,7 @@ angular.module('thinkmerit')
 			if(type=="fb"){
 				FB.ui({
 					  method: 'share',
-					  href: window.location.hostname+"/question-bank"+url,
+					  href: "https://"+window.location.hostname+"/question-bank"+url,
 					  description:'',
 					  title:'Have you tried this question?'
 					}, function(response){
