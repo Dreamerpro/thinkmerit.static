@@ -84,6 +84,9 @@ ul.menu>li:hover{
     display: inline-block;
     position: absolute;
     -webkit-transition: width 2s;
+    -moz-transition: width 2s;
+    -o-transition: width 2s;
+    transition: width 2s;
     text-overflow: clip;
     min-width: 150px;
 }
@@ -121,6 +124,9 @@ body.collapsed .left-side-bar>.menu>li>a>i{
     opacity: 1;
 	height: 20px;
 	-webkit-transition: opacity 0.2s; /* Safari */
+	-moz-transition: opacity 0.2s;
+	-o-transition: opacity 0.2s;
+	transition: opacity 0.2s;
 }
 .user-block-information{
 	padding-top: 10px;

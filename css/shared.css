@@ -12,7 +12,10 @@ a.logo{
 	display: inline-block;
 	padding-top: 3px;
 	width: 170px;
-   -webkit-transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
 }
 a.logo>img {
     width: 170px;
@@ -22,6 +25,9 @@ a.logo>img {
 .navbar-brand>.logo>.uncollapsed{
     clip: rect(0px, 170px, 34px, 0px);
     -webkit-transition:all 0.6s;
+    -moz-transition:all 0.6s;
+    -o-transition:all 0.6s;
+    transition:all 0.6s;
 }
 /*.navbar-brand>.logo>.uncollapsed:hover{
 	clip: rect(0px,51px,200px,31px);   
@@ -35,10 +41,16 @@ body.collapsed .user-block-name,body.collapsed .mt{
     opacity: 0;
     height: 0;
     transition:0.4s linear height 0.4s;
+    -webkit-transition:0.4s linear height 0.4s;
+    -moz-transition:0.4s linear height 0.4s;
+    -o-transition:0.4s linear height 0.4s;
 }
 
 .left-side-bar{
     -webkit-transition: width 0.5s;
+    -moz-transition: width 0.5s;
+    -o-transition: width 0.5s;
+    transition: width 0.5s;
         background:#FDFDFD;
   }
 
@@ -158,6 +170,9 @@ footer{
     /*margin-left: -100%;*/
     opacity: 0;
     visibility: hidden;
+    -webkit-transition:0.4s ease all;
+    -moz-transition:0.4s ease all;
+    -o-transition:0.4s ease all;
     transition:0.4s ease all;
   }
   .left-side-bar{
