@@ -255,8 +255,9 @@ angular.module('thinkmerit')
 
 .factory("AuthService", function($http, CookieService,AP,$timeout,$rootScope){
 	var cacheSession=function(response){
-
- 			CookieService.set('authenticated',true);
+		var date=new Date();
+		var time=date.getTime()+18*60*1000;
+ 			CookieService.set('authenticated',true,{expires:time});
 			CookieService.set('name',response.name);
 			CookieService.set('email',response.email);
 			CookieService.set('avatar',response.avatar);
