@@ -346,3 +346,14 @@ a.list-group-item.activa:hover{
 	margin-top: 140px;
 	margin-bottom: 100px;
 }
+.notes-tools{
+	position: fixed;
+    right: 0;
+    bottom: 180px;
+}
+.notes-tools div{
+    width: 40px;
+    height: 40px;
+    line-height: 30px;
+    border-radius: 20px;
+    }
