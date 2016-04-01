@@ -1,7 +1,7 @@
 
 angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize','ngIdle'])
-.constant('AP', 'https://api.thinkmerit.in')
-/*.constant('AP', 'http://dev.api.thinkmerit.in')*/
+/*.constant('AP', 'https://api.thinkmerit.in')*/
+.constant('AP', 'http://dev.api.thinkmerit.in')
 .config(['$routeProvider','$httpProvider','$locationProvider', 
     function($routeProvider, $httpProvider, $locationProvider) {
 
@@ -31,7 +31,7 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
 
 }])
 .config(function(IdleProvider, KeepaliveProvider) {
-  KeepaliveProvider.interval(18*60); // 5 minute keep-alive ping//5*60
+  KeepaliveProvider.interval(14*60);
 })
  .config(function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = true;

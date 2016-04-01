@@ -151,7 +151,7 @@ padding: 10px;
 }
 @media(max-width: 768px){
 	.mw-800{
-		width: 80%;
+		width: auto;
     	margin: 0 auto;
 	}
 	.nav-header {

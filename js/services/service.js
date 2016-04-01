@@ -296,7 +296,8 @@ angular.module('thinkmerit')
 			var promise= $http.get(AP+'/user');
 			promise.success(function (response) {
 				cacheSession(response);
-			});
+			})
+			.error(uncacheSession);
 			return promise;
 		},
 		isLoggedIn:function(){
