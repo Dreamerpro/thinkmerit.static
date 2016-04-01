@@ -239,7 +239,10 @@ angular.module('thinkmerit')
 .factory('CookieService', function($cookies){
 	return {
 		set:function(key, val){
-			return $cookies.put(key, val);
+			var date=new Date();
+			var time=date.getTime()+18*60*1000;
+			date.setTime(time);
+			return $cookies.put(key, val,{expires:date});
 		},
 		get:function(key){
 			return $cookies.get(key);
@@ -255,10 +258,8 @@ angular.module('thinkmerit')
 
 .factory("AuthService", function($http, CookieService,AP,$timeout,$rootScope){
 	var cacheSession=function(response){
-		var date=new Date();
-		var time=date.getTime()+18*60*1000;
-		date.setTime(time);
- 			CookieService.set('authenticated',true,{expires:date});
+
+ 			CookieService.set('authenticated',true);
 			CookieService.set('name',response.name);
 			CookieService.set('email',response.email);
 			CookieService.set('avatar',response.avatar);
