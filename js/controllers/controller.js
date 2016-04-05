@@ -276,22 +276,23 @@ angular.module('thinkmerit')
 			.error(function (argument) { console.log(argument);})
 		}
 		if($routeParams.subject){
-			$http.post(AP+'/get/chapters',{
+			$http.post(AP+'/get/chapters/notes',{
 				course:StringMods.removeUnderScore($routeParams.course),
 				subject:StringMods.removeUnderScore($routeParams.subject)
 			})
 			.success(function (data) {	
-				_self.datas.chapters=data;	
+				_self.datas.modules=data;	
 				//$rootScope.chapters=data;
 				if($routeParams.chapter){
 
 					for (var i = data.length - 1; i >= 0; i--) {
-
-						if(data[i].name==StringMods.removeUnderScore($routeParams.chapter)){
-							
-							_self.selected.chapter=data[i];
+						for (var j = data[i].chapters.length - 1; j >= 0; j--) {
+							/*data[i].chapters*/
+							if(data[i].chapters[j].name==StringMods.removeUnderScore($routeParams.chapter)){				
+							_self.selected.chapter=data[i].chapters[j];
 						}
-					}
+					};
+				}
 				}
 				
 			})
@@ -321,6 +322,29 @@ angular.module('thinkmerit')
 
 
 	};
+	this.showchapter=function (index, prentindex, lim) {
+		if(lim==15){
+			return _self.getTotalChapters(prentindex-1)+index<15;
+		}
+		else if(lim==30){
+			return _self.getTotalChapters(prentindex-1)+index>14 && _self.getTotalChapters(prentindex-1)+index<30;
+		}
+		else if(lim==29){
+			return _self.getTotalChapters(prentindex-1)+index>29;
+		}
+	}
+	
+	this.totalchapters=function  () {
+		_self.getTotalChapters(_self.datas.modules.length-1);
+	} 
+
+	this.getTotalChapters=function (index) {
+		var res=0;
+		for (var i = 0; i < index; i--) {
+			res+=_self.datas.modules[i].chapters.length;
+		};
+		return res;
+	}
 	this.getStickies=function () {
 			$http.get(AP+'/user/get/stickies')
 			.success(function (data) { 
