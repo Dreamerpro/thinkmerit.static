@@ -1,7 +1,7 @@
 
 angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize','ngIdle'])
-.constant('AP', 'https://api.thinkmerit.in')
-/*.constant('AP', 'http://dev.api.thinkmerit.in')*/
+/*.constant('AP', 'https://api.thinkmerit.in')*/
+.constant('AP', 'http://dev.api.thinkmerit.in')
 .config(['$routeProvider','$httpProvider','$locationProvider', 
     function($routeProvider, $httpProvider, $locationProvider) {
 

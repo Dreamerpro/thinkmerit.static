@@ -356,4 +356,10 @@ a.list-group-item.activa:hover{
     height: 40px;
     line-height: 30px;
     border-radius: 20px;
-    }
+ }
+ .uploaded{
+ 	border-right: 4px solid green;
+ }
+ .not-uploaded{
+ 	border-right: 4px solid red;
+ }
