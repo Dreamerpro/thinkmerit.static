@@ -20,7 +20,7 @@
 			<div ng-repeat="x in nc.datas.modules track by $index">
 				<h5><b>{{x.name}}</b></h5>
 				<div class="list-group">
-				<div  class="list-group-item cp" ng-repeat="b in x.chapters track by $index" ng-if="nc.showchapter($index,$parent.$index,15)" ng-class="{'iactive':b.name==nc.currentData.nchapter}" ng-click="nc.showNotes(b.name)">{{b.name}}</div>
+				<div  class="list-group-item cp" ng-repeat="b in x.chapters track by $index" ng-if="nc.showchapter($index,$parent.$index,15)" ng-class="{'iactive':b.name==nc.currentData.nchapter}" ng-click="nc.showNotes(b.name)">{{nc.showchapter($index,$parent.$index,15)}} {{b.name}}</div>
 				</div>		
 			</div>	
 		</div>
