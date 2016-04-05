@@ -77,7 +77,6 @@ angular.module('thinkmerit')
 					for (var i = _self.datas.subjects.length - 1; i >= 0; i--) {
 						if(_self.datas.subjects[i].name===StringMods.removeUnderScore($routeParams.subject)){
 							_self.selected.subject=_self.datas.subjects[i];
-							console.log(_self.selected.subject);
 						}
 					}
 					//if  subject  selected  && chapter notselected=> load all question from that subject

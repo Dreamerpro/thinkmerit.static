@@ -256,6 +256,11 @@ a.list-group-item.activa:hover{
 	padding: 12px;
 	cursor: pointer;
 }
+.option div{
+	height: 30px;
+    line-height: 30px;
+    text-indent: 4px;
+}
 .utility .right-option:hover{
 	background-color:  inherit;
 }
