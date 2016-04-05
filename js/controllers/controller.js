@@ -322,25 +322,48 @@ angular.module('thinkmerit')
 
 
 	};
-	this.showchapter=function (index, prentindex, lim) {
-		return _self.getTotalChapters(prentindex-1)+index;
+	this.showchapter=function (index, parentindex, lim) {
+
+		/*console.log(index,parentindex, _self.datas.modules[parentindex].chapters[index].name, _self.getTotalChapters(parentindex)+index);
+		console.log(" ");*/
 		if(lim==15){
-			return _self.getTotalChapters(prentindex-1)+index<15;
+			return _self.getTotalChapters(parentindex)+index<15;
 		}
 		else if(lim==30){
-			return _self.getTotalChapters(prentindex-1)+index>14 && _self.getTotalChapters(prentindex-1)+index<30;
+			return _self.getTotalChapters(parentindex)+index>14 && _self.getTotalChapters(parentindex)+index<30;
 		}
 		else if(lim==29){
-			return _self.getTotalChapters(prentindex-1)+index>29;
+			return _self.getTotalChapters(parentindex)+index>29;
 		}
 	}
-
-	this.totalchapters=function  () { return _self.getTotalChapters(_self.datas.modules.length-1);} 
+	this.showchapternumber=function (index, parentindex, lim) {
+		return _self.getTotalChapters(parentindex)+index;
+	}
+	this.showChaptername=function (index, lim) {
+		if(lim==15){
+			return _self.getTotalChapters(index)+1<=15;
+		}
+		else if(lim==30){
+			var temp=_self.getTotalChapters(index);/*+_self.datas.modules[index].chapters.length*/
+			if(temp+1<=15){return false;}
+			else{
+				return temp+1<=30;
+			}
+			
+		}
+		else if(lim==29){
+			return _self.getTotalChapters(index)+1>30;
+		}
+	}
+	this.totalchapters=function  () { return _self.getTotalChapters(_self.datas.modules.length);} 
 
 	this.getTotalChapters=function (index) {
 		var res=0;
 		for (var i = 0; i < index; i++) {
-			res+=_self.datas.modules[i].chapters.length;
+			if(_self.datas.modules[i]){
+				res+=_self.datas.modules[i].chapters.length;
+			}
+			
 		};
 		return res;
 	}
