@@ -322,7 +322,7 @@ angular.module('thinkmerit')
 
 
 	};
-	/*this.showchapter=function (index, prentindex, lim) {
+	this.showchapter=function (index, prentindex, lim) {
 		if(lim==15){
 			return _self.getTotalChapters(prentindex-1)+index<15;
 		}
@@ -333,9 +333,9 @@ angular.module('thinkmerit')
 			return _self.getTotalChapters(prentindex-1)+index>29;
 		}
 	}
-	
+
 	this.totalchapters=function  () {
-		_self.getTotalChapters(_self.datas.modules.length-1);
+		return _self.getTotalChapters(_self.datas.modules.length-1);
 	} 
 
 	this.getTotalChapters=function (index) {
@@ -344,7 +344,7 @@ angular.module('thinkmerit')
 			res+=_self.datas.modules[i].chapters.length;
 		};
 		return res;
-	}*/
+	}
 	this.getStickies=function () {
 			$http.get(AP+'/user/get/stickies')
 			.success(function (data) { 
