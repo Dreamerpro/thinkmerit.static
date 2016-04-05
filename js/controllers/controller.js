@@ -323,6 +323,7 @@ angular.module('thinkmerit')
 
 	};
 	this.showchapter=function (index, prentindex, lim) {
+		return _self.getTotalChapters(prentindex-1)+index;
 		if(lim==15){
 			return _self.getTotalChapters(prentindex-1)+index<15;
 		}
