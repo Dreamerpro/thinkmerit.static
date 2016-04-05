@@ -334,13 +334,11 @@ angular.module('thinkmerit')
 		}
 	}
 
-	this.totalchapters=function  () {
-		return _self.getTotalChapters(_self.datas.modules.length-1);
-	} 
+	this.totalchapters=function  () { return _self.getTotalChapters(_self.datas.modules.length-1);} 
 
 	this.getTotalChapters=function (index) {
 		var res=0;
-		for (var i = 0; i < index; i--) {
+		for (var i = 0; i < index; i++) {
 			res+=_self.datas.modules[i].chapters.length;
 		};
 		return res;
