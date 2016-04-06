@@ -164,4 +164,7 @@ padding: 10px;
 		padding-top: 10px;
 		border-top: 1px solid #eee;
 	}
+	.questions-show img, .answer-modal img, .solution-modal img{
+		max-width: 100% !important;
+	}
 }
