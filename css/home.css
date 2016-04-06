@@ -422,7 +422,7 @@ address{
 		margin-top: 0;
 	}
 	#careermodal .modal-dialog{
-		width: auto;
+		width: auto !important;
 	}
 }
 /*---------------------------------------------*/
