@@ -44,7 +44,7 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h3>Question Information</h3>
 				<hr>
-				<div class="clearfix">
+				<!-- <div class="clearfix">
 					<p><span class="col-md-4"><b>Subject:</b></span> <span class="col-md-8">{{nc.question_info.topic.chapter.module.subject.name}}</span></p>
 					<p><span class="col-md-4"><b>Chapter:</b></span> <span class="col-md-8">{{nc.question_info.topic.chapter.name}}</span></p>
 					<p><span class="col-md-4"><b>Topic:</b></span> <span class="col-md-8">{{nc.question_info.topic.name}}</span></p>
@@ -53,7 +53,17 @@
 					<p><span class="col-md-4"><b>Uploaded by:</b></span> <span class="col-md-8">{{nc.question_info.author[0].name}} </span></p>
 					<p><span class="col-md-4"><b>Source:</b></span> <span class="col-md-8">{{nc.question_info.source?nc.question_info.source:'none'}}</span></p>
 					<p><span class="col-md-4"><b>Id:</b></span> <span class="col-md-8">{{nc.question_info.id}}</span></p>	
-				</div>
+				</div> -->
+				<table class="table">
+					<tr><td><b>Subject:</b></td> <td>{{nc.question_info.topic.chapter.module.subject.name}}</td></tr>
+					<tr><td><b>Chapter:</b></td> <td>{{nc.question_info.topic.chapter.name}}</td></tr>
+					<tr><td><b>Topic:</b></td> <td>{{nc.question_info.topic.name}}</td></tr>
+					<tr><td><b>Level:</b></td> <td>{{nc.question_info.level}}</td></tr>
+					<tr><td><b>Rating:</b></td> <td>{{nc.question_info.rating}}</td></tr>
+					<tr><td><b>Uploaded by:</b></td> <td>{{nc.question_info.author[0].name}}</td></tr>
+					<tr><td><b>Source:</b></td> <td>{{nc.question_info.source?nc.question_info.source:'none'}}</td></tr>
+					<tr><td><b>Id:</b></td> <td>{{nc.question_info.id}}</td></tr>
+				</table>
 			</div>
 			<div class="modal-body" mathjax-bind="nc.question_info"></div>
 		</div>
