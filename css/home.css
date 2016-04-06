@@ -402,7 +402,8 @@ address{
 	.modal-dialog{
 		width:400px;
 	}
-	.page-header-2/*, .sign-button*/,.search{
+	/*, .sign-button*/
+	.page-header-2,.search{
 		display: none !important;
 	}
 	.mob-menu{
