@@ -415,7 +415,12 @@ address{
 	#notes-frame{
  	width: 90%;
 	}
-	
+	.jumbotron>div.container>div.tag-line>p {
+		font-size: 40px;
+	}
+	.jumbotron>div.container>div.tag-line{
+		margin-top: 0;
+	}
 }
 /*---------------------------------------------*/
 /*@media(max-width: 980px){
