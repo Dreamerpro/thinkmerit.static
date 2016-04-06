@@ -166,7 +166,7 @@ section>.container{
 }
 
 .career-modal{
-	height: 520px;
+	min-height: 520px;
 }
 .career-modal-ul>li{
 	list-style: disc;
@@ -421,6 +421,9 @@ address{
 	.jumbotron>div.container>div.tag-line{
 		margin-top: 0;
 	}
+	#careermodal .modal-dialog{
+		width: auto;
+	}
 }
 /*---------------------------------------------*/
 /*@media(max-width: 980px){
@@ -428,3 +431,6 @@ address{
     	width: 30%;
 	}
 }*/
+#careermodal .modal-dialog{
+	width: 600px;
+}
