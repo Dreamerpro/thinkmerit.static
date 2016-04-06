@@ -61,7 +61,7 @@
 		</div>
 	</div>
 </div> 
-
+<tnc></tnc>
 
 <div class="page-header">
 	<div class="container">
@@ -109,7 +109,7 @@
 				<!-- <input type='hidden' name="_token" ng-model="ac.credentials._token" ng-value="CSRF_TOKEN"> -->
 				<span class="text-danger">{{ac.signflash[0]}}</span>
 				<input class="btn btn-success" value="Sign Up" ng-disabled="ac.signup.$invalid && ac.signup.$dirty" ng-click="ac.register()" type="submit"/>
-				<label id="tnca"><!-- <input type="checkbox" ng-model="agreetnc"> --> By signing up you agree to our  <a href="#">Terms & Conditions</a>.</label>
+				<label id="tnca"> By signing up you agree to our  <a href data-toggle="modal" data-target="#tnc-modal">Terms & Conditions</a>.</label>
 			</form>
 			<form ng-show="login" name="ac.signin">
 				<div class="form-group has-feedback" ng-class="{'has-error':ac.signin.email.$invalid && ac.signin.email.$dirty}">

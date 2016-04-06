@@ -1,4 +1,10 @@
 angular.module('thinkmerit')
+.directive('tnc', function () {
+  return {
+    restrict:'E',
+    templateUrl:"/templates/directives/tnc"
+  }
+})
 .directive('levelBind',function () {
   return {
     restrict:'A',
