@@ -402,7 +402,7 @@ address{
 	.modal-dialog{
 		width:400px;
 	}
-	.page-header-2, .sign-button,.search{
+	.page-header-2/*, .sign-button*/,.search{
 		display: none !important;
 	}
 	.mob-menu{
