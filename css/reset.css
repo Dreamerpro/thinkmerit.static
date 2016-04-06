@@ -28,6 +28,9 @@ body{
     height: 110;
     border-radius: 0px;
 }
+.modal-header .close {
+    margin-top: 5px !important;
+}
 #logout .modal-dialog .modal-content .footer{
 padding: 10px;
 }
