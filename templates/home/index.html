@@ -134,7 +134,7 @@
 		
 <div class="nav-top" ng-controller="ScrollCtrl">
 	<ul class="nav">
-	<li><a ng-click="goTo('!home')">Home</a></li><li><a ng-click="goTo('!about')">About</a></li><li><a ng-click="goTo('!catalogue')">Catalogue</a></li><!-- <li><a href="#testimonials">Testimonials</a></li> --><li><a ng-click="goTo('!careers')">Careers</a></li><li><a ng-click="goTo('!vision')">Vision</a></li><li><a ng-click="goTo('!faq')">FAQ</a></li><!-- <li><a ng-click="goTo('!contact')">Contact</a></li> -->
+	<li><a ng-click="goTo('!home')">Home</a></li><li><a ng-click="goTo('!about')">About</a></li><li><a ng-click="goTo('!catalogue')">Catalogue</a></li><!-- <li><a href="#testimonials">Testimonials</a></li> --><li><a ng-click="goTo('!careers')">Careers</a></li><li><a ng-click="goTo('!vision')">Vision</a></li><li><a ng-click="goTo('!faq')">FAQ</a></li><li><a ng-click="goTo('!contact')">Contact</a></li>
 	</ul>
 </div>
 
@@ -258,29 +258,37 @@ Congrats! You are now a registered member of ThinkMerit.in</p>
 		</div>
 			
 	</section>
-	<!-- <section id="contact" class="maincolorbg clearfix">
-		<div class="container">
+	<section id="contact" class="maincolorbg clearfix">
+		<div class="container" ng-controller="ContactCtrl as cc">
 			<h2 class="fw7 pt10">CONTACT US</h2>
 			<span class="line 40p"></span>
 			<p class="subt ">Want to reach us?</p>
 			<div class="col-md-6">
-				<form id="contact-form">
-					<div class="col-md-6 form-group">
-						<label>Name*</label>
-						<input class="form-control" type="text" min="3" required></input>
+				<form ng-show="cc.status==1" id="contact-form" name="contactform" novalidate >
+					<div class="col-md-6 form-group" ng-class="{'has-error':contactform.name.$error.required && contactform.name.$dirty}">
+						<label ng-class="{'text-danger':contactform.name.$error.required && contactform.name.$dirty}">Name*</label>
+						<input class="form-control" type="text" min="3" name="name" ng-model="cc.data.name" required></input>
 					</div>
-					<div class="col-md-6 form-group">
-						<label>Email*</label>
-						<input class="form-control" type="email" required></input>
+					<div class="col-md-6 form-group"  ng-class="{'has-error':contactform.email.$invalid && contactform.email.$dirty}">
+						<label ng-class="{'text-danger':contactform.email.$invalid && contactform.email.$dirty}">Email*</label>
+						<input class="form-control" type="email" ng-model="cc.data.email" name="email" required></input>
 					</div>
-					<div class="col-md-12 form-group">
-						<label>Message*</label>
-						<textarea class="form-control" required></textarea>
+					<div class="col-md-12 form-group" ng-class="{'has-error':contactform.msg.$error.required && contactform.msg.$dirty}">
+						<label ng-class="{'text-danger':contactform.msg.$error.required && contactform.msg.$dirty}">Message*</label>
+						<textarea class="form-control" ng-model="cc.data.message" name="msg" required></textarea>
 					</div> 	
 					<div class="col-md-3 form-group">
-						<button class="btn btn-send">Send</button></div>
+						<button class="btn btn-send" ng-disabled="contactform.$invalid && contactform.$dirty" ng-click="cc.sendmsg();contactform.$setPristine();">Send</button></div>
 					
 				</form>
+				<div class="clearfix" ng-show="cc.status==2">
+					<i class="fa fa-4x fa-spinner fa-pulse"></i>
+				</div>
+				<div class="clearfix" ng-show="cc.status==3">
+					<h5>{{cc.message}}</h5>
+					<br>
+					<button ng-click="cc.status=1" class="btn btn-warning">Ok</button>
+				</div>
 			</div>	
 			<div class="col-md-6">
 				<address>
@@ -294,7 +302,7 @@ Congrats! You are now a registered member of ThinkMerit.in</p>
 		</div>
 
 		
-	</section> -->
+	</section>
 </div>
 <link rel="stylesheet" type="text/css" href="css/home.css">
 <script type="text/javascript">

@@ -1,4 +1,22 @@
 angular.module('thinkmerit')
+.controller('ContactCtrl', function ($http, AP) {
+	var _self=this;
+	_self.data={};
+	_self.status=1;
+	_self.sendmsg=function () {
+		_self.status=2;
+		$http.post(AP+"/contact",_self.data)
+		.success(function (data) {
+			_self.status=3;
+			_self.data={};
+			_self.message="Your message has been sent successfully.";
+		})
+		.error(function (data) {
+			_self.status=3;
+			_self.message="There was an error sending your message.";
+		})
+	}
+})
 .controller('SideBarCtrl', function (ScreenManager) {
 	this.collapseifsmall=function () {
 		ScreenManager.work();
