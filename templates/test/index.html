@@ -1,0 +1,37 @@
+<div class="content main" ng-controller="TestController as tc" ng-init="tc.init()">
+  <section class="inner">
+    <div class="section-header">
+
+      <h4>Test Series</h4>
+
+    </div>
+    <div class="col-md-12">
+      <div class="panel ">
+        <p class="panel-body bg-info">
+        1. You are not allowed to refresh during test. <br>
+        2. Make sure you have proper internet connection.
+        </p>
+      </div>
+      <div class="col-md-3 card panel" ng-repeat="a in tc.activetests">
+        <div class="panel-heading">
+          <h3>{{a.name}}</h3>
+          <hr>
+        </div>
+        <div class="card-body panel-body">
+          <p>
+            Description: {{a.description}}
+          </p>
+          <span>Duration: {{a.duration}} hrs.</span>
+          <br><br>
+          <p>
+            <label><input type="checkbox" ng-model="a.ready" value="1"> I am ready.</label>
+          </p>
+        </div>
+        <div class="card-footer panel-footer ">
+          <a ng-href="" ng-show="!a.ready" disabled class="btn">START</a>
+          <a ng-href="/intest/{{a.id}}" ng-show="a.ready" class="btn">START</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

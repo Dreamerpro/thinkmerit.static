@@ -12,7 +12,7 @@
 								<div class="question-parts" ng-repeat="qq in q.paragraph_questions track by $index">
 									<p class="indexer">{{$parent.$index+1+10*(nc.pageNo-1)}}.{{$index+1}}</p>
 									<div mathjax-bind="qq.question"></div>
-									
+
 									<div class="choices" ng-if="qq.choices">
 										<p class="col-md-6" >A. <span mathjax-bind="qq.choices.A"></span></p>
 										<p class="col-md-6" >B. <span mathjax-bind="qq.choices.B"></span></p>
@@ -23,7 +23,6 @@
 								</div>
 							</div>
 							<div >
-								
 								<div class="choices" ng-if="q.type==3||q.type==4">
 									<p class="col-md-6" >A. <span mathjax-bind="q.choices.A"></span></p>
 									<p class="col-md-6" >B. <span mathjax-bind="q.choices.B"></span></p>
@@ -31,17 +30,17 @@
 									<p class="col-md-6" >D. <span mathjax-bind="q.choices.D"></span></p>
 								</div>
 							</div>
-							
+
 						</span>
 						<span class="side-tools pull-right col-md-2 col-xs-12 row" style="padding-right:0">
-							
+
 							<div class="clearfix col-md-6 col-xs-6 plr-0">
 <div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(q,true)"><i class="fa fa-check" ng-class="{'text-success':q.usersolved[0]}"></i> </div>
 <div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(q,true)"><i class="fa fa-question"  ng-class="{'text-danger':q.userdoubt[0]}"></i> </div>
 <div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(q,true)" >
-	<i class="fa {{q.userfavourite[0]?'fa-heart':'fa-heart-o'}}" ng-class="{'text-yellow':q.userfavourite[0]}"></i> 
+	<i class="fa {{q.userfavourite[0]?'fa-heart':'fa-heart-o'}}" ng-class="{'text-yellow':q.userfavourite[0]}"></i>
 </div>
-<div title="video" class="btn btn-default qm"  ng-class="{'btn-disabled':!q.video}" ng-click="nc.showvideo(q.video)"  ng-disable="!q.video" ng-click="nc.togglevideo(q)"  ><i class="fa fa-video-camera" ></i> 
+<div title="video" class="btn btn-default qm"  ng-class="{'btn-disabled':!q.video}" ng-click="nc.showvideo(q.video)"  ng-disable="!q.video" ng-click="nc.togglevideo(q)"  ><i class="fa fa-video-camera" ></i>
 </div>
 <div title="information" class="btn btn-default qm" ng-click="nc.showinfo(q.id)" style="width:34px"><i class="fa fa-info" ></i> </div>
 
@@ -63,7 +62,7 @@
 </div> -->
 
 							</div><!-- fa-video-camera -->
-							<div class="clearfix col-md-6 col-xs-6 plr-0 tar">							
+							<div class="clearfix col-md-6 col-xs-6 plr-0 tar">
 <a  ng-click="nc.showanswer(q.id);nc.q=q" class="btn btn-default col-md-12 row">Answer</a>
 <a  ng-click="nc.showsolution(q.id);nc.q=q" class="btn btn-default col-md-12 row" >Solution</a>
 							</div>
@@ -84,5 +83,5 @@
 
 						</span>
 					</div>
-				</div>		
+				</div>
 </div>

@@ -24,7 +24,7 @@
 			</div>
 			<div class="col-md-2" ng-show="nc.selected.subject"  >
 				<h4>Chapter</h4>
-				
+
 				<ui-select ng-model="nc.selected.chapter"  theme="selectize" ng-disabled="disabled"><!-- ng-change="nc.selectchapter(nc.selected.chapter)" -->
 			    <ui-select-match placeholder="{{nc.datas.chapters.length>0?'Select or search a chapter':'No data found'}}">{{$select.selected.name}}</ui-select-match>
 			    <ui-select-choices repeat="chapter in nc.datas.chapters | filter: $select.search">
@@ -35,7 +35,7 @@
 			</div>
 			<div class="col-md-2" ng-show="nc.selected.chapter"  >
 				<h4>Topic</h4>
-				
+
 				<ui-select ng-model="nc.selected.topic"  theme="selectize" ng-disabled="disabled"><!-- ng-change="nc.selecttopic(nc.selected.topic)" -->
 			    <ui-select-match placeholder="{{nc.datas.topics.length>0?'Select or search a topic':'No data found'}}">{{$select.selected.name}}</ui-select-match>
 			    <ui-select-choices repeat="topic in nc.datas.topics | filter: $select.search">
@@ -46,8 +46,8 @@
 	</div>
 
 </div>
-			
-<!-- QUESTION SHOW -->		
+
+<!-- QUESTION SHOW -->
 <!-- PAGINAION -->
 <nav class="clearfix">
 	<ul class="pagination pull-right m-r15">
@@ -63,11 +63,11 @@
 	   </li>
 	 </ul>
 </nav>
-<!-- SINGLE QUESTION -->	
+<!-- SINGLE QUESTION -->
 <div single-question></div>
 
 <!-- LIST OF QUESTION -->
-<div list-of-question></div> 
+<div list-of-question></div>
 
 		</div>
 	<section>

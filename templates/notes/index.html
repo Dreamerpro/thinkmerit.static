@@ -5,19 +5,19 @@
 	<div class="modal-content">
 		<div class="modal-header" style="padding-left: 20;">
 			<div ng-hide="uc0.config.editmode">
-			<a class="pull-right option right-option add-bg" ng-click="uc0.config.editmode=true;nc.current={};uc0.config.viewmode=false;nc.savemode='new'"><i class="fa fa-plus"></i></a>
+			<a  class="pull-right option right-option add-bg" ng-click="uc0.config.editmode=true;nc.current={};uc0.config.viewmode=false;nc.savemode='new'"><i class="fa fa-plus"></i></a>
 			<!-- <a class="pull-right option right-option" ng-show="!uc0.config.viewmode"><i class="fa fa-trash"></i></a> -->
-			<a class="pull-right option right-option" ng-show="uc0.config.viewmode" ng-click="uc0.config.editmode=true;uc0.config.viewmode=false;nc.savemode='update'"><i class="fa fa-edit"></i></a>
+			<a  class="pull-right option right-option" ng-show="uc0.config.viewmode" ng-click="uc0.config.editmode=true;uc0.config.viewmode=false;nc.savemode='update'"><i class="fa fa-edit"></i></a>
 			</div>
-			
+
 			<a class="pull-left back-icon" ng-click="uc0.showList()" ng-show="uc0.config.viewmode"><i class="fa fa-chevron-left"></i></a>
 			<h3><b>Stickies</b></h3>
 		</div>
 <div class="modal-body utility" style="min-height: 250px; height:auto">
 
 			<div class=""  ng-init="nc.stickies=nc.stickies">
-			
-			
+
+
 			<div class="body">
 				<div ng-if="nc.stickies.length<1 && !uc0.config.editmode" style="padding: 120px; color: #FFBE56; opacity: 0.2; ">
 					<center><i class="fa fa-sticky-note-o fa-4x"></i></center>
@@ -27,7 +27,7 @@
 						<i  ng-click="nc.deleteItem(a,'sticky')" class="fa fa-trash option pull-right"></i>
 						<!-- ng-show="uc0.config.deletemode" -->
 
-						<a  ng-click="uc0.showItem(a);nc.current=a" href=""> {{a.title | limitTo:40 }}</a>  
+						<a  ng-click="uc0.showItem(a);nc.current=a" href=""> {{a.title | limitTo:40 }}</a>
 					</li>
 				</ul>
 				<div class="item-details" ng-show="uc0.config.viewmode">
@@ -43,7 +43,7 @@
 					<label>Content <small ><small >(Max 250char)</small></small></label>
 					<textarea class="form-control bb0" name="body" ng-model="nc.current.body" palceholder="body" rows="6" required></textarea>
 					</div>
-					
+
 					<div class="btn btn-danger pull-right" ng-disabled="editform.$invalid" ng-click="uc0.save('sticky', nc,editform,$index)">Save</div>
 					<div class="btn btn-default"  ng-click="uc0.config.editmode=false;nc.current={};editform.$setPristine()">Cancel</div>
 				</form>

@@ -32,7 +32,7 @@ angular.module('thinkmerit')
 
            $scope.$watch($attrs.mathjaxBind, function(value) {
                 $element.html(value?value:"");
-                MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);         
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);
             });
 
         }]
@@ -60,7 +60,7 @@ angular.module('thinkmerit')
               */
                 $element.html(value?value:"");
 
-                MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);         
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);
             });
 
         }]
@@ -82,6 +82,12 @@ angular.module('thinkmerit')
   return {
     restrict:'A',
     templateUrl:'/templates/directives/question-list'
+  }
+})
+.directive('testListQuestion', function () {
+  return {
+    restrict:'A',
+    templateUrl:'/templates/directives/test-question-list'
   }
 })
 .directive('singleQuestion', function () {
@@ -166,4 +172,3 @@ angular.module('thinkmerit')
     };
   }
 ]);
-

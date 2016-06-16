@@ -1,0 +1,33 @@
+<div class="col-md-12 questions-show" style="border-top:0" >
+	<div class="list-group-item clearfix" >
+
+		<span class="">
+			<p class="indexer">
+					<span ng-if="c.data.type!=5"><span ng-init="tc.questionnumber=tc.questionnumber+1">{{tc.getQIndex(questionindex, sectionindex, partindex) }}</span></span>. Question
+			</p>
+			<p processed="true"  mathjax-bind="c.data.question"></p></span>
+		<div ng-if="c.data.type==5" >
+
+			<div class="question-parts" ng-repeat="qq in c.data.paragraph_questions track by $index">
+				<p class="indexer" ng-init="tc.questionnumber=tc.questionnumber+1"></p>
+				<div mathjax-bind="qq.question"></div>
+
+				<div class="choices" ng-if="qq.choices">
+					<p class="col-md-6" >A. <span mathjax-bind="qq.choices.A"></span></p>
+					<p class="col-md-6" >B. <span mathjax-bind="qq.choices.B"></span></p>
+					<p class="col-md-6" >C. <span mathjax-bind="qq.choices.C"></span></p>
+					<p class="col-md-6" >D. <span mathjax-bind="qq.choices.D"></span></p>
+				</div>
+				<br>
+			</div>
+		</div>
+		<div ng-if="c.data.type==3 || c.data.type==4">
+			<div class="choices" >
+				<p class="col-md-6" >A. <span mathjax-bind="c.data.choices.A"></span></p>
+				<p class="col-md-6" >B. <span mathjax-bind="c.data.choices.B"></span></p>
+				<p class="col-md-6" >C. <span mathjax-bind="c.data.choices.C"></span></p>
+				<p class="col-md-6" >D. <span mathjax-bind="c.data.choices.D"></span></p>
+			</div>
+		</div>
+	</div>
+</div>

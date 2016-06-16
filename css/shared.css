@@ -2,7 +2,7 @@ header{
 	height: 50px;
     border-bottom: 2px solid #ddd;
     box-shadow: 2px 2px 2px #eee;
-     background: #FFF; 
+     background: #FFF;
     position: fixed;
     width: 100%;
     z-index: 1000;
@@ -30,7 +30,7 @@ a.logo>img {
     transition:all 0.6s;
 }
 /*.navbar-brand>.logo>.uncollapsed:hover{
-	clip: rect(0px,51px,200px,31px);   
+	clip: rect(0px,51px,200px,31px);
 }*/
 
 
@@ -145,8 +145,8 @@ footer{
 
 
 @media(min-width: 992px){
-  body.collapsed .navbar-brand>.logo>.uncollapsed{    
-    clip: rect(0px,52px,200px,33px); 
+  body.collapsed .navbar-brand>.logo>.uncollapsed{
+    clip: rect(0px,52px,200px,33px);
   }
   body.collapsed .navbar-brand>.logo{
     width: 80px;
@@ -155,10 +155,22 @@ footer{
   body.collapsed .left-side-bar{
     width: 80px;
   }
-  
+
   .navbar-right{
     margin-right: 0;
-  } 
+  }
+}
+@media(min-width: 767px){
+	/*COLLAPSED*/
+	body.collapsed .navbar-brand>.logo>.uncollapsed{
+    clip: rect(0px,52px,200px,33px);
+  }
+  body.collapsed .navbar-brand>.logo{
+    width: 80px;
+  }
+  body.collapsed .left-side-bar{
+    width: 80px;
+  }
 }
 @media(max-width: 768px){
   body .navbar-brand{
@@ -192,7 +204,7 @@ footer{
     position: absolute;
     top: -3px;
     right: 15;
-  } 
+  }
 
 
 }

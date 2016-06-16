@@ -24,7 +24,7 @@ body{
 	text-align: center;
 }
 #logout .modal-dialog .modal-content{
-	
+
     height: 110;
     border-radius: 0px;
 }
@@ -97,7 +97,7 @@ padding: 10px;
 	margin-top: 10px;
 }
 .bb0{
-	border-radius:0 !important; 
+	border-radius:0 !important;
 }
 .dropdown-menu li{
 	height: 30px;
@@ -145,7 +145,17 @@ padding: 10px;
 .pagination li{
 	cursor: pointer;
 }
-
+.yf{
+	position: absolute;
+	margin-left: calc(134px - 21px);
+	margin-top: calc(75px - 21px);
+}
+.cushidden{
+	width: 0;
+	height: 0;
+	opacity: 0;
+	display: inline-block;;
+}
 
 @media(min-width: 992px){
 	.mw-800{

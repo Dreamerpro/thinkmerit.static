@@ -1,8 +1,8 @@
 
-angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize','ngIdle'])
-.constant('AP', 'https://api.thinkmerit.in')
-/*.constant('AP', 'http://dev.api.thinkmerit.in')*/
-.config(['$routeProvider','$httpProvider','$locationProvider', 
+angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize','ngIdle','rzModule'])
+//.constant('AP', 'https://api.thinkmerit.in')
+.constant('AP', 'http://dev.api.thinkmerit.in')
+.config(['$routeProvider','$httpProvider','$locationProvider',
     function($routeProvider, $httpProvider, $locationProvider) {
 
 	$tu="templates/";
@@ -24,6 +24,11 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
   .when("/question-bank/:course/:subject/:chapter/:topic/:questionid", {templateUrl:$tu+'questionbank/index.html'})
   .when("/change-password", {templateUrl:$tu+'profile/changeprofile.html'})
   .when("/profile", {templateUrl:$tu+'profile/index.html'})
+
+  .when("/question-bank", {redirectTo:"/question-bank/+2_Science"})
+  .when("/video-lectures", {templateUrl:$tu+"/video/home.html"})
+  // .when("/tests", {templateUrl:$tu+"/test/index.html"})
+  .when("/intest/:id", {templateUrl:$tu+"/test/intest.html"})
 	//.otherwise({ templateUrl:$tu+'errors/invalidurl.html' });
 
   $httpProvider.defaults.withCredentials = true;
@@ -36,12 +41,19 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
  .config(function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = true;
 })
+.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('httpRequestInterceptor');
+})
  .run(function (Idle) {
     Idle.watch();
  })
-.run(function($rootScope, $location, $http, $cookies, AP, AuthService,  AuthHelper, ScreenManager){
+.run(function($rootScope, $location, $http, $cookies, AP, AuthService,  AuthHelper, ScreenManager, $window){
 
-  
+    $rootScope.$on('$routeChangeStart',function(event) {
+      if($rootScope.intest){event.preventDefault();}
+    })
+
+
 //detect route change
       $rootScope.$on('$locationChangeSuccess', function(event){
           var url = $location.url(),
@@ -49,12 +61,12 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
 
           if(_.contains(homeurl, url)){  $rootScope.islanding=true;}
           else{  $rootScope.islanding=false;}
-          
-          
 
-          if(AuthHelper.isAuthorized()){ 
-            ScreenManager.work(); 
-            AuthHelper.redirectIfAuthorized();       
+
+
+          if(AuthHelper.isAuthorized()){
+            ScreenManager.work();
+            AuthHelper.redirectIfAuthorized();
          }
           else{  AuthHelper.redirectIfUnAuthorized(); }
 
@@ -64,27 +76,17 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
         if(AuthService.isLoggedIn()){
           AuthService.authuser();
         }
-        
+
       });
-      
-  /*$http.defaults.headers.post['X-CSRF-TOKEN']=CSRF_TOKEN; 
-  $cookies.put('XSRF-TOKEN',CSRF_TOKEN);*/
-   /*if(!$cookies.get('XSRF-TOKEN')){//$rootScope.CSRF_TOKEN==undefined || $rootScope.CSRF_TOKEN==null
-        $http.get(AP+'/csrf_token').success(function(d){
-            $cookies.put('XSRF-TOKEN',d.XSRF_TOKEN);
-            //$cookies.put('laravel-session',d.LARAVEL_ID);
-            //$http.defaults.headers.common.X-CSRF-TOKEN = 'Basic YmVlcDpib29w';
-            //$http.defaults.headers.post['X-CSRF-TOKEN']=$cookies.get('XSRF-TOKEN'); 
-            $http.defaults.headers.post['X-CSRF-TOKEN']=d.XSRF_TOKEN; 
-          });
-   }*/
-   if(!$cookies.get('XSRF-TOKEN')){
-        $http.get(AP+'/csrf_token').success(function(d){
-        $cookies.put('XSRF-TOKEN',d);
-        $http.defaults.headers.post['X-CSRF-TOKEN']=d;
-      });
-   }
-  
+
+
+  //  if(!$cookies.get('XSRF-TOKEN')){
+  //       $http.get(AP+'/csrf_token').success(function(d){
+  //       $cookies.put('XSRF-TOKEN',d);
+  //       $http.defaults.headers.post['X-CSRF-TOKEN']=d;
+  //     });
+  //  }
+
    $rootScope.isLocationActive=function (argument) {
      return $rootScope.path.indexOf(argument)>0;
    }

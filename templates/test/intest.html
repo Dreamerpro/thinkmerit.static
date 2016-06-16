@@ -1,0 +1,48 @@
+<div class="content main" ng-controller="TestController as tc" ng-init="tc.fetchtest()">
+
+
+  <section class="inner">
+    <div class="section-header">
+
+      <h4>Test Series</h4>
+
+    </div>
+    <div class="col-md-12">
+      <div class="test-header">
+        <center><h2>{{tc.test.name}}</h2></center>
+
+        <p class="pull-right">
+          Duration: {{tc.test.duration}} hrs.
+        </p>
+        <p>
+         Instructions
+        </p>
+
+        <hr>
+      </div>
+      <div class="test-body" ng-init="tc.questionnumber=0;">
+        <div class="question-paper col-md-10" >
+          <div class="part" ng-repeat="a in tc.test.parts track by $index" ng-init="partindex=$index">
+            <center><h3>Part : {{a.name}}</h3></center>
+            <hr>
+            <div class="part-section" ng-repeat="b in a.sections track by $index" ng-init="sectionindex=$index">
+              <center><h4>Section : {{b.name}}</h4></center>
+              <p>{{b.description}}</p>
+              <hr>
+              <div ng-repeat="c in b.questions track by $index" ng-init="questionindex=$index" class="clearfix">
+              <div test-list-question></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="attempt-marker col-md-2 panel" >
+          <h4>Attempt Marker</h4>
+          <div class="col-md-2 btn btn-default" ng-repeat="z in tc.attempmarker track by $index">
+            {{$index+1}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

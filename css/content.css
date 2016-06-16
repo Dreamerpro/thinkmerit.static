@@ -67,7 +67,7 @@ body.collapsed div.content.main{
     padding-top: 5px;
 }
 #careermodal>.modal-dialog>.modal-content>.modal-footer{
-    padding: 0 15px;	
+    padding: 0 15px;
 }
 .career-modal-ul{
 	padding: 0;
@@ -155,7 +155,7 @@ section.inner .section-header{
 	color: #fff !important;
 }
 a.list-group-item.activa:hover{
-	
+
 	background-color: #08A9BD;
 	color: #fff !important;
 }
@@ -164,10 +164,10 @@ a.list-group-item.activa:hover{
 	height: 500px;
 }
 /*.utility *{
-	color: #fff !important;	
+	color: #fff !important;
 }*/
 .utility .panel{
-   
+
     height: inherit;
 }
 .utility .header{
@@ -183,9 +183,9 @@ a.list-group-item.activa:hover{
 	width: 10px;
  }
  .utility .body::-webkit-scrollbar-track {
-    background-color: #ddd; 
+    background-color: #ddd;
 }
- 
+
 .utility .body::-webkit-scrollbar-thumb {
     border-radius: 5px;
     /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); */
@@ -207,7 +207,7 @@ a.list-group-item.activa:hover{
 	margin-right: 8px;
 }
 .utility .body>ul.menu.ul-li>li>a{
-	color: #6F6F6F;	
+	color: #6F6F6F;
 	text-indent: 20px;
 }
 
@@ -245,11 +245,11 @@ a.list-group-item.activa:hover{
 .back-icon:hover{
 	color: #E0AD13;
 }
-.utility .right-option{	
+.utility .right-option{
 	/*border-radius:50%; */
 	width: 38px;
     margin-top: 28px;
-    margin-right: 20px;    
+    margin-right: 20px;
     /*color: #fff;*/
 }
 .option{
@@ -331,19 +331,32 @@ a.list-group-item.activa:hover{
     vertical-align: top;
 }
 
+.cc{
+	color: #c2c2c2;
+	/*transition: 0.4s ease */
+	animation: cc 2s cubic-bezier(1, 0.18, 0.41, 1.24);
+	/*animation-duration: 1s;*/
+}
+@keyframes cc {
+	0% {color: #fff;}
+	50% {color: #000;}
+	75% {color: #6b6b6b;}
 
+	100% {color: #eee;}
+
+}
 #notes-container{
 	overflow-y: auto;
 }
 #notes-container.notes-fs{
-	
+
 	background-image: url('/images/fs-bg.jpg');
 }
 #notes-container.notes-fs>div{
     width: 80%;
     margin: 0 auto;
     padding: 40px;
-    background-color: #fff;   
+    background-color: #fff;
 }
 .no-data{
 	height: 200px;
@@ -368,3 +381,82 @@ a.list-group-item.activa:hover{
  .not-uploaded{
  	border-right: 4px solid red;
  }
+/*Video Lectures*/
+.v-d,.v-i{
+	display: inline-block;
+}
+.v-i{
+	width: 267px;
+	height: 150px;
+}
+.v-i:hover{
+	outline: 1px solid red;
+	cursor: pointer;
+}
+.yf{
+	display: none;
+}
+.v-i:hover .yf{
+	color: red;
+	display: block;
+}
+.v-d{
+	padding: 10px;
+	width: calc(100% - 267px);
+	vertical-align: top;
+}
+.v-d h4{
+	    font-weight: bold;
+}
+.videopanel{
+	display: inline-block;
+	transition: 0.5s ease all;
+	padding-top: 44px;
+}
+/*.videopanel.cushidden #videoholder{
+	width:50%;
+	transition: 0.5s ease all;
+	transition-delay: 2s;
+}
+.videopanel #videoholder{
+	transition: 0.5s ease all;
+}*/
+.cushidden #videoholder{
+	/*width: 50%;
+	height: 50%;
+	transition: 0.5s ease-out all;*/
+}
+
+/*SEARCH RESULT*/
+.smi{
+	width: 100px;
+	height: 56px;
+}
+.results{
+	color: #fff;
+}
+.mmedia:not(:last-child){
+	border-bottom: 1px solid white;
+}
+
+/*TEST*/
+
+.card{
+	text-align: center;
+	padding: 0;
+}
+.card-body{
+	height: 300px;
+}
+.card-footer{
+	padding: 0 !important;
+	    height: 50px;
+}
+.card-footer a{
+	width: 100%;
+	height: auto;
+	line-height: 38px;
+}
+.part-section{
+	margin-top: 40px;
+}

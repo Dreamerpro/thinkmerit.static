@@ -1,6 +1,6 @@
 angular.module('thinkmerit')
 .factory('ScreenManager',function  ($rootScope) {
-	
+
 	return {
 		isSmallDevice:function () {
 			if($(document).width()<768){
@@ -16,7 +16,7 @@ angular.module('thinkmerit')
 	}
 })
 .factory('QuestionListService',function ($location, $http, AP, $routeParams) {
-	
+
 
 	return {
 		prev:function (_self) {
@@ -46,7 +46,7 @@ angular.module('thinkmerit')
 				if(!canceled){	swal.close(); $('#answer-modal').modal({show:true});	}
 			})
 			.error(function (argument) { swal({   title: "Error!",   text: "There was an error loading answer.",   timer: 2000,   showConfirmButton: false });	})
-			
+
 		},
 		showsolution:function (_self, id) {
 			var canceled=false;
@@ -102,11 +102,11 @@ angular.module('thinkmerit')
 			$http.get(AP+'/dfs/toggleitem/'+question.id+'/1')
 			.success(function (data) {
 				if(list){$item=_self.questions.questions[_self.questions.questions.indexOf(question)];$item.userfavourite[0]=!$item.userfavourite[0];}
-				else{_self.question.userfavourite[0]=!_self.question.userfavourite[0];}	
+				else{_self.question.userfavourite[0]=!_self.question.userfavourite[0];}
 			})
 			.error(function (data) {	console.log(data);	})
 		},
-		toggledoubt:function (_self,question,list) { 
+		toggledoubt:function (_self,question,list) {
 			$http.get(AP+'/dfs/toggleitem/'+question.id+'/2')
 			.success(function (data) {
 				if(list){ $item=_self.questions.questions[_self.questions.questions.indexOf(question)]; $item.userdoubt[0]=!$item.userdoubt[0];}
@@ -131,7 +131,7 @@ angular.module('thinkmerit')
 					  description:'',
 					  title:'Have you tried this question?'
 					}, function(response){
-						
+
 					});
 			}
 			else if(type=="tw"){
@@ -177,15 +177,15 @@ angular.module('thinkmerit')
 	stickies: $rootScope.stickies|| []
 
  }
- this.removeUnderScore=function (val) {	
+ this.removeUnderScore=function (val) {
 		if(val==undefined){return false;}
 		return val.replace(/_/g,' ');
 	}
-	this.addUnderScore=function (val) {	
+	this.addUnderScore=function (val) {
 		if(val==undefined){return false;}
 		return val.replace(/ /g,'_');}
-	
-	
+
+
 })*/
 .factory("StringMods",function () {
 	return {
@@ -193,7 +193,7 @@ angular.module('thinkmerit')
 			if(val==undefined){return false;}
 			return val.replace(/_/g,' ');
 		},
-		addUnderScore:function (val) {	
+		addUnderScore:function (val) {
 			if(val==undefined){return false;}
 			return val.replace(/ /g,'_');
 		}
@@ -263,9 +263,9 @@ angular.module('thinkmerit')
 			CookieService.set('name',response.name);
 			CookieService.set('email',response.email);
 			CookieService.set('avatar',response.avatar);
-			
+
 			$rootScope.isLoggedIn=true;
-		 	
+
 	}
 	var uncacheSession=function($timeout){
 		CookieService.unset('authenticated');
@@ -274,6 +274,7 @@ angular.module('thinkmerit')
 	/*var that=this;*/
 	return {
 		login:function(credentials){
+			//credentials._token=CookieService.get('XSRF-TOKEN');
 			var promise= $http.post(AP+'/auth/login',credentials);
 			promise.success(function (response) {
 				cacheSession(response);
@@ -281,7 +282,7 @@ angular.module('thinkmerit')
 			return promise;
 		},
 		logout:function(){
-			var promise= $http.get(AP+'/logout');	
+			var promise= $http.get(AP+'/logout');
 			promise.success(uncacheSession);
 			return promise;
 		},
@@ -293,6 +294,12 @@ angular.module('thinkmerit')
 			return promise;
 		},
 		authuser:function () {
+			$http.get(AP+ '/csrf_token')
+			.success(function(d) {
+				console.log(d);
+				CookieService.set('X-CSRF-TOKEN',d);
+				}
+			)
 			var promise= $http.get(AP+'/user');
 			promise.success(function (response) {
 				cacheSession(response);
@@ -303,7 +310,7 @@ angular.module('thinkmerit')
 		isLoggedIn:function(){
 			return CookieService.get('authenticated');
 		},
-		
+
 	}
 })
 .factory("AuthHelper", function (AuthService,$rootScope, $location, UserService) {
@@ -327,14 +334,24 @@ angular.module('thinkmerit')
 		},
 		redirectIfUnAuthorized:function () {
 			if(!$rootScope.islanding){
-	              $rootScope.islanding=true;  
+	              $rootScope.islanding=true;
 	              $location.path('/');
 	              $location.hash('');
 	              $rootScope.flash="You must log in first.";
           	}
    		},
 		redirectIfAuthorized:function () {
-			if($rootScope.islanding){ $location.path('/dashboard');      }     
+			if($rootScope.islanding){ $location.path('/dashboard');      }
    		}
 	}
 })
+.factory('httpRequestInterceptor', function () {
+  return {
+    request: function (config) {
+
+      config.headers['X-CSRF-TOKEN'] = 'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==';
+
+			return config;
+    }
+  };
+});

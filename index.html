@@ -3,12 +3,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
 	<title>ThinkMerit</title>
 
 	<meta property="twitter:title" content="ThinkMerit">
 	<meta property="twitter:description"   content="ThinkMerit believes every student is uniquely brilliant and deserves a high-quality education. So, we help students to prepare for all competitive exams like JEE Mains, JEE Advanced BITSAT etc">
-  
+
 	<meta property="og:url"                content="https://www.thinkmerit.in" />
 	<meta property="og:title"              content="ThinkMerit" />
 	<meta property="og:description"        content="ThinkMerit believes every student is uniquely brilliant and deserves a high-quality education. So, we help students to prepare for all competitive exams like JEE Mains, JEE Advanced BITSAT etc" />
@@ -24,11 +24,11 @@
 	<link rel="stylesheet" href="/css/reset.css">
 	<link rel="stylesheet" href="/css/mediaqueries.css">
 	<base href="/">
-	<script src="https://apis.google.com/js/platform.js"></script>
+	<!-- <script src="https://apis.google.com/js/platform.js"></script> -->
 </head>
 <body ng-class="{'collapsed':isCollapsed}">
 	<div id="fb-root"></div>
-
+<!--
 <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -54,14 +54,14 @@
   js.id = id;
   js.src = "https://platform.twitter.com/widgets.js";
   fjs.parentNode.insertBefore(js, fjs);
- 
+
   t._e = [];
   t.ready = function(f) {
     t._e.push(f);
   };
- 
+
   return t;
-}(document, "script", "twitter-wjs"));</script>
+}(document, "script", "twitter-wjs"));</script> -->
 
 
 
@@ -85,7 +85,8 @@
 <script type="text/javascript" src="/js/libraries/underscore.js"></script>
 <script type="text/javascript" src="/js/libraries/ng-idle.js"></script>
 <script type="text/javascript" src="/js/dependencies/angular.sanitize.min.js"></script>
-
+<script type="text/javascript" src="/node_modules/angularjs-slider/dist/rzslider.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/node_modules/angularjs-slider/dist/rzslider.min.css">
 
 <script type="text/javascript" src="/js/app/app.js"></script>
 <script type="text/javascript" src="/js/controllers/controller.js"></script>

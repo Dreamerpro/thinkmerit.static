@@ -1,8 +1,8 @@
-<div class="modal fade" id="search-modal">
+<div class="modal fade" id="search-modal" ng-controller="GlobleSearchCtrl as gsc">
 	<div class="modal-dialog">
 		<div class="modal-content" style="border:none;width: 500px;">
 			<!-- <div class="modal-body">
-				
+
 			</div> -->
 			<div class="col-md-12">
 				<style type="text/css">
@@ -18,9 +18,32 @@
 				</style>
 					<form name="searchForm">
 						<div class="form-group has-feedback">
-							<input placeholder="Search chapter/topic" class="form-control" type="text"></input>
+							<input ng-model="gsc.keyword" placeholder="Search chapter/topic/video" class="form-control" type="text"></input>
 							<i class="fa fa-search form-control-feedback"></i>
 						</div>
+
+<div class="results">
+
+	<div class="" ng-show="gsc.untouched">
+		Type something.
+	</div>
+	<div class="" ng-show="!gsc.untouched && gsc.results.length<1">
+		No results found
+	</div>
+
+		<div class="media mmedia" ng-repeat="r in gsc.results">
+		<div class="media-left">
+			<a href="#" >
+				<img ng-click="gsc.view(r)" class="media-object smi" ng-src="{{r.thumbnails.url}}" alt="...">
+			</a>
+		</div>
+		<div class="media-body">
+			<h4 class="media-heading">{{r.title}}</h4>
+			{{r.description | onehundred}}
+		</div>
+		</div>
+
+</div>
 					</form>
 				</div>
 		</div>
@@ -40,30 +63,30 @@
 			<li ng-click="nc.toggleCollapsible()"><a class="fa fa-navicon"></a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right ">
-			<!-- <li  data-toggle="modal" data-target="#search-modal"><a class="fa fa-search"></a></li> --><!-- ng-click="nc.toggleSearch()" -->
+			<li  data-toggle="modal" data-target="#search-modal"><a class="fa fa-search"></a></li><!-- ng-click="nc.toggleSearch()" -->
 			<!-- <li class="dropdown">
 				<a class="fa fa-bell-o dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 					<span class="label label-info">0</span>
 				</a>
 				<ul class="dropdown-menu">
-					
+
 					<li>
-						<ul class="menu">							
-							
+						<ul class="menu">
+
 							<li><a href="">No notifications.</a></li>
 						</ul>
 					</li>
-					
+
 				</ul>
 			</li> -->
 			<li class="hidden-xs"  ng-click="nc.toggleFullScreen()">
-				<a class="fa fa-expand "></a>	
+				<a class="fa fa-expand "></a>
 			</li><!-- title="logout" data-toggle="modal" data-target="#logout" -->
 			<li><a class="fa fa-power-off" ng-click="nc.logout()" ></a></li>
 		</ul>
 	</div>
-	<div class="search-bar" ng-show="nc.showSearch">
+	<!-- <div class="search-bar" ng-show="nc.showSearch">
 		<span class="close-search-bar fa fa-times" ng-click="nc.toggleSearch()"></span>
 		<input class="form-control" type="search"></input>
-	</div>
+	</div> -->
 </header>

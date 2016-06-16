@@ -1,0 +1,63 @@
+<div class="content main" ng-controller="VideoLectureCtrl as vlc" ng-init="vlc.init()">
+
+
+  <section class="inner">
+    <div class="section-header">
+      <!-- <div class="vieo-search pull-right form-group has-feedback">
+        <input type="text" name="name" class="form-control" value="">
+        <i class="fa fa-search form-control-feedback"></i>
+      </div> -->
+      <h4>Video Lectures</h4>
+
+    </div>
+<div class="col-md-12">
+  <div class="videopanel {{vlc.showvideo?'col-md-6':'cushidden'}}">
+    <div id="videoholder" ng-bind-html="vlc.showvideo.id | embedutube">
+
+    </div>
+    <div >
+      <br>
+      <h4><b>{{vlc.showvideo.title}}</b> <button ng-click="vlc.showvideo=false" class="btn  pull-right " type="button" name="button"><i class="fa fa-times"></i></button> </h4>
+      <p>
+        {{vlc.showvideo.description}}
+      </p>
+    </div>
+  </div>
+<div class="{{vlc.showvideo?'col-md-6':'col-md-12'}}">
+  <div class="" style="display:inline-block; width:100%">
+    <ul class="pagination pull-right m-r15" style="margin:0 0 10px">
+        <li>
+          <a ng-click="vlc.prev()"  ng-class="{'btn-disabled':!vlc.ids.prevPageToken}" aria-label="Previous">
+            <span aria-hidden="true">Previous</span>
+          </a>
+        </li>
+        <li>
+          <a ng-click="vlc.next()"  ng-class="{'btn-disabled':!vlc.ids.nextPageToken}" aria-label="Next">
+            <span aria-hidden="true">Next</span>
+          </a>
+       </li>
+     </ul>
+  </div>
+
+  <div class="list-group">
+    <div ng-repeat="a in vlc.ids.results" class="list-group-item" >
+      <div class="v-i">
+        <a href="#"  ng-click="vlc.get(a)"><i class="fa fa-youtube-play yf fa-3x" aria-hidden="true"></i><img style="width:267px;height:150px" class="" ng-src="{{a.thumbnails.url}}" alt="a.title" /></a>
+
+      </div><div class="v-d">
+        <h4>{{a.title}} </h4>
+        <p>
+          {{a.description}}
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+  </section>
+</div>
