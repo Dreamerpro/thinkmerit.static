@@ -473,7 +473,7 @@ angular.module('thinkmerit')
 				$http.get(AP+""+data.url)
 				.success(function (notes) {
 					_self.notes=notes;
-					this.notesload=true;
+					_self.notesload=true;
 					_self.hideloader=true;
 				})
 				.error(function (argument) {
