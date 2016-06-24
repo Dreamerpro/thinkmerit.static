@@ -97,6 +97,9 @@ angular.module('thinkmerit')
 				  timer:1000
 			})
 			$('#question-video-modal').modal({show:true});
+			$("#q-video-container").html(
+				"<iframe width='420' height='315'src='"+video.url+"'></iframe>"
+			);
 		},
 		togglefavourite:function (_self,question,list) {
 			$http.get(AP+'/dfs/toggleitem/'+question.id+'/1')
@@ -282,7 +285,7 @@ angular.module('thinkmerit')
 			return promise;
 		},
 		logout:function(){
-			var promise= $http.get(AP+'/logout');
+			var promise= $http.get(AP+'/auth/logout');
 			promise.success(uncacheSession);
 			return promise;
 		},

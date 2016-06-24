@@ -5,13 +5,13 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h3>Answer</h3>
-			
+
 			</div>
-			
+
 			<div class="modal-body mbh-200" ng-hide="nc.q.type==5" ng-if="nc.q.type!=3||nc.q.type!=4"  mathjax-bind="nc.answer"></div>
 			<div class="modal-body mbh-200" ng-if="nc.q.type==5" >
 				<div ng-repeat="as in nc.answer track by $index">
-					<p class="indexer">{{$index+1}}</p>	
+					<p class="indexer">{{$index+1}}</p>
 					<p mathjax-bind="as.answer"></p>
 				</div><!--  -->
 			</div>
@@ -30,7 +30,7 @@
 			<div class="modal-body mbh-200" ng-hide="nc.q.type==5" mathjax-bind="nc.solution.solution"></div>
 			<div class="modal-body mbh-200" ng-if="nc.q.type==5" >
 				<div ng-repeat="as in nc.solution track by $index">
-					<p class="indexer">{{$index+1}}</p>	
+					<p class="indexer">{{$index+1}}</p>
 					<p mathjax-bind="as.solution.solution"></p>
 				</div><!--  -->
 			</div>
@@ -52,7 +52,7 @@
 					<p><span class="col-md-4"><b>Rating:</b></span> <span class="col-md-8">{{nc.question_info.rating}}</span></p>
 					<p><span class="col-md-4"><b>Uploaded by:</b></span> <span class="col-md-8">{{nc.question_info.author[0].name}} </span></p>
 					<p><span class="col-md-4"><b>Source:</b></span> <span class="col-md-8">{{nc.question_info.source?nc.question_info.source:'none'}}</span></p>
-					<p><span class="col-md-4"><b>Id:</b></span> <span class="col-md-8">{{nc.question_info.id}}</span></p>	
+					<p><span class="col-md-4"><b>Id:</b></span> <span class="col-md-8">{{nc.question_info.id}}</span></p>
 				</div> -->
 				<table class="table">
 					<tr><td><b>Subject:</b></td> <td>{{nc.question_info.topic.chapter.module.subject.name}}</td></tr>
@@ -74,8 +74,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3>Video</h3>
+
 			</div>
-			<div class="modal-body" mathjax-bind="nc.question_video"></div>
+			<div class="modal-body" >
+				<div id="q-video-container"></div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -90,7 +93,7 @@
 		<div ng-click='nc.share(nc.qshareurl,"gp")' class='col-md-4'> <div class='col-md-8 col-md-offset-2 btn btn-default'><i class='fa fa-2x fa-google-plus'></i> </div></div>
 		<!-- <div ng-click='nc.share(nc.qshareurl,"tw")' class='col-md-4'> <div class='col-md-8 col-md-offset-2 btn btn-default'><i class='fa fa-2x fa-twitter'></i> </div></div> -->
 		</div>
-	</div>	
+	</div>
 
 	</div>
 </div>
