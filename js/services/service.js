@@ -98,7 +98,7 @@ angular.module('thinkmerit')
 			})
 			$('#question-video-modal').modal({show:true});
 			$("#q-video-container").html(
-				"<iframe width='500' allowfullscreen height='350'src='"+video.url+"' style=\"margin:0 auto\"></iframe>"
+				"<iframe width='500' allowfullscreen height='350'src='"+video.url+"' style=\"display:block;margin:0 auto\"></iframe>"
 			);
 		},
 		togglefavourite:function (_self,question,list) {
