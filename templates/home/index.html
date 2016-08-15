@@ -12,7 +12,7 @@
 						<li>Enthusiast</li>
 						<li>Leadership</li>
 						<li>Dedication</li>
-						<li>Team worker</li>		
+						<li>Team worker</li>
 					</ul><br>
 					<h5><b><u>Job profiles</u></b></h5>
 					<p>We strongly stress on the point that we have a dedicated team and are looking for individuals who best fit for our working environment & matching our enthusiasm for work.</p>
@@ -45,12 +45,12 @@
 							<li>SEO optimization</li>
 							<li>Promotions</li>
 						</ul>
-					</div>	<br>	
+					</div>	<br>
 				</div>
-					
+
 				<!-- <center><a href="#/careers" class="btn btn-success">Join</a> <br><br></center> -->
 			</div>
-			
+
 
 			<div class="modal-footer">
 
@@ -60,15 +60,16 @@
 			<!-- <div class="modal-footer"><p class="status pull-left"></p><button class="btn btn-primary" id="edit-save">Save</button><button class="btn btn-default" id="edit-cancel">Cancel</button></div> -->
 		</div>
 	</div>
-</div> 
+</div>
 <tnc></tnc>
 
 <div class="page-header">
 	<div class="container">
 		<a class="logo" href="/#/"><img src="images/logo.beta.png"></a>
 		<ul class="nav pull-right sign-button" ng-init="login=true">
+				<li id="wrh"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdia-yyiRuJD3sUOjasxp1O2rN3DRW4krPYacD2TRz-621YnA/viewform?c=0&w=1&fbzx=-7926349941077608799" class="btn btn-info" style="color: #fff;">We're Hiring!</a></li>
 				<li><a class="btn btn-default" ng-click="login=false">Sign Up</a></li>
-				<li><a class="btn btn-success" ng-click="login=true">Log In</a></li>
+				<li><a class="btn btn-success" ng-click="login=true">Sign In</a></li>
 		</ul>
 		<!-- <div class="search" ><input class="form-control" type="text" placeholder="Search by subject, chapter or topic"> </div> -->
 
@@ -88,9 +89,9 @@
 		<div class="sign-forms col-md-4" ng-controller="AuthController as ac">
 			<a href="https://api.thinkmerit.in/login/facebook" id="btn-fb" class="btn col-md-12 form-control"><i class="pull-left fa fa-facebook"></i>Sign in with Facebook</a>
 			<a href="https://api.thinkmerit.in/login/google" id="btn-gplus" class="btn col-md-12 form-control"><i class="pull-left fa fa-google-plus"></i>Sign in with Gmail</a>
-	
+
 			<div class="or-line"><!-- <span class="or">OR</span> --></div>
-			
+
 			<form ng-show="!login" name="ac.signup" novalidate>
 				<div class="form-group has-feedback" ng-class="{'has-error':ac.signup.name.$error.required && ac.signup.name.$dirty}">
 					<i ng-show="ac.signup.name.$error.required && ac.signup.name.$dirty" class="text-danger fa fa-exclamation-triangle form-control-feedback"></i>
@@ -124,14 +125,14 @@
 				<!-- <span ng-show="ac.signin.password.$error.minlength && ac.signin.password.$dirty"><small class="text-danger">Password at least 6 char</small> 	</span> -->
 				<span class="text-danger">{{ac.signflash}}</span>
 				<input class="btn btn-success" ng-disabled="ac.signin.$invalid && ac.signin.$dirty" value="Sign In" ng-click="ac.login()" type="submit"/>
-				
+
 			</form>
 		</div>
 	</div>
-</section> 
+</section>
 <div class="page-header-2">
 <div class="container">
-		
+
 <div class="nav-top" ng-controller="ScrollCtrl">
 	<ul class="nav">
 	<li><a ng-click="goTo('!home')">Home</a></li><li><a ng-click="goTo('!about')">About</a></li><li><a ng-click="goTo('!catalogue')">Catalogue</a></li><!-- <li><a href="#testimonials">Testimonials</a></li> --><li><a ng-click="goTo('!careers')">Careers</a></li><li><a ng-click="goTo('!vision')">Vision</a></li><li><a ng-click="goTo('!faq')">FAQ</a></li><li><a ng-click="goTo('!contact')">Contact</a></li>
@@ -148,7 +149,7 @@
 		<p class="max80 ">We provide completely free study materials for the students of class 11th & 12th to understand the concepts of Physics, Chemistry & Maths.<br><br>Our aim is to provide one stop solution to the students who are preparing for various engineering competitive examination like JEE Mains & Advance, BITSAT and state competitive examinations through our website and mobile app.<br></p>
 			<img class="aboutimg" src="images/about1.png" class="img-responsive" >
 		</div>
-	</section> 
+	</section>
 	<section id="catalogue" class="clearfix">
 		<div class="container">
 			<h2 class="fw7 pt10">CATALOGUE</h2>
@@ -205,13 +206,13 @@
 					<p>Learn and practice lots of technical skills for the improvement and advancement of the website and yourself.</p>
 				</div>
 				<div class="career-menu-item col-md-4">
-					<img class="sm-icon" src="images/menu/operation-01.svg"> 
+					<img class="sm-icon" src="images/menu/operation-01.svg">
 					<h3>Operation</h3>
 					<p>Learn to lead and manage for the development of organisation.</p>
 				</div>
 				<br>
 				<button class="btn btn-default" data-toggle="modal" data-target="#careermodal">More details</button>
-			</div>	
+			</div>
 		</div>
 	</section>
 	<section id="vision" class="clearfix">
@@ -229,10 +230,10 @@
 					<p><br>Knowledge at finger tips through ThinkMerit mobile app anytime and everywhere.</p>
 				</div>
 				<div class="career-menu-item col-md-4">
-					<img class="sm-icon p80" src="images/vision/home-01.png"> 
+					<img class="sm-icon p80" src="images/vision/home-01.png">
 					<p><br>Students studing and doing homework more efficiently with the help of ThinkMerit education infrastructure.</p>
 				</div>
-			</div>	
+			</div>
 		</div>
 	</section>
 	<section id="faq" class="gray-bg clearfix">
@@ -256,7 +257,7 @@ Congrats! You are now a registered member of ThinkMerit.in</p>
 			<p class="text-left max80">Ans: ThinkMerit.in is completely free for all the students. Just become a registered member of ThinkMerit.in by signing up and enter the world of knowledge.</p>
 			<br><br><br>
 		</div>
-			
+
 	</section>
 	<section id="contact" class="maincolorbg clearfix">
 		<div class="container" ng-controller="ContactCtrl as cc">
@@ -276,10 +277,10 @@ Congrats! You are now a registered member of ThinkMerit.in</p>
 					<div class="col-md-12 form-group" ng-class="{'has-error':contactform.msg.$error.required && contactform.msg.$dirty}">
 						<label ng-class="{'text-danger':contactform.msg.$error.required && contactform.msg.$dirty}">Message*</label>
 						<textarea class="form-control" ng-model="cc.data.message" name="msg" required></textarea>
-					</div> 	
+					</div>
 					<div class="col-md-3 form-group">
 						<button class="btn btn-send" ng-disabled="contactform.$invalid && contactform.$dirty" ng-click="cc.sendmsg();contactform.$setPristine();">Send</button></div>
-					
+
 				</form>
 				<div class="clearfix" ng-show="cc.status==2">
 					<i class="fa fa-4x fa-spinner fa-pulse"></i>
@@ -289,7 +290,7 @@ Congrats! You are now a registered member of ThinkMerit.in</p>
 					<br>
 					<button ng-click="cc.status=1" class="btn btn-warning">Ok</button>
 				</div>
-			</div>	
+			</div>
 			<div class="col-md-6">
 				<address>
 					<strong>Thinkmerit</strong><br>
@@ -298,10 +299,10 @@ Congrats! You are now a registered member of ThinkMerit.in</p>
 					Indian School Of Mines, Dhanbad-826004, Jharkhand. <br>
 					Email: thinkmerit@gmail.com<br>
 				</address>
-			</div>	
+			</div>
 		</div>
 
-		
+
 	</section>
 </div>
 <link rel="stylesheet" type="text/css" href="css/home.css">
@@ -315,7 +316,7 @@ Congrats! You are now a registered member of ThinkMerit.in</p>
  			}
  			else{
  				$(".page-header-2").css({position:'relative',top:0});
- 			}	
+ 			}
  			//console.log($scrolllTop);
  		})
 }());
