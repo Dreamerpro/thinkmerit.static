@@ -63,18 +63,32 @@
 </div>
 <tnc></tnc>
 
-<div class="page-header">
+<nav class="page-header navbar navbar-default">
+
 	<div class="container">
-		<a class="logo" href="/#/"><img src="images/logo.beta.png"></a>
-		<ul class="nav pull-right sign-button" ng-init="login=true">
-				<li id="wrh"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdia-yyiRuJD3sUOjasxp1O2rN3DRW4krPYacD2TRz-621YnA/viewform?c=0&w=1&fbzx=-7926349941077608799" class="btn btn-info" style="color: #fff;">We're Hiring!</a></li>
-				<li><a class="btn btn-default" ng-click="login=false">Sign Up</a></li>
-				<li><a class="btn btn-success" ng-click="login=true">Sign In</a></li>
-		</ul>
-		<!-- <div class="search" ><input class="form-control" type="text" placeholder="Search by subject, chapter or topic"> </div> -->
+		<div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+					<a class="logo navbar-brand" href="/#/"><img src="images/logo.beta.png"></a>
+      </div>
+
+			<div id="navbar" class="navbar-collapse collapse">
+
+          <ul class="nav navbar-nav navbar-right" ng-init="login=true">
+						<li class="alert-info"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdia-yyiRuJD3sUOjasxp1O2rN3DRW4krPYacD2TRz-621YnA/viewform?c=0&w=1&fbzx=-7926349941077608799" class="text-success" ><b>We're Hiring!</b></a></li>
+						<li><a  ng-click="login=false;">Sign Up</a></li>
+						<li><a  ng-click="login=true;">Sign In</a></li>
+          </ul>
+
+        </div>
+
 
 	</div>
-</div>
+</nav>
 
 
 <div data-spy="scroll" data-target=".nav-top" data-offset="500">
@@ -82,17 +96,18 @@
 
 <section id="home" class="jumbotron">
 	<div class="container">
-		<div class="tag-line col-md-8">
-			<p >Concepts <span class="y" style="color: yellow;">to</span> understand</p>
+		<div class="tag-line col-md-8 col-xs-10">
+			<p >Concepts to </p>
+			<p class="y" style="color: yellow;">&nbsp;understand</p>
 			<p >Easy to apply</p>
 		</div>
-		<div class="sign-forms col-md-4" ng-controller="AuthController as ac">
+		<div class="sign-forms col-md-4 col-xs-10" ng-controller="AuthController as ac">
 			<a href="https://api.thinkmerit.in/login/facebook" id="btn-fb" class="btn col-md-12 form-control"><i class="pull-left fa fa-facebook"></i>Sign in with Facebook</a>
 			<a href="https://api.thinkmerit.in/login/google" id="btn-gplus" class="btn col-md-12 form-control"><i class="pull-left fa fa-google-plus"></i>Sign in with Gmail</a>
 
 			<div class="or-line"><!-- <span class="or">OR</span> --></div>
-
-			<form ng-show="!login" name="ac.signup" novalidate>
+<!-- ng-show="!login" -->
+			<form ng-class="!login?'on-form':'off-form'" name="ac.signup" novalidate>
 				<div class="form-group has-feedback" ng-class="{'has-error':ac.signup.name.$error.required && ac.signup.name.$dirty}">
 					<i ng-show="ac.signup.name.$error.required && ac.signup.name.$dirty" class="text-danger fa fa-exclamation-triangle form-control-feedback"></i>
 				<input class="form-control" type="text" name="name" ng-model="ac.credentials.name" placeholder="Name" required/>
@@ -112,7 +127,7 @@
 				<input class="btn btn-success" value="Sign Up" ng-disabled="ac.signup.$invalid && ac.signup.$dirty" ng-click="ac.register()" type="submit"/>
 				<label id="tnca"> By signing up you agree to our  <a href data-toggle="modal" data-target="#tnc-modal">Terms & Conditions</a>.</label>
 			</form>
-			<form ng-show="login" name="ac.signin">
+			<form ng-class="login?'on-form':'off-form'" name="ac.signin">
 				<div class="form-group has-feedback" ng-class="{'has-error':ac.signin.email.$invalid && ac.signin.email.$dirty}">
 				<input class="form-control" type="email" name="email" ng-model="ac.credentials.email" placeholder="Email" required/>
 				<i ng-show="(ac.signin.email.$error.required || ac.signin.email.$invalid ) && ac.signin.email.$dirty" class="text-danger fa fa-exclamation-triangle form-control-feedback"></i>
