@@ -413,6 +413,9 @@ a.list-group-item.activa:hover{
 	transition: 0.5s ease all;
 	padding-top: 44px;
 }
+#ytplayer{
+	height: 500px;
+}
 /*.videopanel.cushidden #videoholder{
 	width:50%;
 	transition: 0.5s ease all;

@@ -63,7 +63,7 @@
 </div>
 <tnc></tnc>
 
-<nav class="page-header navbar navbar-default">
+<nav class="page-header navbar navbar-default" >
 
 	<div class="container">
 		<div class="navbar-header">
@@ -76,12 +76,12 @@
 					<a class="logo navbar-brand" href="/#/"><img src="images/logo.beta.png"></a>
       </div>
 
-			<div id="navbar" class="navbar-collapse collapse">
+			<div id="navbar" class="navbar-collapse collapse" >
 
-          <ul class="nav navbar-nav navbar-right" ng-init="login=true">
+          <ul class="nav navbar-nav navbar-right" style="position: initial;" ng-init="login=true">
 						<li class="alert-info"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdia-yyiRuJD3sUOjasxp1O2rN3DRW4krPYacD2TRz-621YnA/viewform?c=0&w=1&fbzx=-7926349941077608799" class="text-success" ><b>We're Hiring!</b></a></li>
-						<li><a  ng-click="login=false;">Sign Up</a></li>
-						<li><a  ng-click="login=true;">Sign In</a></li>
+						<li><a  ng-click="login=false; scrollToForm()">Sign Up</a></li>
+						<li><a  ng-click="login=true; scrollToForm()">Sign In</a></li>
           </ul>
 
         </div>
@@ -96,9 +96,9 @@
 
 <section id="home" class="jumbotron">
 	<div class="container">
-		<div class="tag-line col-md-8 col-xs-10">
+		<div class="tag-line col-md-8 col-xs-11">
 			<p >Concepts to </p>
-			<p class="y" style="color: yellow;">&nbsp;understand</p>
+			<p class="y" style="color: yellow;">understand</p>
 			<p >Easy to apply</p>
 		</div>
 		<div class="sign-forms col-md-4 col-xs-10" ng-controller="AuthController as ac">

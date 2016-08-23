@@ -120,6 +120,9 @@ angular.module('thinkmerit')
 
 	this.get=function(item) {
 		_self.showvideo=item;
+		if(window.innerWidth<678){
+			window.scrollTo(0,0);
+		}
 	//	$location.search({'id':item.id});
 	}
 	this.next=function() {

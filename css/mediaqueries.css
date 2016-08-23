@@ -3,4 +3,11 @@
 		margin-left: 0px !important;
 		width: 100% !important;
 	}
+	#ytplayer{
+		height: 200px;
+	}
+	.v-d{
+		width: 100%;
+		display: block;
+	}
 }

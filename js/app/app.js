@@ -1,7 +1,7 @@
 
 angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize','ngIdle','rzModule'])
-.constant('AP', 'https://api.thinkmerit.in')
-// .constant('AP', 'http://dev.api.thinkmerit.in')
+// .constant('AP', 'https://api.thinkmerit.in')
+.constant('AP', 'http://dev.api.thinkmerit.in')
 .config(['$routeProvider','$httpProvider','$locationProvider',
     function($routeProvider, $httpProvider, $locationProvider) {
 
@@ -90,9 +90,9 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
    $rootScope.isLocationActive=function (argument) {
      return $rootScope.path.indexOf(argument)>0;
    }
-
-   $rootScope.currentPath=window.location.href;
-   document.body.scrollTop=0;
-
-
+  $rootScope.scrollToForm=function(){
+      if(window.innerWidth<768){
+        window.scrollTo(0,300);
+      }
+  }
 });

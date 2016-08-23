@@ -8,7 +8,7 @@ angular.module('thinkmerit')
 .filter('embedutube', function($sce) {
 
 	return function (value) {
-		return $sce.trustAsHtml("<iframe width=\"100%\" height=\"400px\" id=\"ytplayer\" type=\"text/html\" src=\"https://www.youtube.com/embed/"+value+"?autoplay=0&fs=1\"	frameborder=\"2\" allowfullscreen \/\> </div>");
+		return $sce.trustAsHtml("<iframe width=\"100%\"  id=\"ytplayer\" type=\"text/html\" src=\"https://www.youtube.com/embed/"+value+"?autoplay=0&fs=1\"	frameborder=\"2\" allowfullscreen \/\> </div>");
 	};
 })
 .filter('onehundred', function() {

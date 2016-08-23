@@ -5,7 +5,11 @@ a:visited,a:link{
 body{
 	color:#515253;
 }
+body.collapsed .navbar-brand{
+	    padding: 5 0;
+}
 .navbar-brand{
+	/*padding: 0 !important;*/
 	padding: 5px 25px;
 	-webkit-transition:all 0.6s;
 	-moz-transition:all 0.6s;
@@ -189,5 +193,8 @@ padding: 10px;
 	}
 	.questions-show img, .answer-modal img, .solution-modal img{
 		max-width: 100% !important;
+	}
+	.navbar-brand{
+		padding: 0 !important;
 	}
 }
