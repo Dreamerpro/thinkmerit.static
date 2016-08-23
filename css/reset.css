@@ -164,7 +164,11 @@ padding: 10px;
 	margin-right: 0 !important;
 }
 .navbar-nav {
-     margin: 0 !important 
+     margin: 0 !important
+}
+.nav>li {
+    position: relative;
+    display: inline-block;
 }
 @media(min-width: 992px){
 	.mw-800{
