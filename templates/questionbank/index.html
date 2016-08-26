@@ -68,7 +68,20 @@
 
 <!-- LIST OF QUESTION -->
 <div list-of-question></div>
-
+<nav class="clearfix">
+	<ul class="pagination pull-right m-r15">
+	    <li>
+	    	<a ng-click="nc.prev()"  ng-class="{'btn-disabled':!nc.questions.previousPage}" aria-label="Previous">
+	        <span aria-hidden="true">Previous</span>
+	      </a>
+	    </li>
+	    <li>
+	    	<a ng-click="nc.next()"  ng-class="{'btn-disabled':!nc.questions.nextPage}" aria-label="Next">
+	        <span aria-hidden="true">Next</span>
+	      </a>
+	   </li>
+	 </ul>
+</nav>
 		</div>
 	<section>
 </div>
