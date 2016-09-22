@@ -388,7 +388,7 @@ angular.module('thinkmerit')
 				path+=$routeParams.course?$routeParams.course+"/":"";
 
 				path+=StringMods.addUnderScore(val);
-				$location.path(path);
+				$location.url(path);
 	}
 	this.redirectToChapter=function (val) {
 
@@ -397,7 +397,7 @@ angular.module('thinkmerit')
 				path+=$routeParams.subject?$routeParams.subject+"/":"";
 
 				path+=StringMods.addUnderScore(val);
-				$location.path(path);
+				$location.url(path);
 	}
 	this.redirectToTopic=function (val) {
 
@@ -406,7 +406,7 @@ angular.module('thinkmerit')
 				path+=$routeParams.subject?$routeParams.subject+"/":"";
 				path+=$routeParams.chapter?$routeParams.chapter+"/":"";
 				path+=StringMods.addUnderScore(val);
-				$location.path(path);
+				$location.url(path);
 	}
 
 })
