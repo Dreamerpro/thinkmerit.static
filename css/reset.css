@@ -177,6 +177,10 @@ padding: 10px;
 .pl0{
 	padding-left: 0;
 }
+.nav-pills>li{
+	float: none !important;
+}
+
 @media(min-width: 992px){
 	.mw-800{
 		width: 800px;

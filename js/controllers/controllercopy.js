@@ -202,80 +202,139 @@ angular.module('thinkmerit')
 	}
 
 })
-.controller('QuestionBank', ['$http','AP', '$scope', '$location','$routeParams','StringMods','$rootScope', 'QuestionListService','EntitySelector',function  ($http,AP, $scope, $location,$routeParams,StringMods,$rootScope, QuestionListService,EntitySelector) {
+.controller('QuestionBank', function  ($http,AP,$sce, $scope, $location,$routeParams,StringMods,$rootScope, $cookies, QuestionListService) {
 	var _self=this;
 	this.datas={courses:[],subjects:[],chapters:[],modules:[],topics:[]};
 	this.selected={};
+	this.search=$location.search();
+	this.pageNo=_self.search.pageNo?_self.search.pageNo:1;
 
 	this.answer="";
 	this.solution="";
 	_self.questions={previousPage:false,nextPage:false,questions:false};
 
-	_self.init=function() {
-		_self.fetchCourseStructure();
-		QuestionListService.fetchQuestions(_self);
-	}
-	_self.fetchCourseStructure=function() { _self.fetchSubjects(); }
+	_self.init=function () {
 
-	_self.fetchSubjects=function() {//fetch subjects if not there
-
-		if(!_self.datas.subjects.length && $routeParams.course){
-			console.log("fetching course");
-			$http.post(AP+'/get/subjectsandquestiontypes',{course:StringMods.removeUnderScore($routeParams.course)})
+		if($routeParams.course){
+					if(!_self.questions.questions && !$routeParams.subject){
+						//if question null and subject not selected => load all question from that course
+						$http.get(AP+'/get/questions/'+StringMods.removeUnderScore($routeParams.course)+"/"+_self.pageNo)
+						.success(function (data) {_self.questions=data;	})
+						.error(function (data) {console.log(data); })
+					}
+					
+			$http.post(AP+'/get/subjects',{course:StringMods.removeUnderScore($routeParams.course)})
 			.success(function (data) {
-				_self.datas.subjects=data.subjects;
-				_self.datas.types=data.types;
-				$rootScope.subjects=data.subjects;
-				
-				EntitySelector.selectSubject(_self);
-				EntitySelector.selectType(_self);
+				_self.datas.subjects=data;
+				$rootScope.subjects=data;
+				for (var i = data.length - 1; i >= 0; i--) {
+					if(data[i].name===StringMods.removeUnderScore($routeParams.course)){
+						_self.selected.course=data[i];
+					}
+				}
 
-				_self.fetchChapters();
+
+				if($routeParams.subject){//select subject if in routeParam
+					for (var i = _self.datas.subjects.length - 1; i >= 0; i--) {
+						if(_self.datas.subjects[i].name===StringMods.removeUnderScore($routeParams.subject)){
+							_self.selected.subject=_self.datas.subjects[i];
+						}
+					}
+					//if  subject  selected  && chapter notselected=> load all question from that subject
+					if(!$routeParams.chapter){
+						$http.get(AP+'/get/questions/'
+							+StringMods.removeUnderScore($routeParams.course)+"/"
+							+StringMods.removeUnderScore($routeParams.subject)+"/"
+							+_self.pageNo)
+						.success(function (data) { _self.questions=data;})
+						.error(function (data) { console.log(data);	})
+					}
+
+
+					//get chapters
+					$http.post(AP+'/get/chapters',{
+						course:StringMods.removeUnderScore($routeParams.course),
+						subject:StringMods.removeUnderScore($routeParams.subject)
+					})
+					.success(function (data) {
+						_self.datas.chapters=data;
+						$rootScope.chapters=data;
+
+						if($routeParams.chapter){// chapter is queried
+							//select chapter if there
+							for (var i = _self.datas.chapters.length - 1; i >= 0; i--) { //set the selected chapter
+								console.log(_self.datas.chapters[i]);
+								if(_self.datas.chapters[i].name===StringMods.removeUnderScore($routeParams.chapter)){
+									_self.selected.chapter=_self.datas.chapters[i];
+									console.log(_self.selected.chapter);
+								}
+							}
+							//if  subject  selected  && chapter selected but not topic=> load all question from that chapter
+							if(/*$routeParams.subject && $routeParams.chapter && */!$routeParams.topic){
+								$http.get(AP+'/get/questions/'
+									+StringMods.removeUnderScore($routeParams.course)+"/"
+									+StringMods.removeUnderScore($routeParams.subject)+"/"
+									+StringMods.removeUnderScore($routeParams.chapter)+"/"
+									+_self.pageNo)
+								.success(function (data) { _self.questions=data;})
+								.error(function (data) {console.log(data);})
+							}
+
+							$http.post(AP+'/get/topics',{
+								course:StringMods.removeUnderScore($routeParams.course),
+								subject:StringMods.removeUnderScore($routeParams.subject),
+								chapter:StringMods.removeUnderScore($routeParams.chapter)
+							})
+							.success(function (data) {
+								_self.datas.topics=data;
+
+								if($routeParams.topic){
+									for (var i = _self.datas.topics.length - 1; i >= 0; i--) { //set the selected chapter
+										console.log(_self.datas.topics[i]);
+										if(_self.datas.topics[i].name===StringMods.removeUnderScore($routeParams.topic)){
+											_self.selected.topic=_self.datas.topics[i];
+										}
+										if(!$routeParams.questionid){
+											/*$http.post(AP+'/get/questions',{
+												course:StringMods.removeUnderScore($routeParams.course),
+												subject:StringMods.removeUnderScore($routeParams.subject),
+												chapter:StringMods.removeUnderScore($routeParams.chapter),
+												topic:StringMods.removeUnderScore($routeParams.topic)
+											})*/
+											$http.get(AP+'/get/questions/'
+												+StringMods.removeUnderScore($routeParams.course)+"/"
+												+StringMods.removeUnderScore($routeParams.subject)+"/"
+												+StringMods.removeUnderScore($routeParams.chapter)+"/"
+												+StringMods.removeUnderScore($routeParams.topic)+"/"
+												+_self.pageNo)
+											.success(function (data) { _self.questions=data; _self.question=null;})
+											.error(function (data) {console.log(data);})
+										}
+										else{
+											$http.get(AP+'/get/question/'+$routeParams.questionid,{
+												course:StringMods.removeUnderScore($routeParams.course),
+												subject:StringMods.removeUnderScore($routeParams.subject),
+												chapter:StringMods.removeUnderScore($routeParams.chapter),
+												topic:StringMods.removeUnderScore($routeParams.topic)
+											})
+											.success(function (data) {
+												_self.question=data;
+												_self.questions=null;
+											})
+										}
+									}
+								}
+
+							})
+							.error(function (argument) { console.log(argument);})
+						}
+					})
+					.error(function (argument) { console.log(argument);})
+				}
 			})
-			.error(function() {
-				console.warn("Error fetching subject!");
-			});
+			.error(function (argument) { console.log(argument);})
 		}
 	}
-	_self.fetchChapters=function() {//fetch chapters if not there
-		if(!$location.search().subject){return false;}
-		$http.
-		post(AP+'/get/chapters',{
-			course:StringMods.removeUnderScore($routeParams.course),
-			subject:StringMods.removeUnderScore($location.search().subject)
-		})
-		.success(function (data) {
-			_self.datas.chapters=data;
-			$rootScope.chapters=data;
-			_self.fetchTopics();
-			EntitySelector.selectChapter(_self);
-		})
-		.error(function() {
-			console.warn("Error fetching Chapters!");
-		});
-		
-	}
-	_self.fetchTopics=function() {//fetch topics if not there
-		if(!$location.search().chapter || !$location.search().subject){return false;}
-		if(!_self.datas.topics.length){
-			$http.post(AP+'/get/topics',{
-				course:StringMods.removeUnderScore($routeParams.course),
-				subject:StringMods.removeUnderScore($location.search().subject),
-				chapter:StringMods.removeUnderScore($location.search().chapter)
-			})
-			.success(function (data) { 
-				_self.datas.topics=data; 
-				// _self.setter().topic();
-				EntitySelector.selectTopic(_self);
-			})
-			.error(function (data) { console.log(data);	});
-		}
-	}
-	
-	// _self.setter=function() {
-		
-	// }
-	
 
 	this.prev=function(){QuestionListService.prev(this)};
 	this.next=function(){QuestionListService.next(this)};
@@ -307,9 +366,9 @@ angular.module('thinkmerit')
 	this.showvideo=function (video) { QuestionListService.showvideo(video); }
 
 	this.showinfo=function (id) { QuestionListService.showinfo(_self,id); }
-	this.togglefavourite=function (question) { QuestionListService.togglefavourite(question)	}
-	this.toggledoubt=function (question) { QuestionListService.toggledoubt(question);  }
-	this.togglesolved=function (question) { QuestionListService.togglesolved(question); }
+	this.togglefavourite=function (question,list) { QuestionListService.togglefavourite(_self,question,list)	}
+	this.toggledoubt=function (question,list) { QuestionListService.toggledoubt(_self,question,list);  }
+	this.togglesolved=function (question,list) { QuestionListService.togglesolved(_self,question,list); }
 
 
 	this.loadquestions=function () {
@@ -323,50 +382,36 @@ angular.module('thinkmerit')
 		})
 	}
 
-	this.clearChapter=function(argument) {
-		_self.datas.chapters=[];
-		_self.selected.chapter=null;
-		_self.clearTopic();
-	}
-	this.clearTopic=function(argument) {
-		_self.selected.topic=null;
-		_self.datas.topics=[];
-	}
 
 	this.redirectToSubject=function (val) {
-			$location.search({subject:StringMods.addUnderScore(val)});
-			_self.clearChapter();
-			_self.fetchChapters();
-	}
-	
-	this.redirectToChapter=function (val) {
-			var temp=$location.search();
-			temp.chapter=StringMods.addUnderScore(val);
-			delete  temp.topic; 
-			delete  temp.pageNo;
+			var path="/question-bank/";
+				path+=$routeParams.course?$routeParams.course+"/":"";
 
-			$location.search(temp);
-			_self.clearTopic();
-			_self.fetchTopics();
+				path+=StringMods.addUnderScore(val);
+				$location.url(path);
+	}
+	this.redirectToChapter=function (val) {
+
+			var path="/question-bank/";
+				path+=$routeParams.course?$routeParams.course+"/":"";
+				path+=$routeParams.subject?$routeParams.subject+"/":"";
+
+				path+=StringMods.addUnderScore(val);
+				$location.url(path);
 	}
 	this.redirectToTopic=function (val) {
-			var temp=$location.search();
-			delete temp.pageNo;
-			temp.topic=StringMods.addUnderScore(val);
-			$location.search(temp);
-	}
-	this.filterType=function(val) {
-		var temp=$location.search();
-		temp.type=StringMods.addUnderScore(val);
-		$location.search(temp);
-	}
-	// when search query changes trigger this
-	$scope.$watch(function() { return $location.search(); },function(newv,oldv) { if(newv!=oldv) QuestionListService.fetchQuestions(_self); });
 
-	
-}])
+			var path="/question-bank/";
+				path+=$routeParams.course?$routeParams.course+"/":"";
+				path+=$routeParams.subject?$routeParams.subject+"/":"";
+				path+=$routeParams.chapter?$routeParams.chapter+"/":"";
+				path+=StringMods.addUnderScore(val);
+				$location.url(path);
+	}
 
-.controller('NotesCtrl', function ($http,AP,$sce, $scope, $location, $rootScope,$routeParams,StringMods, $timeout, FetchService) {
+})
+
+.controller('NotesCtrl', function ($http,AP,$sce, $scope, $location, $rootScope,$routeParams,StringMods, $timeout) {
 	var _self=this;
 	this.datas={courses:false,subjects:false,chapters:false,modules:false,topics:false};
 	this.selected={};
@@ -383,9 +428,35 @@ angular.module('thinkmerit')
 	_self.wdatas={todos:[],bookmarks:[],stickies:[]};
 
 	_self.init=function () {
-		_self.msg=null;
-		
-		
+		if($routeParams.course){
+			$http.post(AP+'/get/subjects',{course:StringMods.removeUnderScore($routeParams.course)})
+			.success(function (data) {				_self.datas.subjects=data;			})
+			.error(function (argument) { console.log(argument);})
+		}
+		if($routeParams.subject){
+			$http.post(AP+'/get/chapters/notes/withccp',{
+				course:StringMods.removeUnderScore($routeParams.course),
+				subject:StringMods.removeUnderScore($routeParams.subject)
+			})
+			.success(function (data) {
+				_self.datas.modules=data;
+				if($routeParams.chapter){
+
+					for (var i = data.length - 1; i >= 0; i--) {
+						for (var j = data[i].chapters.length - 1; j >= 0; j--) {
+							/*data[i].chapters*/
+							if(data[i].chapters[j].name==StringMods.removeUnderScore($routeParams.chapter)){
+							_self.selected.chapter=data[i].chapters[j];
+						}
+					};
+				}
+				}
+
+			})
+			.error(function (argument) { console.log(argument);})
+
+
+		}
 		if($routeParams.chapter){
 
 			this.notesload=false;
@@ -393,8 +464,7 @@ angular.module('thinkmerit')
 			$http.post(AP+'/get/noteswithchaptercc',{
 				course:StringMods.removeUnderScore($routeParams.course),
 				subject:StringMods.removeUnderScore($routeParams.subject),
-				chapter:StringMods.removeUnderScore($routeParams.chapter),
-				chapterid:$rootScope.chapterid
+				chapter:StringMods.removeUnderScore($routeParams.chapter)
 			})
 			.success(function (data) {
 				_self.initslider();//progress slider
@@ -403,7 +473,7 @@ angular.module('thinkmerit')
 				_self.slider.value=data.cc?data.cc.completed+"%":"0%";
 				_self.refreshrzslider();
 				console.log(_self.slider);
-				$http.get(AP.split("/api")[0]+""+data.url)
+				$http.get(AP+""+data.url)
 				.success(function (notes) {
 					_self.notes=notes;
 					_self.notesload=true;
@@ -416,15 +486,7 @@ angular.module('thinkmerit')
 				})
 				// .done(function () {			})
 			})
-			.error(function (argument) { 
-				_self.notesload=false;
-				_self.hideloader=true;
-				_self.msg=$sce.trustAsHtml("<h4 class=\"text-danger\">Error loading notes!</h4>");
-				console.log(argument);
-			})
-		}
-		else{
-			FetchService.getchaptersData(_self);
+			.error(function (argument) { console.log(argument);})
 		}
 
 	};
@@ -435,40 +497,40 @@ angular.module('thinkmerit')
 
 			console.log("asda");
 	}
-	// this.showchapter=function (index, parentindex, lim) {
+	this.showchapter=function (index, parentindex, lim) {
 
-	// 	/*console.log(index,parentindex, _self.datas.modules[parentindex].chapters[index].name, _self.getTotalChapters(parentindex)+index);
-	// 	console.log(" ");*/
-	// 	if(lim==15){
-	// 		return _self.getTotalChapters(parentindex)+index<15;
-	// 	}
-	// 	else if(lim==30){
-	// 		return _self.getTotalChapters(parentindex)+index>14 && _self.getTotalChapters(parentindex)+index<30;
-	// 	}
-	// 	else if(lim==29){
-	// 		return _self.getTotalChapters(parentindex)+index>29;
-	// 	}
-	// }
-	// this.showchapternumber=function (index, parentindex, lim) {
-	// 	return _self.getTotalChapters(parentindex)+index;
-	// }
-	// this.showChaptername=function (index, lim) {
-	// 	if(lim==15){
-	// 		return _self.getTotalChapters(index)+1<=15;
-	// 	}
-	// 	else if(lim==30){
-	// 		var temp=_self.getTotalChapters(index);/*+_self.datas.modules[index].chapters.length*/
-	// 		if(temp+1<=15){return false;}
-	// 		else{
-	// 			return temp+1<=30;
-	// 		}
+		/*console.log(index,parentindex, _self.datas.modules[parentindex].chapters[index].name, _self.getTotalChapters(parentindex)+index);
+		console.log(" ");*/
+		if(lim==15){
+			return _self.getTotalChapters(parentindex)+index<15;
+		}
+		else if(lim==30){
+			return _self.getTotalChapters(parentindex)+index>14 && _self.getTotalChapters(parentindex)+index<30;
+		}
+		else if(lim==29){
+			return _self.getTotalChapters(parentindex)+index>29;
+		}
+	}
+	this.showchapternumber=function (index, parentindex, lim) {
+		return _self.getTotalChapters(parentindex)+index;
+	}
+	this.showChaptername=function (index, lim) {
+		if(lim==15){
+			return _self.getTotalChapters(index)+1<=15;
+		}
+		else if(lim==30){
+			var temp=_self.getTotalChapters(index);/*+_self.datas.modules[index].chapters.length*/
+			if(temp+1<=15){return false;}
+			else{
+				return temp+1<=30;
+			}
 
-	// 	}
-	// 	else if(lim==29){
-	// 		return _self.getTotalChapters(index)+1>30;
-	// 	}
-	// }
-	// this.totalchapters=function  () { return _self.getTotalChapters(_self.datas.modules.length);}
+		}
+		else if(lim==29){
+			return _self.getTotalChapters(index)+1>30;
+		}
+	}
+	this.totalchapters=function  () { return _self.getTotalChapters(_self.datas.modules.length);}
 
 	this.initslider=function() {
 		// console.log(_self.selected.chapter);
@@ -512,15 +574,15 @@ angular.module('thinkmerit')
 			.error(function() {		console.log('progress save error.');	})
 		},1000);
 	}
-	// this.getTotalChapters=function (index) {
-	// 	var res=0;
-	// 	for (var i = 0; i < index; i++) {
-	// 		if(_self.datas.modules[i]){
-	// 			res+=_self.datas.modules[i].chapters.length;
-	// 		}
-	// 	};
-	// 	return res;
-	// }
+	this.getTotalChapters=function (index) {
+		var res=0;
+		for (var i = 0; i < index; i++) {
+			if(_self.datas.modules[i]){
+				res+=_self.datas.modules[i].chapters.length;
+			}
+		};
+		return res;
+	}
 	this.getStickies=function () {
 			$http.get(AP+'/user/get/stickies')
 			.success(function (data) {
@@ -579,24 +641,21 @@ angular.module('thinkmerit')
 		}
 
 	}
-	// this.redirectToSubject=function (val) {
+	this.redirectToSubject=function (val) {
 
-	// var path="/notes/";
-	// 		path+=$routeParams.course?$routeParams.course+"/":"";
-	// 		path+=$routeParams.subject?$routeParams.subject+"/":"";
-	// 		path+=$routeParams.chapter?$routeParams.chapter+"/":"";
-	// 		path+=StringMods.addUnderScore(val);
-	// 	$location.path(path);
-	// }
-	this.showNotes=function (subject,chapter) {
-		console.log(subject,chapter);
-		// return false;
-		$rootScope.chapterid=chapter.id;
+	var path="/notes/";
+			path+=$routeParams.course?$routeParams.course+"/":"";
+			/*path+=$routeParams.subject?$routeParams.subject+"/":"";
+			path+=$routeParams.chapter?$routeParams.chapter+"/":"";*/
+			path+=StringMods.addUnderScore(val);
+		$location.path(path);
+	}
+	this.showNotes=function (val) {
 		var path="/notes/";
 			path+=$routeParams.course?$routeParams.course+"/":"";
-			path+=StringMods.addUnderScore(subject)+"/";
+			path+=$routeParams.subject?$routeParams.subject+"/":"";
 			/*path+=$routeParams.chapter?$routeParams.chapter+"/":"";*/
-			path+=StringMods.addUnderScore(chapter.name);
+			path+=StringMods.addUnderScore(val);
 		$location.path(path);
 	}
 
@@ -646,7 +705,7 @@ angular.module('thinkmerit')
 	}
 
 })
-.controller('DashboardCtrl', function ($http,AP,$location,$routeParams, StringMods, QuestionListService, FetchService) {
+.controller('DashboardCtrl', function ($http,AP,$location,$routeParams, StringMods, QuestionListService) {
 	var _self=this;
 	_self.stats={};
 	_self.wdatas={todos:[],bookmarks:[],stickies:[]};
@@ -655,31 +714,30 @@ angular.module('thinkmerit')
 
 //for question list
 	this.search=$location.search();
-	this.pageNo=$location.search().pageNo?$location.search().pageNo:1;
+	this.pageNo=_self.search.pageNo?_self.search.pageNo:1;
 
 	this.answer="";
 	this.solution="";
 	_self.questions={previousPage:false,nextPage:false,questions:false};
-	this.pageNo=$location.search().pageNo?$location.search().pageNo:1;
+	this.pageNo=$location.search().pageno?$location.search().pageno:1;
 //for question list
 
 	_self.init=function () {
-		FetchService.dashboard(_self);
-		// $http.get(AP+'/user/stats')
-		// .success(function (data) {	_self.stats=data; })
-		// .error(function (argument) { console.log(argument);})
+		$http.get(AP+'/user/stats')
+		.success(function (data) {	_self.stats=data; })
+		.error(function (argument) { console.log(argument);})
 
-		// $http.get(AP+'/user/get/stickies')
-		// .success(function (data) { _self.wdatas.stickies=data;	})
-		// .error(function (argument) {console.log(argument);_self.wdatas.stickies=[];	})
+		$http.get(AP+'/user/get/stickies')
+		.success(function (data) { _self.wdatas.stickies=data;	})
+		.error(function (argument) {console.log(argument);_self.wdatas.stickies=[];	})
 
-		// $http.get(AP+'/user/get/todos')
-		// .success(function (data) { _self.wdatas.todos=data;	})
-		// .error(function (argument) {console.log(argument);	_self.wdatas.todos=[];})
+		$http.get(AP+'/user/get/todos')
+		.success(function (data) { _self.wdatas.todos=data;	})
+		.error(function (argument) {console.log(argument);	_self.wdatas.todos=[];})
 
-		// $http.get(AP+'/user/get/bookmarks')
-		// .success(function (data) { _self.wdatas.bookmarks=data;	})
-		// .error(function (argument) {console.log(argument);	_self.wdatas.bookmarks=[];})
+		$http.get(AP+'/user/get/bookmarks')
+		.success(function (data) { _self.wdatas.bookmarks=data;	})
+		.error(function (argument) {console.log(argument);	_self.wdatas.bookmarks=[];})
 	}
 
 	_self.deleteItem=function (item,type) {
@@ -741,9 +799,9 @@ angular.module('thinkmerit')
 	this.loadwidgetDatas=function () {
 		var prom;
 		/*console.log(_self.params.item);*/
-		if(_self.params.item=="favourites"){	prom=$http.get(AP+'/user/list/favourites?page='+$location.search().pageNo); }
-		else if(_self.params.item=="doubts"){prom=$http.get(AP+'/user/list/doubts?page='+$location.search().pageNo);	}
-		else if(_self.params.item=="solved"){prom=$http.get(AP+'/user/list/solveds?page='+$location.search().pageNo);	}
+		if(_self.params.item=="favourites"){	prom=$http.get(AP+'/user/list/favourites/'+_self.pageNo); }
+		else if(_self.params.item=="doubts"){prom=$http.get(AP+'/user/list/doubts/'+_self.pageNo);	}
+		else if(_self.params.item=="solved"){prom=$http.get(AP+'/user/list/solveds/'+_self.pageNo);	}
 
 		prom
 		.success(function (argument) {
@@ -753,8 +811,8 @@ angular.module('thinkmerit')
 		})
 		.error(function (argument) { console.log(argument);	})
 	}
-	this.prev=function(){QuestionListService.prev(_self);};
-	this.next=function(){QuestionListService.next(_self);};
+	this.prev=QuestionListService.prev(this);
+	this.next=QuestionListService.next(this);
 
 
 	this.share=function (qid,type) {QuestionListService.share(_self,qid,type);}
@@ -765,9 +823,9 @@ angular.module('thinkmerit')
 	this.showvideo=function (video) { QuestionListService.showvideo(video); }
 
 	this.showinfo=function (id) { QuestionListService.showinfo(_self,id); }
-	this.togglefavourite=function (question) { QuestionListService.togglefavourite(question)	}
-	this.toggledoubt=function (question) { QuestionListService.toggledoubt(question);  }
-	this.togglesolved=function (question) { QuestionListService.togglesolved(question); }
+	this.togglefavourite=function (question,list) { QuestionListService.togglefavourite(_self,question,list)	}
+	this.toggledoubt=function (question,list) { QuestionListService.toggledoubt(_self,question,list);  }
+	this.togglesolved=function (question,list) { QuestionListService.togglesolved(_self,question,list); }
 	this.showShareDialog=function (qid) {
 		var canceled=false;
 			swal({

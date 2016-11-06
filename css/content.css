@@ -201,6 +201,7 @@ a.list-group-item.activa:hover{
 
 .utility .body>ul.menu{
 	/*padding-left: 20px;*/
+	padding: 0 15px;
 }
 .utility .body>ul.menu.ul-li>li>i{
 	display: none;
@@ -208,7 +209,7 @@ a.list-group-item.activa:hover{
 }
 .utility .body>ul.menu.ul-li>li>a{
 	color: #6F6F6F;
-	text-indent: 20px;
+	text-indent: 5px;
 }
 
 .utility .body>ul.menu.ul-li>li:hover{
@@ -227,7 +228,7 @@ a.list-group-item.activa:hover{
 .ul-li>li{
 	/*border-bottom: 1px solid #6F6E6E;*/
     /*padding: 10px 0 10px !important;*/
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #f5f5f5;
     /*margin-top: 10px;*/
     font-size: 18px;
 }
@@ -250,6 +251,7 @@ a.list-group-item.activa:hover{
 	width: 38px;
     margin-top: 28px;
     margin-right: 20px;
+    text-align: center;
     /*color: #fff;*/
 }
 .option{
@@ -257,9 +259,10 @@ a.list-group-item.activa:hover{
 	cursor: pointer;
 }
 .option div{
-	height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 25px;
     text-indent: 4px;
+    padding: 8px 8px;
 }
 .utility .right-option:hover{
 	background-color:  inherit;
@@ -271,7 +274,12 @@ a.list-group-item.activa:hover{
 }
 
 /*NOTES*/
-
+/*.subject-pills{
+	position: fixed;
+    left: 50%;
+    margin-left: -143px;
+    z-index: 10;
+}*/
 .questions-show,.notes-show{
 	border-top: 1px solid #ddd;
     padding-top: 20px;
@@ -376,10 +384,10 @@ a.list-group-item.activa:hover{
     border-radius: 20px;
  }
  .uploaded{
- 	border-right: 4px solid green;
+ 	border-right: 4px solid green !important;
  }
  .not-uploaded{
- 	border-right: 4px solid red;
+ 	border-right: 4px solid red !important;
  }
 /*Video Lectures*/
 .v-d,.v-i{
@@ -468,4 +476,9 @@ a.list-group-item.activa:hover{
 .choices .col-md-6{
 	height: 30px;
 	line-height: 30px;
+}
+
+/*MODALS*/
+.modal-header h3{
+	margin-top: 5px;
 }

@@ -31,6 +31,7 @@ angular.module('thinkmerit')
         controller: ["$scope", "$element", "$attrs", function($scope, $element, $attrs) {
 
            $scope.$watch($attrs.mathjaxBind, function(value) {
+            console.log("hola");
                 $element.html(value?value:"");
                 MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);
             });

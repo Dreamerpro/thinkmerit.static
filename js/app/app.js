@@ -3,7 +3,7 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
 .constant('AP', 'https://api.thinkmerit.in/api')
 // .constant('AP', 'http://dev.api.thinkmerit.in/api')
 .config(['$routeProvider','$httpProvider','$locationProvider',
-    function($routeProvider, $httpProvider, $locationProvider) {
+    function($routeProvider, $httpProvider, $locationProvider,subjecttypeService) {
 
 	$tu="templates/";
 	$routeProvider
@@ -12,16 +12,16 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
   .when("/dashboard", {templateUrl:$tu+'dashboard/index.html'})
   .when("/dashboard/:item", {templateUrl:$tu+'dashboard/item.html'})
   .when("/notes", {redirectTo:"/notes/+2_Science"})//templateUrl:$tu+'notes/index.html'
-  .when("/notes/:course", {templateUrl:$tu+'notes/course.html'})
-  .when("/notes/:course/:subject", {templateUrl:$tu+'notes/course.html'})
+  .when("/notes/:course", {templateUrl:$tu+'notes/course.html',reloadOnSearch:false})
+  // .when("/notes/:course/:subject", {templateUrl:$tu+'notes/course.html'})
   .when("/notes/:course/:subject/:chapter", {templateUrl:$tu+'notes/chapter.html'})
 
   .when("/question-bank", {redirectTo:"/question-bank/+2_Science"})
-  .when("/question-bank/:course", {templateUrl:$tu+'questionbank/index.html'})
-  .when("/question-bank/:course/:subject", {templateUrl:$tu+'questionbank/index.html'})
-  .when("/question-bank/:course/:subject/:chapter", {templateUrl:$tu+'questionbank/index.html'})
-  .when("/question-bank/:course/:subject/:chapter/:topic", {templateUrl:$tu+'questionbank/index.html'})
-  .when("/question-bank/:course/:subject/:chapter/:topic/:questionid", {templateUrl:$tu+'questionbank/index.html'})
+  .when("/question-bank/:course", { templateUrl:$tu+'questionbank/index.html', reloadOnSearch:false, controller:'QuestionBank',  controllerAs:'nc'})
+  // .when("/question-bank/:course/:subject", {templateUrl:$tu+'questionbank/index.html',reloadOnSearch:false})
+  // .when("/question-bank/:course/:subject/:chapter", {templateUrl:$tu+'questionbank/index.html',reloadOnSearch:false})
+  // .when("/question-bank/:course/:subject/:chapter/:topic", {templateUrl:$tu+'questionbank/index.html',reloadOnSearch:false})
+  .when("/question-bank/:course/:subject/:chapter/:topic/:questionid", {templateUrl:$tu+'questionbank/index.html',reloadOnSearch:false})
   .when("/change-password", {templateUrl:$tu+'profile/changeprofile.html'})
   .when("/profile", {templateUrl:$tu+'profile/index.html'})
 
@@ -41,9 +41,9 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
  .config(function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = true;
 })
-.config(function ($httpProvider) {
-  $httpProvider.interceptors.push('httpRequestInterceptor');
-})
+// .config(function ($httpProvider) {
+//   $httpProvider.interceptors.push('httpRequestInterceptor');
+// })
  .run(function (Idle) {
     Idle.watch();
  })
@@ -51,7 +51,7 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
 
     $rootScope.$on('$routeChangeStart',function(event) {
       if($rootScope.intest){event.preventDefault();}
-    })
+    });
 
 
 //detect route change
@@ -64,19 +64,16 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
 
 
 
-          if(AuthHelper.isAuthorized()){
-            ScreenManager.work();
-            AuthHelper.redirectIfAuthorized();
-         }
-          else{  AuthHelper.redirectIfUnAuthorized(); }
-
-          $rootScope.path=$location.path();
+         //  if(AuthHelper.isAuthorized()){
+         //    ScreenManager.work();
+         //    AuthHelper.redirectIfAuthorized();
+         // }
+         //  else{  AuthHelper.redirectIfUnAuthorized(); }
+         AuthHelper.init();
+         $rootScope.path=$location.path();
       });
       $rootScope.$on('Keepalive', function() {
-        if(AuthService.isLoggedIn()){
-          AuthService.authuser();
-        }
-
+        
       });
 
 

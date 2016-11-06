@@ -83,7 +83,8 @@
 			<ol class="breadcrumb mod">
 			  <!-- <li><a href="">Home</a></li>
 			   --><li><a href="/notes/{{nc.currentData.course}}">{{nc.currentData.ncourse}}</a></li>
-			  <li><a href="/notes/{{nc.currentData.course}}/{{nc.currentData.subject}}">{{nc.currentData.nsubject}}</a></li>
+			  <li><a href="/notes/{{nc.currentData.course}}/">{{nc.currentData.nsubject}}</a></li>
+			  <!-- {{nc.currentData.subject}} -->
 			  <li class="active">{{nc.currentData.nchapter}}</li>
 			</ol>
 		</div>
@@ -108,6 +109,9 @@
 	</div>
 	<div id="notes-container" ng-class="{'notes-fs':nc.isfs}">
 		<div ng-if="!nc.hideloader" class="margin-top:80px"> <center>	<img src="/images/loading.gif"></center></div>
+		<div ng-if="nc.msg" class="alert alert-danger text-center col-md-4 col-md-offset-4" ng-bind-html="nc.msg">
+			
+		</div>
 		<div  class="clearfix col-md-12" ng-if="nc.notesload">
 			<button class="btn btn-defualt pull-right" ng-click="nc.refreshrzslider()" data-toggle="modal" data-target="#modal-progress" type="button" name="button">Progress</button>
 		</div>

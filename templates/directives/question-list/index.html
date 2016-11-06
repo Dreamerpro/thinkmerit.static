@@ -1,7 +1,7 @@
 
 <div class="col-md-12 questions-show" ng-show="nc.questions && !nc.question" >
 			<div class="list-group">
-				<div class="list-group-item clearfix" ng-repeat="q in nc.questions.questions track by $index">
+				<div class="list-group-item clearfix" ng-repeat="q in nc.questions.data track by $index">
 						<span class="question col-md-10 pd-l-15">
 							<p class="indexer"><span level-bind="q.level"></span> Question {{$index+1+10*(nc.pageNo-1)}}.</p>
 
@@ -35,9 +35,9 @@
 						<span class="side-tools pull-right col-md-2 col-xs-12 row" style="padding-right:0">
 
 							<div class="clearfix col-md-6 col-xs-6 plr-0">
-<div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(q,true)"><i class="fa fa-check" ng-class="{'text-success':q.usersolved[0]}"></i> </div>
-<div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(q,true)"><i class="fa fa-question"  ng-class="{'text-danger':q.userdoubt[0]}"></i> </div>
-<div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(q,true)" >
+<div title="solved" class="btn btn-default qm" ng-click="nc.togglesolved(q)"><i class="fa fa-check" ng-class="{'text-success':q.usersolved[0]}"></i> </div>
+<div title="doubt" class="btn btn-default qm" ng-click="nc.toggledoubt(q)"><i class="fa fa-question"  ng-class="{'text-danger':q.userdoubt[0]}"></i> </div>
+<div title="favourite" class="btn btn-default qm" ng-click="nc.togglefavourite(q)" >
 	<i class="fa {{q.userfavourite[0]?'fa-heart':'fa-heart-o'}}" ng-class="{'text-yellow':q.userfavourite[0]}"></i>
 </div>
 <div title="video" class="btn btn-default qm"  ng-class="{'btn-disabled':!q.video}" ng-click="nc.showvideo(q.video)"  ng-disable="!q.video" ng-click="nc.togglevideo(q)"  ><i class="fa fa-video-camera" ></i>

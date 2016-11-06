@@ -5,19 +5,59 @@
 		<div class="section-header">
 			<h4>Study Notes</h4>
 		</div>
-<div class="clearfix">
-	<div class="col-md-2">
-		<h4>Subjects</h4>
-		<hr>
-		<div class="list-group">
-			<div  class="list-group-item cp" ng-repeat="a in nc.datas.subjects track by $index" ng-class="{'iactive':a.name==nc.currentData.nsubject}"  ng-click="nc.redirectToSubject(a.name)">{{a.name}}</div>
-		</div>
+<div class="clearfix col-md-6 col-md-offset-3">
+	<!-- <div class="col-md-12 text-center">
+		<div class="col-md-10 col-md-offset-1">
+			<h4>Subjects</h4>
+			<hr>
+			<div class="clearfix">
+				<div  class="panel col-md-4 cp" style="height: 100px" ng-repeat="a in nc.datas.course track by $index" ng-class="{'iactive':a.name==nc.currentData.nsubject}"  ng-click="nc.redirectToSubject(a.name)">{{a.name}}</div>
+			</div>
+
+		</div>			
+		
+	</div> -->
+	<div class="clearfix">	
+			<ul class="nav nav-pills text-center subject-pills" ng-init="nc.active.subject=0" >
+		  <li role="presentation" ng-repeat="a in nc.datas.course track by $index" ng-class="{'active':$index==nc.active.subject}" ng-click="nc.active.subject=$index" ><a  >{{a.name}}</a></li>
+	</ul>
 	</div>
-	<div class="col-md-10" ng-if="nc.currentData.subject">
-		<h4>Chapters</h4>
+	
+	<div class="col-md-12 " ng-repeat="a in nc.datas.course track by $index" ng-if="$index==nc.active.subject">
+		<!-- <h4 class="text-center">Chapters</h4> -->
+		<!-- <div  class="" style="height: 100px" ng-repeat="a in nc.datas.course track by $index" ng-class="{'iactive':a.name==nc.currentData.nsubject}"  ng-click="nc.redirectToSubject(a.name)">{{a.name}}</div>
+		<hr> -->
+		
 		<hr>
-		<div class="col-md-4">
-			<div ng-repeat="x in nc.datas.modules track by $index">
+		<div class="" ng-repeat="x in a.modules track by $index">
+			<!-- ng-repeat="x in a.modules track by $index" -->
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h5 class="panel-title">{{$index+1}}. {{x.name}}</h5>
+				</div>
+				<div class="panel-body">
+				<div class="list-group">
+					<a ng-repeat="b in x.chapters track by $index" class="list-group-item cp {{b.notes_status.status?'uploaded':'not-uploaded'}}" style="border:0;"   ng-class="{'iactive':b.name==nc.currentData.nchapter}" ng-click="nc.showNotes(a.name,b)">
+						<span class="pull-right cc" title="{{b.completion?b.completion.completed+'%':'0%'}} progress in this chapter">{{b.completion?b.completion.completed+"%":'0%'}}</span>
+						<small><b>{{$parent.$index+1}}.{{$index+1}}</b></small>  &nbsp;{{b.name}}
+					</a>
+					</div>
+					
+					<!-- <table class="table" >
+						<tr ng-repeat="b in x.chapters track by $index" class="{{b.notes_status.status?'uploaded':'not-uploaded'}}">
+							<td>{{$parent.$index+1}}.{{$index+1}}</td>
+							<td>{{b.name}}</td>
+							<td  title="{{b.completion?b.completion.completed+'%':'0%'}} progress in this chapter">{{b.completion?b.completion.completed+"%":'0%'}}</td>
+						</tr>
+					</table> -->
+				</div>
+					 
+				
+				
+			</div>
+		</div>
+		<!-- <div class="col-md-4">
+			<div ng-repeat="x in a.modules track by $index">
 				<h5 ng-show="nc.showChaptername($index,15)"><b>{{x.name}}</b></h5>
 				<div class="list-group">
 				<div ng-repeat="b in x.chapters track by $index" class="list-group-item cp {{b.notes_status.status?'uploaded':'not-uploaded'}}"  ng-if="nc.showchapter($index,$parent.$index,15)" ng-class="{'iactive':b.name==nc.currentData.nchapter}" ng-click="nc.showNotes(b.name)">
@@ -26,9 +66,9 @@
 				</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-4" ng-show="nc.totalchapters()>15">
-			<div ng-repeat="x in nc.datas.modules track by $index">
+		</div> -->
+		<!-- <div class="col-md-4" ng-show="nc.totalchapters()>15">
+			<div ng-repeat="x in a.modules track by $index">
 				<h5  ng-show="nc.showChaptername($index,30)"><b>{{x.name}}</b></h5>
 				<div class="list-group">
 				<div ng-repeat="b in x.chapters track by $index" class="list-group-item cp {{b.notes_status.status?'uploaded':'not-uploaded'}}"   ng-if="nc.showchapter($index,$parent.$index,30)" ng-class="{'iactive':b.name==nc.currentData.nchapter}" ng-click="nc.showNotes(b.name)">
@@ -40,7 +80,7 @@
 			</div>
 		</div>
 		<div class="col-md-4" ng-show="nc.totalchapters()>30">
-			<div ng-repeat="x in nc.datas.modules track by $index">
+			<div ng-repeat="x in a.modules track by $index">
 				<h5  ng-show="nc.showChaptername($index,29)"><b>{{x.name}}</b></h5>
 				<div class="list-group">
 				<div ng-repeat="b in x.chapters track by $index" class="list-group-item cp {{b.notes_status.status?'uploaded':'not-uploaded'}}"   ng-if="nc.showchapter($index,$parent.$index,29)" ng-class="{'iactive':b.name==nc.currentData.nchapter}" ng-click="nc.showNotes(b.name)">
@@ -50,7 +90,7 @@
 				</div>
 			</div>
 
-		</div>
+		</div> -->
 
 
 	</div>

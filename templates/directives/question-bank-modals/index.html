@@ -4,7 +4,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h3>Answer</h3>
+				<h3 class="text-center">Answer</h3>
 
 			</div>
 
@@ -24,7 +24,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h3>Solution</h3>
+				<h3 class="text-center">Solution</h3>
 			</div>
 			{{q.type}}
 			<div class="modal-body mbh-200" ng-hide="nc.q.type==5" mathjax-bind="nc.solution.solution"></div>
@@ -42,7 +42,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<center><h3>Question Information</h3></center>
+				<h3 class="text-center">Question Information</h3>
 
 				<!-- <div class="clearfix">
 					<p><span class="col-md-4"><b>Subject:</b></span> <span class="col-md-8">{{nc.question_info.topic.chapter.module.subject.name}}</span></p>
@@ -60,8 +60,8 @@
 					<tr><td><b>Topic:</b></td> <td><i>{{nc.question_info.topic.name}}</i></td></tr>
 					<tr><td><b>Level:</b></td> <td><i>{{nc.question_info.level}}</i></td></tr>
 					<tr><td><b>Rating:</b></td> <td><i>{{nc.question_info.rating}}</i></td></tr>
-					<tr><td><b>Uploader:</b></td> <td><i>{{nc.question_info.author[0].name}}</i></td></tr>
 					<tr><td><b>Source:</b></td> <td><i>{{nc.question_info.source?nc.question_info.source:'none'}}</i></td></tr>
+					<tr><td><b>Uploader:</b></td> <td><i>{{nc.question_info.author}}</i></td></tr>
 					<tr><td><b>Id:</b></td> <td><i>{{nc.question_info.id}}</td></tr>
 				</table>
 			</div>
@@ -73,7 +73,7 @@
 	<div class="modal-dialog" style="width:600px">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3>Video</h3>
+				<h3 class="text-center">Video</h3>
 
 			</div>
 			<div class="modal-body" >

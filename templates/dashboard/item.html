@@ -9,12 +9,12 @@
 		<nav class="clearfix">
 			<ul class="pagination pull-right m-r15">
 			    <li>
-			    	<a ng-click="nc.prev()"  ng-class="{'btn-disabled':!nc.questions.previousPage}" aria-label="Previous">
+			    	<a ng-click="nc.prev()"  ng-class="{'btn-disabled':!nc.questions.prev_page_url}" aria-label="Previous">
 			        <span aria-hidden="true">Previous</span>
 			      </a>
 			    </li>
 			    <li>
-			    	<a ng-click="nc.next()"  ng-class="{'btn-disabled':!nc.questions.nextPage}" aria-label="Next">
+			    	<a ng-click="nc.next()"  ng-class="{'btn-disabled':!nc.questions.next_page_url}" aria-label="Next">
 			        <span aria-hidden="true">Next</span>
 			      </a>
 			   </li>
@@ -23,7 +23,7 @@
 		<div class="contents">
 			<div ng-if='!nc.questions.total' class="no-data">
 
-				<h3 ng-if="nc.params.item=='solved'"> Oops! you haven't solved any question.</h3>
+				<h3 ng-if="nc.params.item=='solved'"> Oops! you haven't solved any question yet.</h3>
 				<h3 ng-if="nc.params.item=='doubts'"> Congratulations, you are a genius!</h3>
 				<h3 ng-if="nc.params.item=='favourites'"> No favourites, are you serious? </h3>
 			</div>

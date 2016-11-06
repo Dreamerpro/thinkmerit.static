@@ -1,6 +1,6 @@
 
-<div class="content main" ng-controller="QuestionBank as nc" ng-init="nc.init()">
-
+<div class="content main"  ng-init="nc.init()">
+<!-- ng-controller="QuestionBank as nc" -->
 <question-bank-modals></question-bank-modals>
 <!-- <question-share></question-share> -->
 	<section class="inner">
@@ -11,7 +11,8 @@
 		<div class="clearfix">
 
 <div class="filter-menu clearfix">
-	<div class="col-md-2" >
+			
+			<div class="col-md-2" >
 				<h4>Subject</h4>
 			<!-- ng-change="nc.selectsubject(nc.selected.subject)"  -->
 			  <ui-select ng-model="nc.selected.subject" theme="selectize" ng-disabled="disabled">
@@ -43,7 +44,18 @@
 			    </ui-select-choices>
 			 </ui-select>
 
-	</div>
+			</div>
+			<div class="col-md-2" >
+				<h4>Type</h4>
+			<!-- ng-change="nc.selectsubject(nc.selected.subject)"  -->
+			  <ui-select ng-model="nc.selected.type" theme="selectize" ng-disabled="disabled">
+			    <ui-select-match placeholder="{{nc.datas.types.length>0?'Select question type':'No data found'}}">{{$select.selected.name}}</ui-select-match>
+			    <ui-select-choices repeat="type in nc.datas.types | filter: $select.search">
+			      <div ng-click="nc.filterType(type.name)"  ng-bind-html="type.name | highlight: $select.search"></div>
+			    </ui-select-choices>
+			  </ui-select>
+
+			</div>
 
 </div>
 
@@ -52,12 +64,12 @@
 <nav class="clearfix">
 	<ul class="pagination pull-right m-r15">
 	    <li>
-	    	<a ng-click="nc.prev()"  ng-class="{'btn-disabled':!nc.questions.previousPage}" aria-label="Previous">
+	    	<a ng-click="nc.prev()"  ng-class="{'btn-disabled':!nc.questions.prev_page_url}" aria-label="Previous">
 	        <span aria-hidden="true">Previous</span>
 	      </a>
 	    </li>
 	    <li>
-	    	<a ng-click="nc.next()"  ng-class="{'btn-disabled':!nc.questions.nextPage}" aria-label="Next">
+	    	<a ng-click="nc.next()"  ng-class="{'btn-disabled':!nc.questions.next_page_url}" aria-label="Next">
 	        <span aria-hidden="true">Next</span>
 	      </a>
 	   </li>
@@ -71,12 +83,12 @@
 <nav class="clearfix">
 	<ul class="pagination pull-right m-r15">
 	    <li>
-	    	<a ng-click="nc.prev()"  ng-class="{'btn-disabled':!nc.questions.previousPage}" aria-label="Previous">
+	    	<a ng-click="nc.prev()"  ng-class="{'btn-disabled':!nc.questions.prev_page_url}" aria-label="Previous">
 	        <span aria-hidden="true">Previous</span>
 	      </a>
 	    </li>
 	    <li>
-	    	<a ng-click="nc.next()"  ng-class="{'btn-disabled':!nc.questions.nextPage}" aria-label="Next">
+	    	<a ng-click="nc.next()"  ng-class="{'btn-disabled':!nc.questions.next_page_url}" aria-label="Next">
 	        <span aria-hidden="true">Next</span>
 	      </a>
 	   </li>
