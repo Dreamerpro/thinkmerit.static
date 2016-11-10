@@ -494,14 +494,18 @@ angular.module('thinkmerit')
    		}
 	}
 })
-// .factory('httpRequestInterceptor', function () {
-//   return {
-//     request: function (config) {
-
-//       config.headers['X-CSRF-TOKEN'] = "xyz";//'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==';
-//       config.headers['X-Requested-With'] = 'XMLHttpRequest';
-//       // $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-// 			return config;
-//     }
-//   };
-// });
+.factory('httpRequestInterceptor', function (CSRF_TOKEN) {
+  return {
+    request: function (config) {
+      
+      // var z=CSRF_TOKEN,
+      // y=z.replace(/[^\x20-\x7E]+/g, '')
+      // console.log(z);
+      // console.log(y);
+      config.headers['X-CSRF-TOKEN'] = CSRF_TOKEN.replace(/[^\x20-\x7E]+/g, '');//'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==';
+      config.headers['X-Requested-With'] = 'XMLHttpRequest';
+      // $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+		return config;
+    }
+  };
+});

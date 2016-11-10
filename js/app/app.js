@@ -1,7 +1,16 @@
+var mode="production",api="https://api.thinkmerit.in/api";
+// var mode="dev";
+if(mode=="dev"){api="http://dev.api.thinkmerit.in/api";}
+
+var xhReq = new XMLHttpRequest();
+xhReq.open("GET", api+"/csrf_token", false);  
+xhReq.withCredentials = true;
+xhReq.send(null);
 
 angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chieffancypants.loadingBar', 'ngAnimate','ui.select', 'ngSanitize','ngIdle','rzModule'])
-.constant('AP', 'https://api.thinkmerit.in/api')
-// .constant('AP', 'http://dev.api.thinkmerit.in/api')
+// .constant('AP', 'https://api.thinkmerit.in/api')
+.constant('AP', api)
+.constant('CSRF_TOKEN', xhReq.responseText)
 .config(['$routeProvider','$httpProvider','$locationProvider',
     function($routeProvider, $httpProvider, $locationProvider,subjecttypeService) {
 
@@ -41,9 +50,9 @@ angular.module('thinkmerit',['ngRoute','ngCookies','ui.calendar','chart.js','chi
  .config(function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = true;
 })
-// .config(function ($httpProvider) {
-//   $httpProvider.interceptors.push('httpRequestInterceptor');
-// })
+.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('httpRequestInterceptor');
+})
  .run(function (Idle) {
     Idle.watch();
  })
